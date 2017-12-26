@@ -1,0 +1,50 @@
+{
+  "name": "webpack-serve",
+  "version": "1.0.0",
+  "description": "A lean, modern, and flexible webpack development server",
+  "license": "MIT",
+  "repository": "webpack/webpack-serve",
+  "author": "Andrew Powell <andrew@shellscape.org>",
+  "homepage": "http://github.com/webpack/webpack-serve",
+  "publishConfig": {
+    "tag": "next"
+  },
+  "main": "index.js",
+  "bin": "cli.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "beautify": "npm run lint -- --fix",
+    "ci": "npm run cover -- --report lcovonly && npm run test",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha",
+    "lint": "eslint index.js cli.js bin lib test examples",
+    "mocha": "mocha --full-trace --check-leaks",
+    "test": "npm run lint && npm run mocha"
+  },
+  "files": [
+    "cli.js"
+  ],
+  "peerDependencies": {
+    "webpack": "^2.2.0 || ^3.0.0 || ^4.0.0-alpha.2"
+  },
+  "dependencies": {
+    "webpack-cli": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "codecov.io": "^0.1.6",
+    "eslint": "^4.5.0",
+    "eslint-config-webpack": "^1.2.5",
+    "eslint-plugin-import": "^2.7.0",
+    "execa": "^0.8.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^4.0.0",
+    "node-fetch": "^1.7.3",
+    "sinon": "^4.0.1",
+    "supertest": "^3.0.0",
+    "webpack": "^4.0.0-alpha.2",
+    "wtfnode": "^0.5.6"
+  }
+}

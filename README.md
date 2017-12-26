@@ -1,2 +1,5 @@
 # webpack-serve
-A webpack development server
+
+A lean, modern, and flexible webpack development server
+
+# WIP
