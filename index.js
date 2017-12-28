@@ -39,3 +39,10 @@ if (options.hmr) {
 const compiler = webpack(config);
 
 server.start(Object.assign(options, { compiler }));
+
+if (options.stdinEndExit) {
+  process.stdin.on('end', () => {
+    process.exit(0); // eslint-disable-line no-process-exit
+  });
+  process.stdin.resume();
+}

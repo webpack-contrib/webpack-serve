@@ -16,16 +16,19 @@ const cli = meow(chalk`
   $ webpack-serve [options]
 
 {underline Options}
-  --host            The host the app should bind to
-  --log-level       Limit console messages to a specific level and above
+  --host              The host the app should bind to
+  --hmr               Enables Hot Module Replacement
+  --log-level         Limit console messages to a specific level and above
                       {dim Levels: trace, debug, info, warn, error, silent}
-  --log-time        Instruct the logger to display a timestamp
-  --no-reload       Instruct middleware {italic not} to reload the page for build errors
-  --open            Instruct the app to open in the default browser
-  --open-browser    The browser to open the app within
-  --open-path       The path with the app a browser should open to
-  --port            The port the app should listen on
-  --version         Display the webpack-serve version
+  --log-time          Instruct the logger to display a timestamp
+  --no-reload         Instruct middleware {italic not} to reload the page for build errors
+  --open              Instruct the app to open in the default browser
+  --open-browser      The browser to open the app within
+  --open-path         The path with the app a browser should open to
+  --port              The port the app should listen on
+  --stdin-end-exit    End the webpack-serve process when stdin ends. Useful in container
+                      environments.
+  --version           Display the webpack-serve version
 
 {underline Examples}
   $ webpack-serve --no-reload
