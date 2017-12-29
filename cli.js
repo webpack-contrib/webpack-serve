@@ -18,6 +18,10 @@ const cli = meow(chalk`
 {underline Options}
   --host              The host the app should bind to
   --hmr               Enables Hot Module Replacement
+  --https-cert        Specify a cert to enable https. Must be paired with a key
+  --https-key         Specify a key to enable https. Must be paired with a cert
+  --https-pass        Specify a passphrase to enable https. Must be paired with a pfx file
+  --https-pfx         Specify a pfx file to enable https. Must be paired with a passphrase
   --log-level         Limit console messages to a specific level and above
                       {dim Levels: trace, debug, info, warn, error, silent}
   --log-time          Instruct the logger to display a timestamp
