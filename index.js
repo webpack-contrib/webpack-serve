@@ -5,44 +5,35 @@ if (!module.parent) {
   require('v8-compile-cache');
 }
 
-const path = require('path');
-const weblog = require('webpack-log');
+// eslint-disable-next-line global-require
+require('loud-rejection/register');
+
+const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
-const server = require('./lib/server');
-const { addEntry } = require('./lib/util');
+const getOptions = require('./lib/options');
+const getServer = require('./lib/server');
+const pkg = require('./package.json');
 
-const log = weblog({ name: 'serve', id: 'webpack-serve' });
+module.exports = (opts) => {
+  updateNotifier({ pkg }).notify();
 
-// eslint-disable-next-line import/no-dynamic-require
-const config = require(path.join(__dirname, 'test-app/webpack.config.js'));
-const options = config.serve;
-const defaults = {
-  dev: { publicPath: '/' },
-  hot: {
-    log: log.info,
-    path: '/__webpack_hmr',
-    heartbeat: 10 * 1000,
-    reload: true
-  }
-};
+  getOptions(opts).then((results) => {
+    const { options, configs } = results;
+    const config = configs.length > 1 ? configs : configs[0];
+    const compiler = webpack(config);
 
-options.dev = Object.assign(defaults.dev, config.middleware.dev);
-options.hot = Object.assign(defaults.hot, config.middleware.hot);
+    options.compiler = compiler;
 
-delete config.serve;
-delete config.middleware;
+    const { server, start } = getServer(options);
 
-if (options.hmr) {
-  addEntry(config);
-}
+    start(options);
 
-const compiler = webpack(config);
-
-server.start(Object.assign(options, { compiler }));
-
-if (options.stdinEndExit) {
-  process.stdin.on('end', () => {
-    process.exit(0); // eslint-disable-line no-process-exit
+    if (options.stdinEndExit) {
+      process.stdin.on('end', () => {
+        server.kill();
+        process.exit(0); // eslint-disable-line no-process-exit
+      });
+      process.stdin.resume();
+    }
   });
-  process.stdin.resume();
-}
+};

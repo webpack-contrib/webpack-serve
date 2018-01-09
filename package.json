@@ -31,35 +31,27 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "get-port": "^3.2.0",
+    "killable": "^1.0.0",
     "koa": "^2.4.1",
     "koa-static": "^4.0.2",
-    "koa-webpack": "^1.0.0",
+    "koa-webpack": "^2.0.3",
+    "loud-rejection": "^1.6.0",
     "meow": "^4.0.0",
     "nanobus": "^4.3.1",
     "opn": "^5.1.0",
-    "serve-static": "^1.13.1",
+    "update-notifier": "^2.3.0",
     "url-join": "^2.0.2",
-    "uuid": "^3.1.0",
     "v8-compile-cache": "^1.1.0",
-    "webpack-cli": "^2.0.1",
-    "webpack-dev-middleware": "^2.0.3",
-    "webpack-hot-middleware": "^2.21.0",
-    "webpack-log": "^1.1.0"
+    "webpack": "^3.10.0",
+    "webpack-log": "^1.1.0",
+    "yargs": "^10.1.1"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
     "codecov.io": "^0.1.6",
     "eslint": "^4.5.0",
     "eslint-config-webpack": "^1.2.5",
-    "eslint-plugin-import": "^2.7.0",
-    "execa": "^0.8.0",
+    "eslint-plugin-import": "^2.8.0",
     "istanbul": "^0.4.5",
-    "mocha": "^4.0.0",
-    "node-fetch": "^1.7.3",
-    "sinon": "^4.0.1",
-    "supertest": "^3.0.0",
-    "webpack": "^4.0.0-alpha.2",
-    "wtfnode": "^0.5.6"
+    "mocha": "^4.0.0"
   }
 }
