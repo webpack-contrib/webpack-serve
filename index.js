@@ -24,7 +24,7 @@ module.exports = (opts) => {
 
     options.compiler = compiler;
 
-    const { server, start } = getServer(options);
+    const { close, server, start } = getServer(options);
 
     start(options);
 
@@ -34,6 +34,10 @@ module.exports = (opts) => {
         process.exit(0); // eslint-disable-line no-process-exit
       });
       process.stdin.resume();
+    }
+
+    for (const sig of ['SIGINT', 'SIGTERM']) {
+      process.on(sig, () => close(process.exit));
     }
   });
 };

@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "webpack/webpack-serve",
   "author": "Andrew Powell <andrew@shellscape.org>",
-  "homepage": "http://github.com/webpack/webpack-serve",
+  "homepage": "https://github.com/webpack/webpack-serve",
   "publishConfig": {
     "tag": "next"
   },
@@ -23,14 +23,18 @@
     "test": "npm run lint && npm run mocha"
   },
   "files": [
-    "cli.js"
+    "lib/",
+    "cli.js",
+    "index.js"
   ],
   "peerDependencies": {
     "webpack": "^2.2.0 || ^3.0.0 || ^4.0.0-alpha.2"
   },
   "dependencies": {
     "chalk": "^2.3.0",
+    "debug": "^3.1.0",
     "get-port": "^3.2.0",
+    "import-local": "^1.0.0",
     "killable": "^1.0.0",
     "koa": "^2.4.1",
     "koa-static": "^4.0.2",
