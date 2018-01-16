@@ -20,6 +20,11 @@ module.exports = (opts) => {
   getOptions(opts).then((results) => {
     const { options, configs } = results;
     const config = configs.length > 1 ? configs : configs[0];
+
+    if (typeof config.entry === 'string') {
+      config.entry = [config.entry];
+    }
+
     const compiler = webpack(config);
 
     options.compiler = compiler;
