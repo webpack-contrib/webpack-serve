@@ -10,6 +10,7 @@ require('loud-rejection/register');
 
 const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
+const weblog = require('webpack-log');
 const getOptions = require('./lib/options');
 const getServer = require('./lib/server');
 const pkg = require('./package.json');
@@ -19,15 +20,16 @@ module.exports = (opts) => {
 
   getOptions(opts).then((results) => {
     const { options, configs } = results;
-    const config = configs.length > 1 ? configs : configs[0];
 
-    if (typeof config.entry === 'string') {
-      config.entry = [config.entry];
+    if (!options.compiler) {
+      const config = configs.length > 1 ? configs : configs[0];
+
+      if (typeof config.entry === 'string') {
+        config.entry = [config.entry];
+      }
+
+      options.compiler = webpack(config);
     }
-
-    const compiler = webpack(config);
-
-    options.compiler = compiler;
 
     const { close, server, start } = getServer(options);
 
@@ -42,7 +44,13 @@ module.exports = (opts) => {
     }
 
     for (const sig of ['SIGINT', 'SIGTERM']) {
-      process.on(sig, () => close(process.exit));
+      process.on(sig, () => { // eslint-disable-line no-loop-func
+        close(() => {
+          const log = weblog({ name: 'serve', id: 'webpack-serve' });
+          log.info(`Process Ended via ${sig}`);
+          process.exit();
+        });
+      });
     }
   });
 };

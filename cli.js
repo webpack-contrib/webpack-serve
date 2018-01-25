@@ -53,9 +53,11 @@ const cli = meow(chalk`
 Please see {underline https://webpack.js.org/api/cli/}}
 `);
 
-if (!cli.input.length && !Object.getOwnPropertyNames(cli.flags).length) {
+const flags = { cli };
+
+if (!cli.input.length && !Object.getOwnPropertyNames(flags).length) {
   cli.showHelp();
   process.exit(0);
 }
 
-serve(cli);
+serve({ flags });
