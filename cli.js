@@ -41,7 +41,7 @@ const cli = meow(chalk`
   --log-time          Instruct the logger to display a timestamp
   --no-reload         Instruct middleware {italic not} to reload the page for build errors
   --open              Instruct the app to open in the default browser
-  --open-wrapped      The name of the app to open the app within
+  --open-app          The name of the app to open the app within
   --open-path         The path with the app a browser should open to
   --port              The port the app should listen on
   --stdin-end-exit    End the webpack-serve process when stdin ends. Useful in container
