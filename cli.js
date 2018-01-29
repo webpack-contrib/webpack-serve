@@ -9,6 +9,7 @@ if (!module.parent) {
 
 const chalk = require('chalk');
 const debug = require('debug')('webpack-serve');
+const findUp = require('find-up');
 const meow = require('meow');
 const importLocal = require('import-local'); // eslint-disable-line import/order
 
@@ -22,9 +23,10 @@ const serve = require('./');
 
 const cli = meow(chalk`
 {underline Usage}
-  $ webpack-serve [options]
+  $ webpack-serve <config> [...options]
 
 {underline Options}
+  --config            The webpack config to serve. Alias for <config>.
   --content           The path from which content will be served
   --dev               An object containing options for webpack-dev-middleware
   --host              The host the app should bind to
@@ -48,14 +50,18 @@ const cli = meow(chalk`
 
 {underline Examples}
   $ webpack-serve --no-reload
-
-{italic Note: You may also use all options available via the webpack cli.
-Please see {underline https://webpack.js.org/api/cli/}}
 `);
 
-const flags = { cli };
+const flags = Object.assign({}, cli.flags);
 
-if (!cli.input.length && !Object.getOwnPropertyNames(flags).length) {
+if (cli.input.length) {
+  [flags.config] = cli.input;
+} else if (!flags.config) {
+  const filePath = findUp.sync('webpack.config.js');
+  flags.config = filePath;
+}
+
+if (!flags.config) {
   cli.showHelp();
   process.exit(0);
 }

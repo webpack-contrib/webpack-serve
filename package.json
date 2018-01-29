@@ -33,6 +33,7 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "debug": "^3.1.0",
+    "find-up": "^2.1.0",
     "get-port": "^3.2.0",
     "import-local": "^1.0.0",
     "killable": "^1.0.0",
@@ -46,9 +47,7 @@
     "update-notifier": "^2.3.0",
     "url-join": "^3.0.0",
     "v8-compile-cache": "^1.1.0",
-    "webpack-cli": "^2.0.4",
-    "webpack-log": "^1.1.0",
-    "yargs": "^11.0.0"
+    "webpack-log": "^1.1.0"
   },
   "devDependencies": {
     "codecov.io": "^0.1.6",
