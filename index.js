@@ -11,6 +11,7 @@ require('loud-rejection/register');
 const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
 const weblog = require('webpack-log');
+const eventbus = require('./lib/bus');
 const getOptions = require('./lib/options');
 const getServer = require('./lib/server');
 const pkg = require('./package.json');
@@ -20,6 +21,10 @@ module.exports = (opts) => {
 
   getOptions(opts).then((results) => {
     const { options, configs } = results;
+
+    options.bus = eventbus(options);
+
+    const { on } = options.bus;
 
     if (!options.compiler) {
       const config = configs.length > 1 ? configs : configs[0];
@@ -52,5 +57,7 @@ module.exports = (opts) => {
         });
       });
     }
+
+    return { close, on };
   });
 };
