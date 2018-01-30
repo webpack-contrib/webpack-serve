@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "chalk": "^2.3.0",
+    "clipboardy": "^1.2.2",
     "debug": "^3.1.0",
     "find-up": "^2.1.0",
     "get-port": "^3.2.0",
