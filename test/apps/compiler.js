@@ -2,7 +2,7 @@
 
 const webpack = require('webpack');
 const serve = require('../../');
-const config = require('../fixtures/webpack.config.js');
+const config = require('../fixtures/basic/webpack.config.js');
 
 const compiler = webpack(config);
 

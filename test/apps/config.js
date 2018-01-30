@@ -1,6 +1,6 @@
 'use strict';
 
 const serve = require('../../');
-const config = require('../fixtures/webpack.config.js');
+const config = require('../fixtures/basic/webpack.config.js');
 
 serve({ config });

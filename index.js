@@ -19,12 +19,10 @@ const pkg = require('./package.json');
 module.exports = (opts) => {
   updateNotifier({ pkg }).notify();
 
-  getOptions(opts).then((results) => {
+  return getOptions(opts).then((results) => {
     const { options, configs } = results;
 
     options.bus = eventbus(options);
-
-    const { on } = options.bus;
 
     if (!options.compiler) {
       const config = configs.length > 1 ? configs : configs[0];
@@ -58,6 +56,11 @@ module.exports = (opts) => {
       });
     }
 
-    return { close, on };
+    return {
+      close,
+      on(...args) {
+        options.bus.on(...args);
+      }
+    };
   });
 };
