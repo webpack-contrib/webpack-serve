@@ -16,9 +16,11 @@
   },
   "scripts": {
     "beautify": "npm run lint -- --fix",
+    "ci": "npm run lint && npm run test",
+    "cover": "nyc report --reporter=text-lcov > coverage.lcov && codecov --token=$WHC_CODECOV_TOKEN",
     "lint": "eslint index.js cli.js bin lib test examples",
     "mocha": "mocha --require intelli-espower-loader test/test.js --full-trace --check-leaks --exit",
-    "test": "npm run lint && npm run mocha"
+    "test": "nyc npm run mocha"
   },
   "files": [
     "lib/",
@@ -57,6 +59,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^5.0.0",
     "node-fetch": "^1.7.3",
+    "nyc": "^11.4.1",
     "power-assert": "^1.4.4",
     "webpack": "^3.10.0"
   }

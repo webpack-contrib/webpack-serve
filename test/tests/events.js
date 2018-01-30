@@ -10,7 +10,8 @@ describe('webpack-serve Events', () => {
     serve({ config }).then((server) => {
       server.on('listening', () => {
         assert(true);
-        server.close(done);
+        // occasionally close() will be called before the WebSocket server is up
+        setTimeout(() => server.close(done), 500);
       });
     });
   }).timeout(10000);
