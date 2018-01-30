@@ -6,7 +6,12 @@ const execa = require('execa');
 const fetch = require('node-fetch');
 
 const cliPath = path.resolve(__dirname, '../../cli.js');
-const configPath = path.resolve(__dirname, '../fixtures/basic/webpack.config-silent.js');
+const configPath = path.resolve(__dirname, '../fixtures/basic/webpack.config.js');
+
+function pipe(proc) { // eslint-disable-line no-unused-vars
+  const stream = proc.stdout;
+  stream.pipe(process.stdout);
+}
 
 describe('webpack-serve CLI', () => {
   it('should run webpack-serve [config]', (done) => {
@@ -19,7 +24,7 @@ describe('webpack-serve CLI', () => {
           proc.kill('SIGINT');
           done();
         });
-    }, 500);
+    }, 1e3);
   });
 
   it('should run webpack-serve --config', (done) => {
@@ -32,7 +37,7 @@ describe('webpack-serve CLI', () => {
           proc.kill('SIGINT');
           done();
         });
-    }, 500);
+    }, 1e3);
   });
 
   it('should run webpack-serve and find the config', (done) => {
@@ -45,7 +50,7 @@ describe('webpack-serve CLI', () => {
           proc.kill('SIGINT');
           done();
         });
-    }, 500);
+    }, 1e3);
   });
 
 
