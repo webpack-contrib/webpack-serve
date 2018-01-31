@@ -25,6 +25,12 @@ This issue is for a:
 
 ### Code
 
+##### CLI Command
+
+```console
+  $ webpack-serve ... # remove this block if using the API
+```
+
 ##### webpack.config.js
 
 ```js

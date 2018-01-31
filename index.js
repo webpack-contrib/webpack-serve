@@ -23,6 +23,7 @@ module.exports = (opts) => {
     const { options, configs } = results;
 
     options.bus = eventbus(options);
+    const { bus } = options;
 
     if (!options.compiler) {
       const config = configs.length > 1 ? configs : configs[0];
@@ -33,6 +34,19 @@ module.exports = (opts) => {
 
       options.compiler = webpack(config);
     }
+
+    options.compiler.plugin('failed', (error) => {
+      bus.emit('error', error);
+    });
+
+    options.compiler.plugin('done', (stats) => {
+      if (stats.hasErrors()) {
+        bus.emit('compiler-error', stats.compilation.errors);
+      }
+      if (stats.hasWarnings()) {
+        bus.emit('compiler-warning', stats.compilation.warnings);
+      }
+    });
 
     const { close, server, start } = getServer(options);
 

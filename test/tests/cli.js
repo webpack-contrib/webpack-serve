@@ -53,22 +53,67 @@ describe('webpack-serve CLI', () => {
     }, 1e3);
   });
 
+  it('should use the --content flag', (done) => {
+    const confPath = path.resolve(__dirname, '../fixtures/webpack.config.js');
+    const contentPath = path.join(__dirname, '../fixtures/content');
+    const proc = execa(cliPath, ['--config', confPath, '--content', contentPath]);
 
-  it('should use the --content flag');
-  it('should use the --dev flag');
-  it('should use the --host flag');
-  it('should use the --hot flag');
+    setTimeout(() => {
+      fetch('http://localhost:8080')
+        .then((res) => {
+          assert(res.ok);
+          proc.kill('SIGINT');
+          done();
+        });
+    }, 1e3);
+  });
+
+  it('should use the --host flag', (done) => {
+    const proc = execa(cliPath, ['--config', configPath, '--host', '0.0.0.0']);
+
+    setTimeout(() => {
+      fetch('http://0.0.0.0:8080')
+        .then((res) => {
+          assert(res.ok);
+          proc.kill('SIGINT');
+          done();
+        });
+    }, 1e3);
+  });
+
+  // need to get devcert documentation going and then write tests
+  // for the http2 test: https://nodejs.org/api/http2.html#http2_client_side_example
   it('should use the --http2 flag');
   it('should use the --https-cert flag');
   it('should use the --https-key flag');
   it('should use the --https-pass flag');
   it('should use the --https-pfx flag');
+
+  // inspect output from the proc
   it('should use the --log-level flag');
   it('should use the --log-time flag');
+
+  it('should use the --port flag', (done) => {
+    const proc = execa(cliPath, ['--config', configPath, '--port', 1337]);
+
+    setTimeout(() => {
+      fetch('http://localhost:1337')
+        .then((res) => {
+          assert(res.ok);
+          proc.kill('SIGINT');
+          done();
+        });
+    }, 1e3);
+  });
+
+  it('should use the --stdin-end-exit flag');
+
+  // will need testing in browser
+  it('should use the --no-hot flag');
   it('should use the --no-reload flag');
+
+  // need to devise a way to trap calls to opn
   it('should use the --open flag');
   it('should use the --open-app flag');
   it('should use the --open-path flag');
-  it('should use the --port flag');
-  it('should use the --stdin-end-exit flag');
 });

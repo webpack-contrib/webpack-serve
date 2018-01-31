@@ -4,6 +4,10 @@ const webpack = require('webpack');
 const serve = require('../../');
 const config = require('../fixtures/basic/webpack.config.js');
 
-const compiler = webpack(config);
+const options = Object.assign({}, config.serve);
+delete config.serve;
 
-serve({ compiler });
+const compiler = webpack(config);
+options.compiler = compiler;
+
+serve(options);

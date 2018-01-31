@@ -1,8 +1,8 @@
 'use strict';
 
 const assert = require('power-assert');
-const serve = require('../../');
-const { load } = require('../util');
+const clip = require('clipboardy');
+const { load, serve } = require('../util');
 
 describe('webpack-serve API', () => {
   it('should exist', () => assert(serve));
@@ -20,5 +20,9 @@ describe('webpack-serve API', () => {
 
       setTimeout(() => server.close(done), 1000);
     });
+  });
+
+  it('should have copied the uri to the clipboard', () => {
+    assert.equal(clip.readSync(), 'http://localhost:8080');
   });
 });
