@@ -1,51 +1,54 @@
 <!--
-  Please note that this template is not optional.
-  Please fill out _ALL_ fields, or your issue may be closed as "invalid."
-  Please do not delete this template.
-  Please ask questions on StackOverflow or Gitter (https://gitter.im/webpack/webpack).
-  General questions, how-to questions, and support requests will be closed.
+  Issues are so 🔥
+
+  If you remove or skip this template, you'll make the 🐼 sad and @ken_wheeler
+  will appear and pile-drive the close button from a great height while making
+  animal noises.
+
+  👉🏽 Need support, advice, or help? Don't open an issue.
+  Head to StackOverflow or https://gitter.im/webpack/webpack.
 -->
 
 * Operating System:
 * Node Version:
 * NPM Version:
 * webpack Version:
-* webpack-dev-server Version:
+* webpack-serve Version:
 
-<!-- Please place an x, no spaces, in all [ ] that apply -->
+<!-- Please place an x (no spaces!) in all [ ] that apply -->
 
-- [ ] This is a **bug**
-- [ ] This is a **feature** request
-- [ ] This is a **modification** request
+This issue is for a:
+
+- [ ] **bug**
+- [ ] **feature** request
+- [ ] **modification** request
 
 ### Code
 
-<!--
-  If you have a large amount of code to share which demonstrates the problem
-  you're experiencing, or your webpack config is very large, please provide a link
-  to your repository rather than pasting code. We'd also encourage you to use a
-  Github Gist link instead of pasting code. Otherwise, please paste relevant
-  short snippets below.
-
-  For bugs, please do consider providing a link to a stripped-down, bare-bones
-  repo that can reproduce the problem you're experiencing. Many times, bugs
-  aren't actual bugs, but rather specific issues with loaders, plugins, or
-  an environment/OS. Problems with complicated or large applications will almost
-  always require this to be triaged.
--->
+##### webpack.config.js
 
 ```js
-  // webpack.config.js
+  // If your bitchin' code blocks are over 20 lines, please paste a link to a gist
+  // (https://gist.github.com).
 ```
 
 ```js
-  // additional code, remove if not needed.
+  // additional code, HEY YO remove this block if you don't need it
 ```
 
 ### Expected Behavior
 
 ### Actual Behavior
 
-### For Bugs; How can we reproduce the behavior?
+### How Do We Reproduce?
 
-### For Features; What is the motivation and/or use-case for the feature?
+<!--
+  Remove this section if not reporting a bug.
+
+  If your webpack config is over 50 lines long, please provide a URL to a repo
+  for your beefy 🍖 app that we can use to reproduce.
+-->
+
+### New Feature Use Case
+
+<!-- Remove this section if not requesting a feature -->

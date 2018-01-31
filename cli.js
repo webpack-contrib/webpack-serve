@@ -13,9 +13,9 @@ const findUp = require('find-up');
 const meow = require('meow');
 const importLocal = require('import-local'); // eslint-disable-line import/order
 
-// Prefer the local installation of webpack-dev-server
+// Prefer the local installation of webpack-serve
 if (importLocal(__filename)) {
-  debug('Using local install of webpack-dev-server');
+  debug('Using local install of webpack-serve');
   return;
 }
 

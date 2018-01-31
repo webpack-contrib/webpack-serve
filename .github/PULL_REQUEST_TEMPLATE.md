@@ -1,29 +1,28 @@
 <!--
-  Thank you for submitting a pull request!
-  Please note that this template is not optional.
-  Please fill out _ALL_ fields, or your pull request may be rejected.
-  Please do not delete this template. Please do remove this header to acknowledge this message.`
+  ZOMG a Pull Request. We ❤️ those!
 
-  Please place an x, no spaces, in all [ ] that apply
+  If you remove or skip this template, you'll make the 🐼 sad and @ken_wheeler
+  will appear and pile-drive the close button from a great height while making
+  animal noises.
+
+  Please place an x (no spaces!) in all [ ] that apply
 -->
 
-- [ ] This is a **bugfix**
-- [ ] This is a new **feature**
-- [ ] This is a **code refactor**
-- [ ] This is a **test update**
-- [ ] This is a **typo fix**
-- [ ] This is a **metadata update**
+This PR contains a:
 
-### For Bugs and Features; did you add new tests?
-
-<!-- Please note that we won't approve your changes if you don't add tests. -->
+- [ ] **bugfix**
+- [ ] new **feature**
+- [ ] **code refactor**
+- [ ] **test update** <!-- if bug or feature is checked, this should be too -->
+- [ ] **typo fix**
+- [ ] **metadata update**
 
 ### Motivation / Use-Case
 
 <!--
-  Please explain the motivation or use-case for making this change.
-  What existing problem does the pull request solve?
-  If this Pull Request addresses an issue, please link to the issue.
+  Please explain the motivation or use-case for your change.
+  What existing problem does the PR solve?
+  If this PR addresses an issue, please link to the issue.
 -->
 
 ### Breaking Changes
