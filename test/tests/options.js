@@ -69,7 +69,25 @@ describe('webpack-serve Options', () => {
     });
   });
 
-  it('should accept a dev option');
+  it('should accept a dev option', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.dev = {
+      headers: { 'X-Foo': 'Kachow' },
+      logLevel: 'silent',
+      publicPath: '/'
+    };
+
+    serve({ config }).then(({ close }) => {
+      setTimeout(() => {
+        fetch('http://localhost:8080/output.js')
+          .then((res) => {
+            assert(res.ok);
+            assert.equal(res.headers.get('x-foo'), 'Kachow');
+            close(done);
+          });
+      }, 1e3);
+    });
+  });
 
   it('should accept a host option', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');
