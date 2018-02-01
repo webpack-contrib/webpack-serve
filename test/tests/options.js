@@ -3,7 +3,14 @@
 const path = require('path');
 const assert = require('power-assert');
 const fetch = require('node-fetch');
-const webpack = require('webpack');
+const mock = require('mock-require');
+const webpack = require('webpack'); // eslint-disable-line import/order
+
+let hook = () => {}; // eslint-disable-line prefer-const
+mock('opn', (...args) => {
+  hook(...args);
+});
+
 const { load, serve } = require('../util');
 
 describe('webpack-serve Options', () => {
@@ -69,8 +76,32 @@ describe('webpack-serve Options', () => {
   it('should accept a logLevel option');
   it('should accept a logTime option');
 
-  // will need to hook `opn` to prevent it from actually opening the browser
-  it('should accept an open option');
+  it('should accept an open:Boolean option', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.open = true;
+
+    serve({ config }).then(({ close }) => {
+      hook = (...args) => {
+        assert.equal(args[0], 'http://localhost:8080/');
+        assert.equal(args[1], true);
+        close(done);
+      };
+    });
+  });
+
+  it('should accept an open:Object option', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    const opts = { app: 'Firefox', path: '/foo' };
+    config.serve.open = opts;
+
+    serve({ config }).then(({ close }) => {
+      hook = (...args) => {
+        assert.equal(args[0], 'http://localhost:8080/foo');
+        assert.equal(args[1], opts);
+        close(done);
+      };
+    });
+  });
 
   it('should accept a port option', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');
