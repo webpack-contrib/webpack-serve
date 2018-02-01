@@ -14,7 +14,26 @@ mock('opn', (...args) => {
 const { load, serve } = require('../util');
 
 describe('webpack-serve Options', () => {
-  it('should accept an add option');
+  it('should accept an add option', (done) => {
+    const config = load('./fixtures/htm/webpack.config.js');
+    config.serve.add = (app, middleware) => {
+      middleware.webpack();
+
+      middleware.content({
+        index: 'index.htm'
+      });
+    };
+
+    serve({ config }).then(({ close }) => {
+      setTimeout(() => {
+        fetch('http://localhost:8080')
+          .then((res) => {
+            assert(res.ok);
+            close(done);
+          });
+      }, 1e3);
+    });
+  });
 
   it('should accept a compiler option', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');

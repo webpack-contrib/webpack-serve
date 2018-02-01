@@ -112,8 +112,8 @@ describe('webpack-serve CLI', () => {
   it('should use the --no-hot flag');
   it('should use the --no-reload flag');
 
-  // need to devise a way to trap calls to opn
-  it('should use the --open flag');
-  it('should use the --open-app flag');
-  it('should use the --open-path flag');
+  // haven't come up with a good way to automate testing this
+  // it('should use the --open flag');
+  // it('should use the --open-app flag');
+  // it('should use the --open-path flag');
 });

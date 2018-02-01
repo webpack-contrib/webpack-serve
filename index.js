@@ -70,11 +70,11 @@ module.exports = (opts) => {
       });
     }
 
-    return {
+    return Object.freeze({
       close,
       on(...args) {
         options.bus.on(...args);
       }
-    };
+    });
   });
 };
