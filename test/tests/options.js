@@ -6,6 +6,8 @@ const fetch = require('node-fetch');
 const mock = require('mock-require');
 const webpack = require('webpack'); // eslint-disable-line import/order
 
+const nodeVersion = parseInt(process.version.substring(1), 10);
+
 let hook = () => {}; // eslint-disable-line prefer-const
 mock('opn', (...args) => {
   hook(...args);
@@ -104,14 +106,24 @@ describe('webpack-serve Options', () => {
     });
   });
 
+  if (nodeVersion < 9) {
+    it('should reject the http2 for Node < 9', (done) => {
+      const config = load('./fixtures/basic/webpack.config.js');
+      config.serve.http2 = true;
+
+      serve({ config }).catch((err) => {
+        assert(err);
+        done();
+      });
+    });
+  }
+
   // need to get devcert documentation going and then write tests
   // for the http2 test: https://nodejs.org/api/http2.html#http2_client_side_example
   it('should accept a http2 option');
   it('should accept a https option');
 
-  // will need to spy on the console
-  it('should accept a logLevel option');
-  it('should accept a logTime option');
+  // logLevel and logTime option tests can be found in ./log.js
 
   it('should accept an open:Boolean option', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');

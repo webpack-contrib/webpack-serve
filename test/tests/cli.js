@@ -4,6 +4,7 @@ const path = require('path');
 const assert = require('power-assert');
 const execa = require('execa');
 const fetch = require('node-fetch');
+const strip = require('strip-ansi');
 
 const cliPath = path.resolve(__dirname, '../../cli.js');
 const configPath = path.resolve(__dirname, '../fixtures/basic/webpack.config.js');
@@ -90,8 +91,45 @@ describe('webpack-serve CLI', () => {
   it('should use the --https-pfx flag');
 
   // inspect output from the proc
-  it('should use the --log-level flag');
-  it('should use the --log-time flag');
+  it('should silence only webpack-serve with the --log-level flag', (done) => {
+    const proc = execa(cliPath, ['--config', configPath, '--log-level', 'silent']);
+
+    proc.then((result) => {
+      const lines = result.stdout.split('\n')
+        .map(l => strip(l))
+        .filter(line => line.indexOf('｢serve｣') > 0);
+
+      assert.equal(lines.length, 0);
+
+      done();
+    });
+
+    setTimeout(() => {
+      proc.kill('SIGINT');
+    }, 1e3);
+  });
+
+  it('should use the --log-time flag', (done) => {
+    const proc = execa(cliPath, ['--config', configPath, '--log-time']);
+
+    proc.then((result) => {
+      const lines = result.stdout.split('\n')
+        .map(l => strip(l))
+        .filter(l => l.indexOf('｢serve｣') > 0);
+
+      assert(lines.length > 0);
+
+      for (const line of lines) {
+        assert(/^\[[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}\]/.test(line));
+      }
+
+      done();
+    });
+
+    setTimeout(() => {
+      proc.kill('SIGINT');
+    }, 1e3);
+  });
 
   it('should use the --port flag', (done) => {
     const proc = execa(cliPath, ['--config', configPath, '--port', 1337]);
