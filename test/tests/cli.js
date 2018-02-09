@@ -90,17 +90,11 @@ describe('webpack-serve CLI', () => {
   it('should use the --https-pass flag');
   it('should use the --https-pfx flag');
 
-  // inspect output from the proc
-  it('should silence only webpack-serve with the --log-level flag', (done) => {
+  it('should use the --log-level flag', (done) => {
     const proc = execa(cliPath, ['--config', configPath, '--log-level', 'silent']);
 
     proc.then((result) => {
-      const lines = result.stdout.split('\n')
-        .map(l => strip(l))
-        .filter(line => line.indexOf('｢serve｣') > 0);
-
-      assert.equal(lines.length, 0);
-
+      assert.equal(result.stdout, '');
       done();
     });
 
@@ -115,7 +109,7 @@ describe('webpack-serve CLI', () => {
     proc.then((result) => {
       const lines = result.stdout.split('\n')
         .map(l => strip(l))
-        .filter(l => l.indexOf('｢serve｣') > 0);
+        .filter(l => l.indexOf('ℹ ｢') > 0);
 
       assert(lines.length > 0);
 
@@ -143,13 +137,4 @@ describe('webpack-serve CLI', () => {
         });
     }, 1e3);
   });
-
-  // will need testing in browser
-  it('should use the --no-hot flag');
-  it('should use the --no-reload flag');
-
-  // haven't come up with a good way to automate testing this
-  // it('should use the --open flag');
-  // it('should use the --open-app flag');
-  // it('should use the --open-path flag');
 });

@@ -35,10 +35,10 @@ const cli = meow(chalk`
   --https-key         Specify a key to enable https. Must be paired with a cert
   --https-pass        Specify a passphrase to enable https. Must be paired with a pfx file
   --https-pfx         Specify a pfx file to enable https. Must be paired with a passphrase
-  --log-level         Limit console messages to a specific level and above
+  --log-level         Limit all process console messages to a specific level and above
                       {dim Levels: trace, debug, info, warn, error, silent}
-  --log-time          Instruct the logger to display a timestamp
-  --no-hot               Instruct the client not to apply Hot Module Replacement patches
+  --log-time          Instruct the logger for webpack-serve and dependencies to display a timestamp
+  --no-hot            Instruct the client not to apply Hot Module Replacement patches
   --no-reload         Instruct middleware {italic not} to reload the page for build errors
   --open              Instruct the app to open in the default browser
   --open-app          The name of the app to open the app within
