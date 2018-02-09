@@ -52,7 +52,7 @@
     "webpack-log": "^1.1.2"
   },
   "devDependencies": {
-    "codecov.io": "^0.1.6",
+    "codecov": "^3.0.0",
     "eslint": "^4.5.0",
     "eslint-config-webpack": "^1.2.5",
     "eslint-plugin-import": "^2.8.0",
