@@ -41,7 +41,7 @@ describe('webpack-serve Logging', () => {
 
     serve({ config }).then(({ close }) => {
       setTimeout(() => {
-        assert(log.info.callCount > 2);
+        assert(log.info.callCount > 0);
         restore(sandbox);
         close(done);
       }, 1e3);
@@ -57,7 +57,7 @@ describe('webpack-serve Logging', () => {
       setTimeout(() => {
         const calls = log.info.getCalls();
 
-        assert(log.info.callCount > 2);
+        assert(log.info.callCount > 0);
 
         for (const call of calls) {
           const arg = strip(call.args[0]);
@@ -79,7 +79,7 @@ describe('webpack-serve Logging', () => {
       setTimeout(() => {
         const calls = log.info.getCalls();
 
-        assert(log.info.callCount > 2);
+        assert(log.info.callCount > 0);
 
         for (const call of calls) {
           const arg = strip(call.args[0]);
