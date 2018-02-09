@@ -46,8 +46,6 @@ $ webpack-serve --help
     --open-wrapped      The name of the app to open the app within
     --open-path         The path with the app a browser should open to
     --port              The port the app should listen on
-    --stdin-end-exit    End the webpack-serve process when stdin ends. Useful in container
-                        environments.
     --version           Display the webpack-serve version
 
   Examples

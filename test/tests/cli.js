@@ -144,8 +144,6 @@ describe('webpack-serve CLI', () => {
     }, 1e3);
   });
 
-  it('should use the --stdin-end-exit flag');
-
   // will need testing in browser
   it('should use the --no-hot flag');
   it('should use the --no-reload flag');

@@ -52,20 +52,13 @@ module.exports = (opts) => {
 
     start(options);
 
-    if (options.stdinEndExit) {
-      process.stdin.on('end', () => {
-        server.kill();
-        process.exit(0); // eslint-disable-line no-process-exit
-      });
-      process.stdin.resume();
-    }
-
     for (const sig of ['SIGINT', 'SIGTERM']) {
       process.on(sig, () => { // eslint-disable-line no-loop-func
         close(() => {
           const log = weblog({ name: 'serve', id: 'webpack-serve' });
           log.info(`Process Ended via ${sig}`);
-          process.exit();
+          server.kill();
+          process.exit(0);
         });
       });
     }
