@@ -1,3 +1,10 @@
+dist: trusty
+sudo: required
+addons:
+  chrome: stable
+matrix:
+  fast_finish: true
+
 language:
   node_js
 
@@ -6,13 +13,10 @@ node_js:
   - '8'
   - '6'
 
-sudo: required
-addons:
-  chrome: stable
-matrix:
-  fast_finish: true
-
 before_script:
+  - export DISPLAY=:99.0;                  #
+  - sh -e /etc/init.d/xvfb start; sleep 3; # for clipboard support
+  - sudo apt install xsel                  #
   - node --version
   - npm --version
 
