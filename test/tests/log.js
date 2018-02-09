@@ -3,7 +3,8 @@
 const assert = require('power-assert');
 const sinon = require('sinon');
 const strip = require('strip-ansi');
-const { load, serve } = require('../util');
+const weblog = require('webpack-log');
+const { load, pause, serve } = require('../util');
 
 const log = console;
 const og = {
@@ -35,16 +36,24 @@ function restore(sandbox) {
 }
 
 describe('webpack-serve Logging', () => {
+  before(pause);
+  beforeEach(function be(done) { // eslint-disable-line prefer-arrow-callback
+    weblog.delLogger('webpack-serve');
+    pause.call(this, done);
+  });
+
+  after(() => weblog.delLogger('webpack-serve'));
+
   it('should default logLevel to `info`', (done) => {
     const sandbox = spy();
     const config = load('./fixtures/basic/webpack.config.js', false);
 
-    serve({ config }).then(({ close }) => {
-      setTimeout(() => {
+    serve({ config }).then((server) => {
+      server.compiler.plugin('done', () => {
         assert(log.info.callCount > 0);
         restore(sandbox);
-        close(done);
-      }, 1e3);
+        server.close(done);
+      });
     });
   });
 
@@ -53,7 +62,7 @@ describe('webpack-serve Logging', () => {
     const config = load('./fixtures/basic/webpack.config.js', false);
     config.serve = { logLevel: 'silent' };
 
-    serve({ config }).then(({ close }) => {
+    serve({ config }).then((server) => {
       setTimeout(() => {
         const calls = log.info.getCalls();
 
@@ -65,7 +74,7 @@ describe('webpack-serve Logging', () => {
         }
 
         restore(sandbox);
-        close(done);
+        server.close(done);
       }, 1e3);
     });
   });
@@ -75,8 +84,8 @@ describe('webpack-serve Logging', () => {
     const config = load('./fixtures/basic/webpack.config.js', false);
     config.serve = { logTime: true };
 
-    serve({ config }).then(({ close }) => {
-      setTimeout(() => {
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
         const calls = log.info.getCalls();
 
         assert(log.info.callCount > 0);
@@ -89,8 +98,8 @@ describe('webpack-serve Logging', () => {
         }
 
         restore(sandbox);
-        close(done);
-      }, 1e3);
+        server.close(done);
+      });
     });
   });
 });

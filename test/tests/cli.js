@@ -5,6 +5,7 @@ const assert = require('power-assert');
 const execa = require('execa');
 const fetch = require('node-fetch');
 const strip = require('strip-ansi');
+const { pause, t, timeout } = require('../util');
 
 const cliPath = path.resolve(__dirname, '../../cli.js');
 const configPath = path.resolve(__dirname, '../fixtures/basic/webpack.config.js');
@@ -14,83 +15,88 @@ function pipe(proc) { // eslint-disable-line no-unused-vars
   stream.pipe(process.stdout);
 }
 
+function x(fn, ...args) {
+  const proc = execa(...args);
+  const ready = new RegExp('Compiled successfully');
+
+  proc.stdout.on('data', (data) => {
+    if (ready.test(data.toString())) {
+      fn(proc);
+    }
+  });
+}
+
 describe('webpack-serve CLI', () => {
-  it('should run webpack-serve [config]', (done) => {
-    const proc = execa(cliPath, [configPath]);
+  before(pause);
+  beforeEach(pause);
 
-    setTimeout(() => {
+  t('should run webpack-serve [config]', (done) => {
+    x((proc) => {
       fetch('http://localhost:8080')
         .then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, 1e3);
+    }, cliPath, [configPath]);
   });
 
-  it('should run webpack-serve --config', (done) => {
-    const proc = execa(cliPath, ['--config', configPath]);
-
-    setTimeout(() => {
+  t('should run webpack-serve --config', (done) => {
+    x((proc) => {
       fetch('http://localhost:8080')
         .then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, 1e3);
+    }, cliPath, ['--config', configPath]);
   });
 
-  it('should run webpack-serve and find the config', (done) => {
-    const proc = execa(cliPath, { cwd: path.resolve(__dirname, '../fixtures/basic') });
-
-    setTimeout(() => {
+  t('should run webpack-serve and find the config', (done) => {
+    x((proc) => {
       fetch('http://localhost:8080')
         .then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, 1e3);
+    }, cliPath, { cwd: path.resolve(__dirname, '../fixtures/basic') });
   });
 
-  it('should use the --content flag', (done) => {
+  t('should use the --content flag', (done) => {
     const confPath = path.resolve(__dirname, '../fixtures/webpack.config.js');
     const contentPath = path.join(__dirname, '../fixtures/content');
-    const proc = execa(cliPath, ['--config', confPath, '--content', contentPath]);
 
-    setTimeout(() => {
+    x((proc) => {
       fetch('http://localhost:8080')
         .then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, 1e3);
+    }, cliPath, ['--config', confPath, '--content', contentPath]);
   });
 
-  it('should use the --host flag', (done) => {
-    const proc = execa(cliPath, ['--config', configPath, '--host', '0.0.0.0']);
-
-    setTimeout(() => {
+  t('should use the --host flag', (done) => {
+    x((proc) => {
       fetch('http://0.0.0.0:8080')
         .then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, 1e3);
+    }, cliPath, ['--config', configPath, '--host', '0.0.0.0']);
   });
 
   // need to get devcert documentation going and then write tests
   // for the http2 test: https://nodejs.org/api/http2.html#http2_client_side_example
-  it('should use the --http2 flag');
-  it('should use the --https-cert flag');
-  it('should use the --https-key flag');
-  it('should use the --https-pass flag');
-  it('should use the --https-pfx flag');
+  t('should use the --http2 flag');
+  t('should use the --https-cert flag');
+  t('should use the --https-key flag');
+  t('should use the --https-pass flag');
+  t('should use the --https-pfx flag');
 
-  it('should use the --log-level flag', (done) => {
+  t('should use the --log-level flag', (done) => {
     const proc = execa(cliPath, ['--config', configPath, '--log-level', 'silent']);
 
     proc.then((result) => {
@@ -99,11 +105,12 @@ describe('webpack-serve CLI', () => {
     });
 
     setTimeout(() => {
+      // resolves the proc promise
       proc.kill('SIGINT');
-    }, 1e3);
+    }, timeout);
   });
 
-  it('should use the --log-time flag', (done) => {
+  t('should use the --log-time flag', (done) => {
     const proc = execa(cliPath, ['--config', configPath, '--log-time']);
 
     proc.then((result) => {
@@ -121,20 +128,19 @@ describe('webpack-serve CLI', () => {
     });
 
     setTimeout(() => {
+      // resolves the proc promise
       proc.kill('SIGINT');
-    }, 1e3);
+    }, timeout);
   });
 
-  it('should use the --port flag', (done) => {
-    const proc = execa(cliPath, ['--config', configPath, '--port', 1337]);
-
-    setTimeout(() => {
+  t('should use the --port flag', (done) => {
+    x((proc) => {
       fetch('http://localhost:1337')
         .then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, 1e3);
+    }, cliPath, ['--config', configPath, '--port', 1337]);
   });
 });
