@@ -11,7 +11,7 @@ language:
 node_js:
   - '9'
   - '8'
-  # - '6'
+  - '6'
 
 before_script:
   - node --version

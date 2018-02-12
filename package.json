@@ -20,7 +20,7 @@
     "cover": "nyc report --reporter=text-lcov > coverage.lcov && codecov --token=$WS_CODECOV_TOKEN",
     "lint": "eslint index.js cli.js bin lib test examples",
     "mocha": "mocha --require intelli-espower-loader test/test.js --full-trace --check-leaks --exit",
-    "test": "nyc npm run mocha"
+    "test": "npm run mocha"
   },
   "files": [
     "lib/",
@@ -39,7 +39,7 @@
     "import-local": "^1.0.0",
     "killable": "^1.0.0",
     "koa": "^2.4.1",
-    "koa-static": "^4.0.2",
+    "@shellscape/koa-static": "^4.0.2",
     "koa-webpack": "^2.0.3",
     "loud-rejection": "^1.6.0",
     "meow": "^4.0.0",

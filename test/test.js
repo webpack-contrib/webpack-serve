@@ -2,9 +2,9 @@
 
 process.setMaxListeners(20);
 
-require('loud-rejection/register');
-// require this first so the require mocks are setup properly
-require('./util');
+const { register } = require('../lib/global');
+
+register();
 
 require('./tests/api');
 require('./tests/cli');

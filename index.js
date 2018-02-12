@@ -1,13 +1,5 @@
 'use strict';
 
-if (!module.parent) {
-  // eslint-disable-next-line global-require
-  require('v8-compile-cache');
-}
-
-// eslint-disable-next-line global-require
-require('loud-rejection/register');
-
 const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
 const weblog = require('webpack-log');

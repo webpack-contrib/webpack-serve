@@ -4,7 +4,9 @@
 
 if (!module.parent) {
   // eslint-disable-next-line global-require
-  require('v8-compile-cache');
+  const { register } = require('./lib/global');
+
+  register();
 }
 
 const chalk = require('chalk');
