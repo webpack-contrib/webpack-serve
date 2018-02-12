@@ -268,6 +268,6 @@ We welcome your contributions! Please have a read of
 [chat]: https://badges.gitter.im/webpack/webpack.svg
 [chat-url]: https://gitter.im/webpack/webpack
 
-[dev-ware]: /webpack/webpack-dev-middleware
-[hot-client]: /webpack-contrib/webpack-hot-client
+[dev-ware]: https://github.com/webpack/webpack-dev-middleware#options
+[hot-client]: https://github.com/webpack-contrib/webpack-hot-client#options
 [https-opts]: https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options
