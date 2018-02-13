@@ -30,7 +30,7 @@ describe('webpack-serve Events', () => {
         setTimeout(() => { server.close(done); }, timeout);
       });
     });
-  });
+  }).timeout(5e3);
 
   it('should emit the compiler-warning event', (done) => {
     const config = load('./fixtures/warning/webpack.config.js');
@@ -40,5 +40,5 @@ describe('webpack-serve Events', () => {
         setTimeout(() => { server.close(done); }, timeout);
       });
     });
-  });
+  }).timeout(5e3);
 });
