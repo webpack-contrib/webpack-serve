@@ -20,8 +20,10 @@ A lean, modern, and flexible webpack development server
 To begin, you'll need to install `webpack-serve`:
 
 ```console
-$ npm install webpack-serve --save-dev
+$ npm install webpack-serve@next --save-dev
 ```
+
+_Note the `@next` as this module is still in beta._
 
 ## CLI
 
