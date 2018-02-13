@@ -16,6 +16,7 @@ const meow = require('meow');
 const importLocal = require('import-local'); // eslint-disable-line import/order
 
 // Prefer the local installation of webpack-serve
+/* istanbul ignore if */
 if (importLocal(__filename)) {
   debug('Using local install of webpack-serve');
   return;
@@ -62,8 +63,7 @@ if (cli.input.length) {
 }
 
 if (!flags.config) {
-  cli.showHelp();
-  process.exit(0);
+  cli.showHelp(0);
 }
 
 serve({ flags });

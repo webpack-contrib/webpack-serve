@@ -17,6 +17,7 @@ module.exports = {
   serve: {}
 };
 
+
 // module.exports.serve = {
 //   add: (app, middleware, options) => { // eslint-disable-line no-unused-vars
 //     app.use((ctx, next) => {

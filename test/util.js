@@ -7,14 +7,21 @@ const timeout = process.env.TRAVIS_OS_NAME ? 2e3 : 1e3;
 module.exports = {
 
   load(path, silent = true) {
-    const config = Object.assign({}, require(path));
+    const raw = require(path) || {};
+    const config = Array.isArray(raw) ? raw.slice(0) : Object.assign({}, raw);
 
     if (silent) {
-      config.serve = Object.assign({
+      const opts = Object.assign({
         dev: { logLevel: 'silent', publicPath: '/' },
         hot: { logLevel: 'silent' },
         logLevel: 'silent'
-      }, config.serve);
+      });
+
+      if (Array.isArray(config)) {
+        config[0].serve = Object.assign(opts, config[0].serve);
+      } else {
+        config.serve = Object.assign(opts, config.serve);
+      }
     }
 
     return config;

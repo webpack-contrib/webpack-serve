@@ -30,6 +30,15 @@ describe('webpack-serve CLI', () => {
   before(pause);
   beforeEach(pause);
 
+  t('should show help', (done) => {
+    const proc = execa(cliPath);
+
+    proc.then((result) => {
+      assert(strip(result.stdout).indexOf('Usage') > 0);
+      done();
+    });
+  });
+
   t('should run webpack-serve [config]', (done) => {
     x((proc) => {
       fetch('http://localhost:8080')

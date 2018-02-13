@@ -22,6 +22,25 @@ describe('webpack-serve API', () => {
     });
   });
 
+  it('should serve with <String> entry', (done) => {
+    const config = load('./fixtures/basic/webpack.string-entry.config.js');
+    serve({ config }).then((server) => {
+      assert(server);
+
+      setTimeout(() => server.close(done), 1000);
+    });
+  });
+
+  it('should serve with MultiCompiler', (done) => {
+    const config = load('./fixtures/multi/webpack.config.js');
+
+    serve({ config }).then((server) => {
+      assert(server);
+
+      setTimeout(() => server.close(done), 1000);
+    });
+  });
+
   it('should have copied the uri to the clipboard', () => {
     assert.equal(clip.readSync(), 'http://localhost:8080');
   });

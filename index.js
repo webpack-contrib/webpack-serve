@@ -19,25 +19,23 @@ module.exports = (opts) => {
       const { bus } = options;
 
       if (!options.compiler) {
-        const config = configs.length > 1 ? configs : configs[0];
-
-        if (typeof config.entry === 'string') {
-          config.entry = [config.entry];
+        for (const config of configs) {
+          if (typeof config.entry === 'string') {
+            config.entry = [config.entry];
+          }
         }
 
-        options.compiler = webpack(config);
+        options.compiler = webpack(configs.length > 1 ? configs : configs[0]);
       }
 
-      options.compiler.plugin('failed', (error) => {
-        bus.emit('error', error);
-      });
-
       options.compiler.plugin('done', (stats) => {
+        const json = stats.toJson();
         if (stats.hasErrors()) {
-          bus.emit('compiler-error', stats.compilation.errors);
+          bus.emit('compiler-error', json);
         }
+
         if (stats.hasWarnings()) {
-          bus.emit('compiler-warning', stats.compilation.warnings);
+          bus.emit('compiler-warning', json);
         }
       });
 
