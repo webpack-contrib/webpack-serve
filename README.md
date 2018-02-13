@@ -56,6 +56,11 @@ $ webpack-serve --help
 _Note: The CLI will use your local install of webpack-serve when available,
 even when run globally._
 
+## Webpack Config `serve` Property
+
+`webpack-serve` supports the `serve` property in your webpack config file, which
+may contain any of the supported [options](#Options).
+
 ## API
 
 When using the API directly, the main entry point  is the `serve` function, which
@@ -89,6 +94,10 @@ Default: `null`
 
 An instance of a `webpack` compiler. A passed compiler's config will take
 precedence over `config` passed in options.
+
+_Note: Any `serve` configuration must be removed from the webpack config used
+to create the compiler instance, before you attempt to create it, as it's not
+a valid webpack config property._
 
 ##### config
 
