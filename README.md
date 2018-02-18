@@ -15,6 +15,16 @@
 
 A lean, modern, and flexible webpack development server
 
+## Browser Support
+
+Because this module leverages _native_ `WebSockets` via `webpack-hot-client`,
+the browser support for this module is limited to only those browsers which
+support native `WebSocket`. That typically means the last two major versions
+of a particular browser. You may view a table of
+[compatible browsers here](https://caniuse.com/#feat=websockets).
+
+_Note: We won't be accepting requests for changes to this facet of the module._
+
 ## Getting Started
 
 To begin, you'll need to install `webpack-serve`:
