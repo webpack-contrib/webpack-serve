@@ -30,10 +30,10 @@ _Note: We won't be accepting requests for changes to this facet of the module._
 To begin, you'll need to install `webpack-serve`:
 
 ```console
-$ npm install webpack-serve@next --save-dev
+$ npm install webpack-serve --save-dev
 ```
 
-_Note the `@next` as this module is still in beta._
+_Note: This module is still green and should be considered unstable._
 
 ## CLI
 
