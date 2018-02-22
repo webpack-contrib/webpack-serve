@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "webpack/webpack-serve",
   "author": "Andrew Powell <andrew@shellscape.org>",
-  "homepage": "https://github.com/webpack/webpack-serve",
+  "homepage": "https://github.com/webpack-contrib/webpack-serve",
   "main": "index.js",
   "bin": "cli.js",
   "engines": {
