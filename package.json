@@ -3,9 +3,9 @@
   "version": "0.1.1",
   "description": "A lean, modern, and flexible webpack development server",
   "license": "MIT",
-  "repository": "webpack/webpack-serve",
+  "repository": "webpack-contrib/webpack-serve",
   "author": "Andrew Powell <andrew@shellscape.org>",
-  "homepage": "https://github.com/webpack/webpack-serve",
+  "homepage": "https://github.com/webpack-contrib/webpack-serve",
   "main": "index.js",
   "bin": "cli.js",
   "engines": {
