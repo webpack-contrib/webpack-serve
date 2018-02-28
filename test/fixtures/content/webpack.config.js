@@ -4,10 +4,10 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: ['./test/fixtures/content/app.js'],
+  entry: ['./test/fixtures/content/content/app.js'],
   output: {
     filename: 'output.js',
-    path: path.join(__dirname, '/test/fixtures/content')
+    path: path.join(__dirname, '/test/fixtures/content/content')
   },
   plugins: [
     new webpack.NamedModulesPlugin()

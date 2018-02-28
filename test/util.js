@@ -2,7 +2,7 @@
 
 const serve = require('../');
 
-const timeout = process.env.TRAVIS_OS_NAME ? 2e3 : 1e3;
+const timeout = process.env.CIRCLECI ? 2e3 : 1e3;
 
 module.exports = {
 
@@ -27,9 +27,8 @@ module.exports = {
     return config;
   },
 
-  // this whole maddness is required on travis because it's THAT slow
   pause(done) {
-    if (process.env.TRAVIS_OS_NAME) {
+    if (process.env.CIRCLECI) {
       this.timeout(3e2);
       setTimeout(done, 2e2);
     } else {
@@ -47,7 +46,7 @@ module.exports = {
     });
   },
 
-  t: (...args) => it(...args).timeout(5e3),
+  t: (...args) => it(...args).timeout(10e3),
 
   timeout
 };

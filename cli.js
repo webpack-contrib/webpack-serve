@@ -14,12 +14,23 @@ const debug = require('debug')('webpack-serve');
 const findUp = require('find-up');
 const meow = require('meow');
 const importLocal = require('import-local'); // eslint-disable-line import/order
+const WebpackServeError = require('./lib/WebpackServeError'); // eslint-disable-line import/order
+
+let webpackPackage;
+let webpackVersion;
+
+try {
+  webpackPackage = require('webpack/package.json'); // eslint-disable-line global-require
+  webpackVersion = parseInt(webpackPackage.version, 10);
+} catch (e) {
+  throw new WebpackServeError('webpack must be installed for webpack-serve to function.\n  See: webpack-serve/package.json/peerDependencies');
+}
+
 
 // Prefer the local installation of webpack-serve
 /* istanbul ignore if */
 if (importLocal(__filename)) {
   debug('Using local install of webpack-serve');
-  return;
 }
 
 const serve = require('./');
@@ -32,6 +43,7 @@ const cli = meow(chalk`
   --config            The webpack config to serve. Alias for <config>.
   --content           The path from which content will be served
   --dev               An object containing options for webpack-dev-middleware
+  --help              Show usage information and the options listed here.
   --host              The host the app should bind to
   --http2             Instruct the server to use HTTP2
   --https-cert        Specify a cert to enable https. Must be paired with a key
@@ -50,7 +62,9 @@ const cli = meow(chalk`
   --version           Display the webpack-serve version
 
 {underline Examples}
-  $ webpack-serve --no-reload
+  $ webpack-serve ./webpack.config.js --no-reload
+  $ webpack-serve --config ./webpack.config.js --port 1337
+  $ webpack-serve # config can be omitted for webpack v4+ only
 `);
 
 const flags = Object.assign({}, cli.flags);
@@ -62,8 +76,20 @@ if (cli.input.length) {
   flags.config = filePath;
 }
 
-if (!flags.config) {
+if (flags.help) {
   cli.showHelp(0);
 }
 
-serve({ flags });
+const options = { flags };
+
+if (!flags.config) {
+  if (webpackVersion < 4) {
+    cli.showHelp(0);
+  } else {
+    // webpack v4 defaults an empty config to { entry: './src' }. but since we
+    // need an array, we'll mimic that default config.
+    options.config = { entry: ['./src'] };
+  }
+}
+
+serve(options);

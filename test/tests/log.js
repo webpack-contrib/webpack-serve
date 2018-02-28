@@ -4,7 +4,7 @@ const assert = require('power-assert');
 const sinon = require('sinon');
 const strip = require('strip-ansi');
 const weblog = require('webpack-log');
-const { load, pause, serve } = require('../util');
+const { load, pause, serve, t, timeout } = require('../util');
 
 const log = console;
 const og = {
@@ -44,7 +44,7 @@ describe('webpack-serve Logging', () => {
 
   after(() => weblog.delLogger('webpack-serve'));
 
-  it('should default logLevel to `info`', (done) => {
+  t('should default logLevel to `info`', (done) => {
     const sandbox = spy();
     const config = load('./fixtures/basic/webpack.config.js', false);
 
@@ -57,7 +57,7 @@ describe('webpack-serve Logging', () => {
     });
   });
 
-  it('should silence only webpack-serve', (done) => {
+  t('should silence only webpack-serve', (done) => {
     const sandbox = spy();
     const config = load('./fixtures/basic/webpack.config.js', false);
     config.serve = { logLevel: 'silent' };
@@ -65,7 +65,6 @@ describe('webpack-serve Logging', () => {
     serve({ config }).then((server) => {
       setTimeout(() => {
         const calls = log.info.getCalls();
-
         assert(log.info.callCount > 0);
 
         for (const call of calls) {
@@ -75,11 +74,11 @@ describe('webpack-serve Logging', () => {
 
         restore(sandbox);
         server.close(done);
-      }, 1e3);
+      }, timeout * 2);
     });
   });
 
-  it('should accept a logTime option', (done) => {
+  t('should accept a logTime option', (done) => {
     const sandbox = spy();
     const config = load('./fixtures/basic/webpack.config.js', false);
     config.serve = { logTime: true };

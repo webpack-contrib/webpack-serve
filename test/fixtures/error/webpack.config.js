@@ -16,26 +16,3 @@ module.exports = {
   ],
   serve: {}
 };
-
-
-// module.exports.serve = {
-//   add: (app, middleware, options) => { // eslint-disable-line no-unused-vars
-//     app.use((ctx, next) => {
-//       ctx.set('X-Custom-Middleware', 'owns');
-//       return next();
-//     });
-//
-//     // middleware.webpack();
-//     // middleware.content();
-//   },
-//   content: [__dirname],
-//   dev: {
-//     headers: { 'X-Foo': 'Kachow' }
-//   },
-//   hot: {
-//     logLevel: 'info',
-//     logTime: true
-//   }
-//   // open: true
-//   // open: { app: 'Firefox', path: '/foo' }
-// };

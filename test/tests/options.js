@@ -62,7 +62,7 @@ describe('webpack-serve Options', () => {
   });
 
   t('should accept a content option', (done) => {
-    const config = load('./fixtures/webpack.config.js');
+    const config = load('./fixtures/basic/webpack.config.js');
     config.serve.content = path.resolve(__dirname, '../fixtures/content');
 
     serve({ config }).then((server) => {

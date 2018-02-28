@@ -5,10 +5,12 @@ const assert = require('power-assert');
 const execa = require('execa');
 const fetch = require('node-fetch');
 const strip = require('strip-ansi');
+const webpackPackage = require('webpack/package.json');
 const { pause, t, timeout } = require('../util');
 
 const cliPath = path.resolve(__dirname, '../../cli.js');
 const configPath = path.resolve(__dirname, '../fixtures/basic/webpack.config.js');
+const webpackVersion = parseInt(webpackPackage.version, 10);
 
 function pipe(proc) { // eslint-disable-line no-unused-vars
   const stream = proc.stdout;
@@ -17,8 +19,8 @@ function pipe(proc) { // eslint-disable-line no-unused-vars
 
 function x(fn, ...args) {
   const proc = execa(...args);
-  const ready = new RegExp('Compiled successfully');
-
+  // webpack@4 has a lot more warnings
+  const ready = new RegExp('(Compiled successfully)|(Compiled with warnings)');
   proc.stdout.on('data', (data) => {
     if (ready.test(data.toString())) {
       fn(proc);
@@ -30,8 +32,19 @@ describe('webpack-serve CLI', () => {
   before(pause);
   beforeEach(pause);
 
-  t('should show help', (done) => {
-    const proc = execa(cliPath);
+  if (webpackVersion < 4) {
+    t('should show help', (done) => {
+      const proc = execa(cliPath);
+
+      proc.then((result) => {
+        assert(strip(result.stdout).indexOf('Usage') > 0);
+        done();
+      });
+    });
+  }
+
+  t('should show help with --help', (done) => {
+    const proc = execa(cliPath, ['--help']);
 
     proc.then((result) => {
       assert(strip(result.stdout).indexOf('Usage') > 0);
@@ -72,8 +85,21 @@ describe('webpack-serve CLI', () => {
     }, cliPath, { cwd: path.resolve(__dirname, '../fixtures/basic') });
   });
 
+  if (webpackVersion > 3) {
+    t('should run webpack-serve with webpack v4 defaults', (done) => {
+      x((proc) => {
+        fetch('http://localhost:8080')
+          .then((res) => {
+            assert(res.ok);
+            proc.kill('SIGINT');
+            done();
+          });
+      }, cliPath, { cwd: path.resolve(__dirname, '../fixtures/webpack-4-defaults') });
+    });
+  }
+
   t('should use the --content flag', (done) => {
-    const confPath = path.resolve(__dirname, '../fixtures/webpack.config.js');
+    const confPath = path.resolve(__dirname, '../fixtures/content/webpack.config.js');
     const contentPath = path.join(__dirname, '../fixtures/content');
 
     x((proc) => {
@@ -135,6 +161,8 @@ describe('webpack-serve CLI', () => {
 
       done();
     });
+
+    proc.stdout.pipe(process.stdout);
 
     setTimeout(() => {
       // resolves the proc promise

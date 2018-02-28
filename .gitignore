@@ -4,3 +4,4 @@ node_modules
 coverage
 coverage.lcov
 npm-debug.log
+test/**/dist/*

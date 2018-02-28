@@ -28,7 +28,14 @@ module.exports = (opts) => {
         options.compiler = webpack(configs.length > 1 ? configs : configs[0]);
       }
 
-      options.compiler.plugin('done', (stats) => {
+      // if no context was specified in a config, and no --content options was
+      // used, then we need to derive the context, and content location, from
+      // the compiler.
+      if (!options.content || !options.content.length) {
+        options.content = [].concat(options.compiler.options.context);
+      }
+
+      const done = (stats) => {
         const json = stats.toJson();
         if (stats.hasErrors()) {
           bus.emit('compiler-error', json);
@@ -37,7 +44,13 @@ module.exports = (opts) => {
         if (stats.hasWarnings()) {
           bus.emit('compiler-warning', json);
         }
-      });
+      };
+
+      if (options.compiler.hooks) {
+        options.compiler.hooks.done.tap('WebpackServe', done);
+      } else {
+        options.compiler.plugin('done', done);
+      }
 
       const { close, server, start } = getServer(options);
 

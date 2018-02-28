@@ -4,7 +4,7 @@ const assert = require('power-assert');
 const serve = require('../../');
 const { load, pause } = require('../util');
 
-const timeout = process.env.TRAVIS_OS_NAME ? 2e3 : 500;
+const timeout = process.env.CIRCLECI ? 2e3 : 500;
 
 describe('webpack-serve Events', () => {
   before(pause);

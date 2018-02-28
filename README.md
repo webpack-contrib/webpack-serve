@@ -44,6 +44,7 @@ $ webpack-serve --help
     --config            The webpack config to serve. Alias for <config>.
     --content           The path from which content will be served
     --dev               An object containing options for webpack-dev-middleware
+    --help              Show usage information and the options listed here.
     --host              The host the app should bind to
     --http2             Instruct the server to use HTTP2
     --https-cert        Specify a cert to enable https. Must be paired with a key
@@ -63,10 +64,40 @@ $ webpack-serve --help
 
   Examples
     $ webpack-serve ./webpack.config.js --no-reload
+    $ webpack-serve --config ./webpack.config.js --port 1337
+    $ webpack-serve --port 1337  # config can be omitted for webpack v4+ only
 ```
 
 _Note: The CLI will use your local install of webpack-serve when available,
 even when run globally._
+
+### Running the CLI
+
+There are a few variations for using the base CLI command, and starting
+`webpack-serve`:
+
+```console
+  $ webpack-serve ./webpack.config.js
+  $ webpack-serve --config ./webpack.config.js
+```
+
+Those two commands are synonymous. Both instruct `webpack-serve` to load the
+config from the specified path. We left the flag in there because some folks
+like to be verbose, so why not.
+
+```console
+  $ webpack-serve
+```
+
+And for the folks using webpack v4 or higher, you can instruct `webpack-serve` to
+kick off a webpack build without specifying a config. Keep in mind that this will
+apply the default config within webpack, and your project must conform to that
+for a successful build to happen.
+
+When running `$ webpack-serve` without arguments in webpack v3 and lower, the CLI
+will display help and usage information. In order to accommodate the zero-config
+changes in webpack v4, users of webpack v4 will need to use the `--help` flag to
+display the same information.
 
 ## Webpack Config `serve` Property
 
@@ -280,8 +311,8 @@ We welcome your contributions! Please have a read of
 [deps]: https://david-dm.org/webpack-contrib/webpack-serve.svg
 [deps-url]: https://david-dm.org/webpack-contrib/webpack-serve
 
-[tests]: http://img.shields.io/travis/webpack-contrib/webpack-serve.svg
-[tests-url]: https://travis-ci.org/webpack-contrib/webpack-serve
+[tests]: 	https://img.shields.io/circleci/project/github/webpack-contrib/webpack-serve.svg
+[tests-url]: https://circleci.com/gh/webpack-contrib/webpack-serve/tree/master
 
 [cover]: https://codecov.io/gh/webpack-contrib/webpack-serve/branch/master/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack-contrib/webpack-serve
