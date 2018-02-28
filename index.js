@@ -32,7 +32,7 @@ module.exports = (opts) => {
       // used, then we need to derive the context, and content location, from
       // the compiler.
       if (!options.content || !options.content.length) {
-        options.content = [].concat(options.compiler.options.context);
+        options.content = [].concat(options.compiler.options.context || process.cwd());
       }
 
       const done = (stats) => {
