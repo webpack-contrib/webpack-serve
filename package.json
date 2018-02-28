@@ -38,6 +38,7 @@
     "killable": "^1.0.0",
     "koa": "^2.4.1",
     "koa-webpack": "^3.0.0",
+    "lodash.isplainobject": "^4.0.6",
     "loud-rejection": "^1.6.0",
     "meow": "^4.0.0",
     "nanobus": "^4.3.1",

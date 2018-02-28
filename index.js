@@ -1,5 +1,6 @@
 'use strict';
 
+const isPlainObject = require('lodash.isplainobject');
 const TimeFixPlugin = require('time-fix-plugin');
 const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
@@ -15,14 +16,24 @@ module.exports = (opts) => {
   return getOptions(opts)
     .then((results) => {
       const { options, configs } = results;
+      const log = weblog({ name: 'serve', id: 'webpack-serve' });
 
       options.bus = eventbus(options);
       const { bus } = options;
 
       if (!options.compiler) {
         for (const config of configs) {
+          // automagically wrap hot-client-invalid entry values in an array
           if (typeof config.entry === 'string') {
             config.entry = [config.entry];
+          } else if (isPlainObject(config.entry)) {
+            for (const key of Object.keys(config.entry)) {
+              const entry = config.entry[key];
+
+              if (!Array.isArray(entry)) {
+                config.entry[key] = [entry];
+              }
+            }
           }
 
           // adds https://github.com/egoist/time-fix-plugin if not already added
@@ -43,7 +54,12 @@ module.exports = (opts) => {
           }
         }
 
-        options.compiler = webpack(configs.length > 1 ? configs : configs[0]);
+        try {
+          options.compiler = webpack(configs.length > 1 ? configs : configs[0]);
+        } catch (e) {
+          log.error('An error was thrown while initializing Webpack\n  ', e);
+          process.exit(1);
+        }
       }
 
       // if no context was specified in a config, and no --content options was
@@ -77,7 +93,6 @@ module.exports = (opts) => {
       for (const sig of ['SIGINT', 'SIGTERM']) {
         process.on(sig, () => { // eslint-disable-line no-loop-func
           close(() => {
-            const log = weblog({ name: 'serve', id: 'webpack-serve' });
             log.info(`Process Ended via ${sig}`);
             server.kill();
             process.exit(0);
