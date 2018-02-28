@@ -25,7 +25,7 @@
     "index.js"
   ],
   "peerDependencies": {
-    "webpack": "^4.0.0"
+    "webpack": "^3.0.0 || ^4.0.0"
   },
   "dependencies": {
     "@shellscape/koa-static": "^4.0.2",
@@ -42,6 +42,7 @@
     "meow": "^4.0.0",
     "nanobus": "^4.3.1",
     "opn": "^5.1.0",
+    "time-fix-plugin": "^2.0.0",
     "update-notifier": "^2.3.0",
     "url-join": "^3.0.0",
     "v8-compile-cache": "^1.1.0",

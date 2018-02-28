@@ -1,5 +1,6 @@
 'use strict';
 
+const TimeFixPlugin = require('time-fix-plugin');
 const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
 const weblog = require('webpack-log');
@@ -22,6 +23,23 @@ module.exports = (opts) => {
         for (const config of configs) {
           if (typeof config.entry === 'string') {
             config.entry = [config.entry];
+          }
+
+          // adds https://github.com/egoist/time-fix-plugin if not already added
+          // to the config.
+          if (config.plugins) {
+            let timeFixFound = false;
+            for (const plugin of config.plugins) {
+              if (!timeFixFound && plugin instanceof TimeFixPlugin) {
+                timeFixFound = true;
+              }
+            }
+
+            if (!timeFixFound) {
+              config.plugins.unshift(new TimeFixPlugin());
+            }
+          } else {
+            config.plugins = [new TimeFixPlugin()];
           }
         }
 
