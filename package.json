@@ -37,7 +37,7 @@
     "import-local": "^1.0.0",
     "killable": "^1.0.0",
     "koa": "^2.4.1",
-    "koa-webpack": "^2.0.3",
+    "koa-webpack": "^3.0.0",
     "loud-rejection": "^1.6.0",
     "meow": "^4.0.0",
     "nanobus": "^4.3.1",
