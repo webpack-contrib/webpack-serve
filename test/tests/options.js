@@ -184,4 +184,19 @@ describe('webpack-serve Options', () => {
       done();
     });
   });
+
+  t('should accept a hot option of `false`', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.hot = false;
+
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
+        fetch('http://localhost:8080')
+          .then((res) => {
+            assert(res.ok);
+            server.close(done);
+          });
+      });
+    });
+  });
 });
