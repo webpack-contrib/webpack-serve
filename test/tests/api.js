@@ -42,7 +42,6 @@ describe('webpack-serve API', () => {
     });
   });
 
-
   t('should serve with <Object> entry', (done) => {
     const config = load('./fixtures/basic/webpack.object.config.js');
     serve({ config }).then((server) => {
@@ -52,6 +51,14 @@ describe('webpack-serve API', () => {
     });
   });
 
+  t('should serve with <Function> config', (done) => {
+    const config = load('./fixtures/basic/webpack.object.config.js');
+    serve({ config }).then((server) => {
+      assert(server);
+
+      setTimeout(() => server.close(done), 1000);
+    });
+  });
 
   t('should serve with webpack v4 defaults', (done) => {
     const content = path.join(__dirname, '../fixtures/webpack-4-defaults');

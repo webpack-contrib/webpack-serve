@@ -1,11 +1,10 @@
 'use strict';
 
-const isPlainObject = require('lodash.isplainobject');
-const TimeFixPlugin = require('time-fix-plugin');
 const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
 const weblog = require('webpack-log');
 const eventbus = require('./lib/bus');
+const { timeFix, toArray, wrap } = require('./lib/config');
 const getOptions = require('./lib/options');
 const getServer = require('./lib/server');
 const pkg = require('./package.json');
@@ -22,35 +21,12 @@ module.exports = (opts) => {
       const { bus } = options;
 
       if (!options.compiler) {
-        for (const config of configs) {
-          // automagically wrap hot-client-invalid entry values in an array
-          if (typeof config.entry === 'string') {
-            config.entry = [config.entry];
-          } else if (isPlainObject(config.entry)) {
-            for (const key of Object.keys(config.entry)) {
-              const entry = config.entry[key];
-
-              if (!Array.isArray(entry)) {
-                config.entry[key] = [entry];
-              }
-            }
-          }
-
-          // adds https://github.com/egoist/time-fix-plugin if not already added
-          // to the config.
-          if (config.plugins) {
-            let timeFixFound = false;
-            for (const plugin of config.plugins) {
-              if (!timeFixFound && plugin instanceof TimeFixPlugin) {
-                timeFixFound = true;
-              }
-            }
-
-            if (!timeFixFound) {
-              config.plugins.unshift(new TimeFixPlugin());
-            }
+        for (let config of configs) {
+          if (typeof config === 'function') {
+            config = wrap(config);
           } else {
-            config.plugins = [new TimeFixPlugin()];
+            toArray(config);
+            timeFix(config);
           }
         }
 
