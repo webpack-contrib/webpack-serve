@@ -104,6 +104,15 @@ display the same information.
 `webpack-serve` supports the `serve` property in your webpack config file, which
 may contain any of the supported [options](#Options).
 
+## Webpack `function()` Configs
+
+Due to some special preprocessing that is part of `webpack-cli`, and not `webpack`
+proper, `webpack-serve` cannot fully support configs that export a function without
+creating a bit of a mess. We're working on a solution for this, but for the
+moment we don't recommend using `webpack-serve` with configs that export a
+`function()`. If you must use this type of config, we recommend stubbing the
+values you'll need for a development environment.
+
 ## API
 
 When using the API directly, the main entry point  is the `serve` function, which

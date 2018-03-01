@@ -4,8 +4,10 @@ const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
 const weblog = require('webpack-log');
 const eventbus = require('./lib/bus');
+const { timeFix, toArray } = require('./lib/config');
 const getOptions = require('./lib/options');
 const getServer = require('./lib/server');
+const WebpackServeError = require('./lib/WebpackServeError');
 const pkg = require('./package.json');
 
 module.exports = (opts) => {
@@ -14,18 +16,22 @@ module.exports = (opts) => {
   return getOptions(opts)
     .then((results) => {
       const { options, configs } = results;
+      const log = weblog({ name: 'serve', id: 'webpack-serve' });
 
       options.bus = eventbus(options);
       const { bus } = options;
 
       if (!options.compiler) {
         for (const config of configs) {
-          if (typeof config.entry === 'string') {
-            config.entry = [config.entry];
-          }
+          toArray(config);
+          timeFix(config);
         }
 
-        options.compiler = webpack(configs.length > 1 ? configs : configs[0]);
+        try {
+          options.compiler = webpack(configs.length > 1 ? configs : configs[0]);
+        } catch (e) {
+          throw new WebpackServeError(`An error was thrown while initializing Webpack\n  ${e.toString()}`);
+        }
       }
 
       // if no context was specified in a config, and no --content options was
@@ -59,7 +65,6 @@ module.exports = (opts) => {
       for (const sig of ['SIGINT', 'SIGTERM']) {
         process.on(sig, () => { // eslint-disable-line no-loop-func
           close(() => {
-            const log = weblog({ name: 'serve', id: 'webpack-serve' });
             log.info(`Process Ended via ${sig}`);
             server.kill();
             process.exit(0);
@@ -72,7 +77,13 @@ module.exports = (opts) => {
         compiler: options.compiler,
         on(...args) {
           options.bus.on(...args);
-        }
+        },
+        options
       });
+    })
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log('An error was thrown while starting webpack-serve.\n  ', err);
+      throw err;
     });
 };

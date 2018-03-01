@@ -1,12 +1,15 @@
 'use strict';
 
+/* eslint no-console: off */
 // eslint-disable-next-line global-require, import/order
-const { babel, register } = require('../../lib/global');
+const { register } = require('../../lib/global');
 
 register();
-babel();
 
 const serve = require('../../');
 const config = require('../fixtures/basic/webpack.config.js');
 
-serve({ config });
+serve({ config })
+  .catch(() => {
+
+  });
