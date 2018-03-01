@@ -48,7 +48,6 @@
     "update-notifier": "^2.3.0",
     "url-join": "^3.0.0",
     "v8-compile-cache": "^1.1.0",
-    "webpack-hot-client": "^2.0.0",
     "webpack-log": "^1.1.2"
   },
   "devDependencies": {
