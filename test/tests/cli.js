@@ -26,6 +26,8 @@ function x(fn, ...args) {
       fn(proc);
     }
   });
+
+  return proc;
 }
 
 describe('webpack-serve CLI', () => {
@@ -179,5 +181,15 @@ describe('webpack-serve CLI', () => {
           done();
         });
     }, cliPath, ['--config', configPath, '--port', 1337]);
+  });
+
+  t('should exit on thrown Error', (done) => {
+    const confPath = path.resolve(__dirname, '../fixtures/basic/webpack.config-error.config.js');
+    const proc = x(() => {}, cliPath, ['--config', confPath]);
+
+    proc.catch(() => {
+      assert(true);
+      done();
+    });
   });
 });

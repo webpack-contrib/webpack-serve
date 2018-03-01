@@ -92,4 +92,7 @@ if (!flags.config) {
   }
 }
 
-serve(options);
+serve(options)
+  .catch(() => {
+    process.exit(1);
+  });

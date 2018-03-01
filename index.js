@@ -4,9 +4,10 @@ const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
 const weblog = require('webpack-log');
 const eventbus = require('./lib/bus');
-const { timeFix, toArray, wrap } = require('./lib/config');
+const { timeFix, toArray } = require('./lib/config');
 const getOptions = require('./lib/options');
 const getServer = require('./lib/server');
+const WebpackServeError = require('./lib/WebpackServeError');
 const pkg = require('./package.json');
 
 module.exports = (opts) => {
@@ -21,20 +22,15 @@ module.exports = (opts) => {
       const { bus } = options;
 
       if (!options.compiler) {
-        for (let config of configs) {
-          if (typeof config === 'function') {
-            config = wrap(config);
-          } else {
-            toArray(config);
-            timeFix(config);
-          }
+        for (const config of configs) {
+          toArray(config);
+          timeFix(config);
         }
 
         try {
           options.compiler = webpack(configs.length > 1 ? configs : configs[0]);
         } catch (e) {
-          log.error('An error was thrown while initializing Webpack\n  ', e);
-          process.exit(1);
+          throw new WebpackServeError(`An error was thrown while initializing Webpack\n  ${e.toString()}`);
         }
       }
 
@@ -84,5 +80,10 @@ module.exports = (opts) => {
         },
         options
       });
+    })
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log('An error was thrown while starting webpack-serve.\n  ', err);
+      throw err;
     });
 };

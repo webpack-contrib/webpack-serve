@@ -8,6 +8,11 @@ module.exports = {
 
   load(path, silent = true) {
     const raw = require(path) || {};
+
+    if (typeof raw === 'function') {
+      return raw;
+    }
+
     const config = Array.isArray(raw) ? raw.slice(0) : Object.assign({}, raw);
 
     if (silent) {
@@ -37,13 +42,14 @@ module.exports = {
   },
 
   serve(...args) {
-    return serve(...args).then((server) => {
-      server.on('compiler-error', (err) => {
-        throw err[0];
-      });
+    return serve(...args)
+      .then((server) => {
+        server.on('compiler-error', (err) => {
+          throw err[0];
+        });
 
-      return server;
-    });
+        return server;
+      });
   },
 
   t: (...args) => it(...args).timeout(10e3),

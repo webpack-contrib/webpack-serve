@@ -52,7 +52,7 @@ describe('webpack-serve API', () => {
   });
 
   t('should serve with <Function> config', (done) => {
-    const config = load('./fixtures/basic/webpack.object.config.js');
+    const config = load('./fixtures/basic/webpack.function.config.js');
     serve({ config }).then((server) => {
       assert(server);
 
