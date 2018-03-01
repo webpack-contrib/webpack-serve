@@ -153,7 +153,7 @@ describe('webpack-serve Options', () => {
     serve({ config }).then(({ close }) => {
       hook = (...args) => {
         assert.equal(args[0], 'http://localhost:8080/foo');
-        assert.equal(args[1], opts);
+        assert.deepEqual(args[1], opts);
         close(done);
       };
     });
@@ -197,6 +197,17 @@ describe('webpack-serve Options', () => {
             server.close(done);
           });
       });
+    });
+  });
+
+  t('should merge child options', (done) => {
+    const config = load('./fixtures/basic/webpack.options-merge.config.js', false);
+    serve({ config }).then((server) => {
+      assert(server.options);
+      assert(server.options.dev.logLevel === 'error');
+      assert(server.options.dev.publicPath === '/');
+
+      setTimeout(() => server.close(done), 1000);
     });
   });
 });

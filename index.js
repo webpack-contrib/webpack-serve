@@ -81,7 +81,8 @@ module.exports = (opts) => {
         compiler: options.compiler,
         on(...args) {
           options.bus.on(...args);
-        }
+        },
+        options
       });
     });
 };
