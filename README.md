@@ -54,6 +54,7 @@ $ webpack-serve --help
     --log-level         Limit all process console messages to a specific level and above
                         {dim Levels: trace, debug, info, warn, error, silent}
     --log-time          Instruct the logger for webpack-serve and dependencies to display a timestamp
+    --no-clipboard      Instructs the serve not to copy the server URI to the clipboard when starting
     --no-hot            Instruct the client not to apply Hot Module Replacement patches
     --no-reload         Instruct middleware {italic not} to reload the page for build errors
     --open              Instruct the app to open in the default browser
@@ -181,6 +182,15 @@ Type: `String|[String]`
 Default: `[]`
 
 The path, or array of paths, from which content will be served.
+
+<!-- intentionally out of alphabetic order -->
+##### clipboard
+
+Type: `Boolean`  
+Default: `true`
+
+If true, the server will copy the server URI to the clipboard when the server is
+started.
 
 ##### dev
 

@@ -2,6 +2,7 @@
 
 const path = require('path');
 const assert = require('power-assert');
+const clip = require('clipboardy');
 const fetch = require('node-fetch');
 const mock = require('mock-require');
 const webpack = require('webpack'); // eslint-disable-line import/order
@@ -72,6 +73,19 @@ describe('webpack-serve Options', () => {
             assert(res.ok);
             server.close(done);
           });
+      });
+    });
+  });
+
+  t('should accept a clipboard option', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.clipboard = false;
+    clip.writeSync('foo');
+
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
+        assert.equal(clip.readSync(), 'foo');
+        server.close(done);
       });
     });
   });
