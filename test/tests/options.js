@@ -149,9 +149,12 @@ describe('webpack-serve Options', () => {
   t('should accept an open:Boolean option', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');
     config.serve.open = true;
+    clip.writeSync('foo');
 
     serve({ config }).then(({ close }) => {
       hook = (...args) => {
+        // the open option should disable the clipboard feature
+        assert.equal(clip.readSync(), 'foo');
         assert.equal(args[0], 'http://localhost:8080/');
         assert.equal(args[1], true);
         close(done);

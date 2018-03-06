@@ -304,6 +304,8 @@ that matches:
 }
 ```
 
+_Note: Using the `open` option will disable the `clipboard` option._
+
 ##### port
 
 Type: `Number`  
