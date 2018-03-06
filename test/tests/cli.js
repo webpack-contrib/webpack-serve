@@ -5,12 +5,10 @@ const assert = require('power-assert');
 const execa = require('execa');
 const fetch = require('node-fetch');
 const strip = require('strip-ansi');
-const webpackPackage = require('webpack/package.json');
 const { pause, t, timeout } = require('../util');
 
 const cliPath = path.resolve(__dirname, '../../cli.js');
 const configPath = path.resolve(__dirname, '../fixtures/basic/webpack.config.js');
-const webpackVersion = parseInt(webpackPackage.version, 10);
 
 function pipe(proc) { // eslint-disable-line no-unused-vars
   const stream = proc.stdout;
@@ -34,17 +32,6 @@ function x(fn, ...args) {
 describe('webpack-serve CLI', () => {
   before(pause);
   beforeEach(pause);
-
-  if (webpackVersion < 4) {
-    t('should show help', (done) => {
-      const proc = execa(cliPath);
-
-      proc.then((result) => {
-        assert(strip(result.stdout).indexOf('Usage') > 0);
-        done();
-      });
-    });
-  }
 
   t('should show help with --help', (done) => {
     const proc = execa(cliPath, ['--help']);

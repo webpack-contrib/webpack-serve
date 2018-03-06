@@ -75,6 +75,15 @@ describe('webpack-serve API', () => {
     });
   });
 
+  t('should serve with partial webpack 4 defaults', (done) => {
+    const config = load('./fixtures/webpack-4-defaults/webpack.no-entry.config.js');
+    serve({ config }).then((server) => {
+      assert(server);
+
+      setTimeout(() => server.close(done), 1000);
+    });
+  });
+
   t('should have copied the uri to the clipboard', () => {
     assert.equal(clip.readSync(), 'http://localhost:8080');
   });

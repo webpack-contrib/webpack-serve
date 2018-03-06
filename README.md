@@ -156,6 +156,10 @@ Type: `Object`
 
 Options for initializing and controlling the server provided.
 
+##### add
+
+Please see [Add-On Features](#add-on-features).
+
 ##### compiler
 
 Type: `webpack`  
@@ -269,6 +273,22 @@ Default: `false`
 Instruct `webpack-serve` to prepend each line of log output with a `[HH:mm:ss]`
 timestamp.
 
+##### on
+
+Type: `Object`  
+Default: `null`
+
+While running `webpack-serve` from the command line, it can sometimes be useful
+to subscribe to events from the module's event bus _within your config_. This
+option can be used for that purpose. The option's value must be an `Object`
+matching a `key:handler`, `String: Function` pattern. eg:
+
+```js
+on: {
+  'listening': () => { console.log('listening'); }
+}
+```
+
 ##### open
 
 Type: `Boolean|Object`  
@@ -318,7 +338,42 @@ features that those familiar with `webpack-dev-server` have come to rely on. Thi
 makes the module far easier to maintain, which ultimately benefits the user.
 
 Luckily, flexibility baked into `webpack-serve` makes it a snap to add-on features.
-Listed below are some of the add-on patterns that can be found in
+You can leverage this by using the `add` option. The value of the option should
+be a `Function` matching the following signature:
+
+```js
+add: (app, middleware, options) => {
+  // ...
+}
+```
+
+### `add` Function Parameters
+
+- `app` The underlying Koa app
+- `middleware` An object containing accessor functions to call both
+`webpack-dev-middleware` and the `koa-static` middleware.
+- `options` - The internal options object used by `webpack-serve`
+
+Some add-on patterns may require changing the order of middleware used in the
+`app`. For instance, if adding routes or using a separate router with the `app`
+where routes must be added last, you'll need to call the `middleware` functions
+early on. `webpack-serve` recognizes these calls and will not execute them again.
+If these calls were omitted, `webpack-serve` would execute both in the default,
+last in line, order.
+
+```js
+add: (app, middleware, options) => {
+  // since we're manipulating the order of middleware added, we need to handle
+  // adding these two internal middleware functions.
+  middleware.webpack();
+  middleware.content();
+
+  // router *must* be the last middleware added
+  app.use(router.routes());
+}
+```
+
+Listed below are some of the add-on patterns and recipes that can be found in
 [docs/addons](docs/addons):
 
 - [bonjour](docs/addons/bonjour.config.js)

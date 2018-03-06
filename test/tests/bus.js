@@ -16,4 +16,22 @@ describe('webpack-serve Event Bus', () => {
 
     bus.emit('foo');
   });
+
+  it('should not allow non-object options', () => {
+    const init = () => {
+      eventbus({ on: 'foo' });
+    };
+    assert.throws(init);
+  });
+
+  it('should not allow a non-function handler', () => {
+    const init = () => {
+      eventbus({
+        on: {
+          foo: 'bar'
+        }
+      });
+    };
+    assert.throws(init);
+  });
 });
