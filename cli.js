@@ -10,22 +10,11 @@ if (!module.parent) {
 }
 
 const chalk = require('chalk');
+const cosmiconfig = require('cosmiconfig');
 const debug = require('debug')('webpack-serve');
-const findUp = require('find-up');
 const meow = require('meow');
+const merge = require('lodash/merge');
 const importLocal = require('import-local'); // eslint-disable-line import/order
-const WebpackServeError = require('./lib/WebpackServeError'); // eslint-disable-line import/order
-
-let webpackPackage;
-let webpackVersion;
-
-try {
-  webpackPackage = require('webpack/package.json'); // eslint-disable-line global-require
-  webpackVersion = parseInt(webpackPackage.version, 10);
-} catch (e) {
-  throw new WebpackServeError('webpack must be installed for webpack-serve to function.\n  See: webpack-serve/package.json/peerDependencies');
-}
-
 
 // Prefer the local installation of webpack-serve
 /* istanbul ignore if */
@@ -68,28 +57,34 @@ const cli = meow(chalk`
 `);
 
 const flags = Object.assign({}, cli.flags);
+const cosmicOptions = {
+  rcExtensions: true,
+  sync: true
+};
+const explorer = cosmiconfig('serve', cosmicOptions);
+const { config } = explorer.load() || {};
+const options = merge({ flags }, config);
 
 if (cli.input.length) {
   [flags.config] = cli.input;
 } else if (!flags.config) {
-  const filePath = findUp.sync('webpack.config.js');
-  flags.config = filePath;
+  const webpackExplorer = cosmiconfig('webpack', cosmicOptions);
+  const webpackConfig = webpackExplorer.load();
+
+  if (webpackConfig) {
+    options.config = webpackConfig.config;
+    flags.config = webpackConfig.filepath;
+  }
 }
 
 if (flags.help) {
   cli.showHelp(0);
 }
 
-const options = { flags };
-
 if (!flags.config) {
-  if (webpackVersion < 4) {
-    cli.showHelp(0);
-  } else {
-    // webpack v4 defaults an empty config to { entry: './src' }. but since we
-    // need an array, we'll mimic that default config.
-    options.config = { entry: ['./src'] };
-  }
+  // webpack v4 defaults an empty config to { entry: './src' }. but since we
+  // need an array, we'll mimic that default config.
+  options.config = { entry: ['./src'] };
 }
 
 serve(options)

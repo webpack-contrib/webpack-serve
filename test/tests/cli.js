@@ -21,6 +21,7 @@ function x(fn, ...args) {
   const proc = execa(...args);
   // webpack@4 has a lot more warnings
   const ready = new RegExp('(Compiled successfully)|(Compiled with warnings)');
+
   proc.stdout.on('data', (data) => {
     if (ready.test(data.toString())) {
       fn(proc);
@@ -87,18 +88,16 @@ describe('webpack-serve CLI', () => {
     }, cliPath, { cwd: path.resolve(__dirname, '../fixtures/basic') });
   });
 
-  if (webpackVersion > 3) {
-    t('should run webpack-serve with webpack v4 defaults', (done) => {
-      x((proc) => {
-        fetch('http://localhost:8080')
-          .then((res) => {
-            assert(res.ok);
-            proc.kill('SIGINT');
-            done();
-          });
-      }, cliPath, { cwd: path.resolve(__dirname, '../fixtures/webpack-4-defaults') });
-    });
-  }
+  t('should run webpack-serve with webpack v4 defaults', (done) => {
+    x((proc) => {
+      fetch('http://localhost:8080')
+        .then((res) => {
+          assert(res.ok);
+          proc.kill('SIGINT');
+          done();
+        });
+    }, cliPath, { cwd: path.resolve(__dirname, '../fixtures/webpack-4-defaults') });
+  });
 
   t('should use the --content flag', (done) => {
     const confPath = path.resolve(__dirname, '../fixtures/content/webpack.config.js');

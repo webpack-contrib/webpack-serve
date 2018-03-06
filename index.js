@@ -13,6 +13,8 @@ const pkg = require('./package.json');
 module.exports = (opts) => {
   updateNotifier({ pkg }).notify();
 
+  process.env.WEBPACK_SERVE = true;
+
   return getOptions(opts)
     .then((results) => {
       const { options, configs } = results;

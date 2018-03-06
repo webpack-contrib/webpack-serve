@@ -99,7 +99,23 @@ will display help and usage information. In order to accommodate the zero-config
 changes in webpack v4, users of webpack v4 will need to use the `--help` flag to
 display the same information.
 
-## Webpack Config `serve` Property
+## `webpack-serve` Config
+
+You can store and define configuration / options for `webpack-serve` in a number
+of different ways. This module leverages [cosmiconfig](https://github.com/davidtheclark/cosmiconfig),
+which allows you to define `webpack-serve` options in the following ways:
+
+- in your package.json file in a `serve` property
+- in a `.serverc` or `.serverc.json` file, in either JSON or YML.
+- in a `serve.config.js` file which exports a CommonJS module (just like webpack).
+
+It's most common to keep `serve` options in your `webpack.config.js` (see below),
+however, you can utilize any of the options above _in tandem_ with
+`webpack.config.js`, and the options from the two sources will be merged. This
+can be useful for setups with multiple configs that share common options for
+`webpack-serve`, but require subtle differences.
+
+### Webpack Config `serve` Property
 
 `webpack-serve` supports the `serve` property in your webpack config file, which
 may contain any of the supported [options](#Options).
