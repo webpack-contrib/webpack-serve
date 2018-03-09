@@ -214,10 +214,14 @@ properly.
 
 ##### hot
 
-Type: `Object`  
+Type: `Object|Booelean`  
 Default: `{}`
 
-An object containing options for [webpack-hot-client][hot-client].
+An object containing options for [webpack-hot-client][hot-client].  
+
+As of `v0.2.1` setting this to `false` will completely disable `webpack-hot-client`
+and all automatic Hot Module Replacement functionality. This is akin to the
+`--no-hot-client` CLI flag.
 
 ##### http2
 

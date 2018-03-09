@@ -5,6 +5,7 @@ const assert = require('power-assert');
 const execa = require('execa');
 const fetch = require('node-fetch');
 const strip = require('strip-ansi');
+const WebSocket = require('ws');
 const { pause, t, timeout } = require('../util');
 
 const cliPath = path.resolve(__dirname, '../../cli.js');
@@ -177,5 +178,19 @@ describe('webpack-serve CLI', () => {
       assert(true);
       done();
     });
+  });
+
+  t('should use the --no-hot-client flag', (done) => {
+    x((proc) => {
+      const socket = new WebSocket('ws://localhost:8081');
+
+      socket.on('error', (error) => {
+        // this asserts that the WebSocketServer is not running, a sure sign
+        // that webpack-hot-client has been disabled.
+        assert(/ECONNREFUSED/.test(error.message));
+        proc.kill('SIGINT');
+        done();
+      });
+    }, cliPath, ['--config', configPath, '--no-hot-client']);
   });
 });

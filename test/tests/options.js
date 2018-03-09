@@ -6,6 +6,7 @@ const clip = require('clipboardy');
 const fetch = require('node-fetch');
 const mock = require('mock-require');
 const webpack = require('webpack'); // eslint-disable-line import/order
+const WebSocket = require('ws');
 const util = require('../util');
 
 const nodeVersion = parseInt(process.version.substring(1), 10);
@@ -202,7 +203,7 @@ describe('webpack-serve Options', () => {
     });
   });
 
-  t('should accept a hot option of `false`', (done) => {
+  t('should accept a hot.hot option of `false`', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');
     config.serve.hot = false;
 
@@ -213,6 +214,35 @@ describe('webpack-serve Options', () => {
             assert(res.ok);
             server.close(done);
           });
+      });
+    });
+  });
+
+  t('should accept a hot option of `true`', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.hot = true;
+
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
+        // options.hot should be mutated from the default setting as an object
+        assert(typeof server.options.hot === 'object');
+        setTimeout(() => server.close(done), 1000);
+      });
+    });
+  });
+
+  t('should accept a hot option of `false` and disable webpack-hot-client', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.hot = false;
+
+    serve({ config }).then((server) => {
+      const socket = new WebSocket('ws://localhost:8081');
+
+      socket.on('error', (error) => {
+        // this asserts that the WebSocketServer is not running, a sure sign
+        // that webpack-hot-client has been disabled.
+        assert(/ECONNREFUSED/.test(error.message));
+        setTimeout(() => server.close(done), 1000);
       });
     });
   });

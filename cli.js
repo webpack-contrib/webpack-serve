@@ -42,6 +42,7 @@ const cli = meow(chalk`
   --log-level         Limit all process console messages to a specific level and above
                       {dim Levels: trace, debug, info, warn, error, silent}
   --log-time          Instruct the logger for webpack-serve and dependencies to display a timestamp
+  --no-hot-client     Instruct the serve to completely disable automatic HMR functionality
   --no-hot            Instruct the client not to apply Hot Module Replacement patches
   --no-reload         Instruct middleware {italic not} to reload the page for build errors
   --open              Instruct the app to open in the default browser
