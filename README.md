@@ -319,16 +319,16 @@ The port the server should listen on.
 
 ## Events
 
-`webpack-serve` emits select events which can be subscribed to. For example;
+The server created by `webpack-serve` emits select events which can be subscribed to. For example;
 
 ```js
 const serve = require('webpack-serve');
 const config = require('./webpack.config.js');
 
-serve({ config });
-
-serve.on('listening', () => {
-  console.log('happy fun time');
+serve({ config }).then((server) => {
+  server.on('listening', () => {
+    console.log('happy fun time');
+  });
 });
 ```
 
