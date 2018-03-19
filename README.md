@@ -119,7 +119,7 @@ can be useful for setups with multiple configs that share common options for
 ### Webpack Config `serve` Property
 
 `webpack-serve` supports the `serve` property in your webpack config file, which
-may contain any of the supported [options](#Options).
+may contain any of the supported [options](#options).
 
 ## Webpack `function()` Configs
 
