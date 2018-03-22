@@ -157,7 +157,7 @@ describe('webpack-serve Options', () => {
         // the open option should disable the clipboard feature
         assert.equal(clip.readSync(), 'foo');
         assert.equal(args[0], 'http://localhost:8080/');
-        assert.equal(args[1], true);
+        assert.equal(Object.keys(args[1]), 0);
         close(done);
       };
     });
@@ -171,7 +171,25 @@ describe('webpack-serve Options', () => {
     serve({ config }).then(({ close }) => {
       hook = (...args) => {
         assert.equal(args[0], 'http://localhost:8080/foo');
-        assert.deepEqual(args[1], opts);
+        assert.equal(args[1], 'Firefox');
+        close(done);
+      };
+    });
+  });
+
+  // NOTE: we have to test this here as we have no means to hook opn via the cli
+  // tests
+  t('should accept --open-* flags', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    const flags = {
+      openApp: '["Firefox","--some-arg"]',
+      openPath: '/some-path'
+    };
+
+    serve({ config, flags }).then(({ close }) => {
+      hook = (...args) => {
+        assert.equal(args[0], 'http://localhost:8080/some-path');
+        assert.deepEqual(args[1], JSON.parse(flags.openApp));
         close(done);
       };
     });

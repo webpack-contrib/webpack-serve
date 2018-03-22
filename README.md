@@ -58,7 +58,8 @@ $ webpack-serve --help
     --no-hot            Instruct the client not to apply Hot Module Replacement patches
     --no-reload         Instruct middleware {italic not} to reload the page for build errors
     --open              Instruct the app to open in the default browser
-    --open-app          The name of the app to open the app within
+    --open-app          The name of the app to open the app within, or an array
+                        containing the app name and arguments for the app
     --open-path         The path with the app a browser should open to
     --port              The port the app should listen on
     --version           Display the webpack-serve version

@@ -46,7 +46,7 @@
     "opn": "^5.1.0",
     "time-fix-plugin": "^2.0.0",
     "update-notifier": "^2.3.0",
-    "url-join": "^3.0.0",
+    "url-join": "3.0.0",
     "v8-compile-cache": "^1.1.0",
     "webpack-log": "^1.1.2"
   },
@@ -55,7 +55,7 @@
     "eslint": "^4.5.0",
     "eslint-config-webpack": "^1.2.5",
     "eslint-plugin-import": "^2.8.0",
-    "execa": "^0.9.0",
+    "execa": "^0.10.0",
     "intelli-espower-loader": "^1.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^5.0.0",
