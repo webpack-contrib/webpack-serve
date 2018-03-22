@@ -385,8 +385,8 @@ Listed below are some of the add-on patterns and recipes that can be found in
 - [bonjour](docs/addons/bonjour.config.js)
 - [compress](docs/addons/compress)
 - [historyApiFallback](docs/addons/history-fallback.config.js)
-- [proxy](docs/addons/proxy.config.js)
-- [spa-with-api-simple](docs/addons/spa-with-api-simple.config.js)
+- [proxy + history fallback](docs/addons/proxy-history-fallback.config.js)
+- [proxy + router](docs/addons/proxy-router.config.js)
 - [staticOptions](docs/addons/static-content-options.config.js)
 - [useLocalIp](docs/addons/local-ip.config.js)
 
