@@ -390,6 +390,7 @@ Listed below are some of the add-on patterns and recipes that can be found in
 - [proxy + router](docs/addons/proxy-router.config.js)
 - [staticOptions](docs/addons/static-content-options.config.js)
 - [useLocalIp](docs/addons/local-ip.config.js)
+- [watch content](docs/addons/watch-content.config.js)
 
 ## Contributing
 
