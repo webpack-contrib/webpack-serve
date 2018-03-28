@@ -14,6 +14,7 @@ const cosmiconfig = require('cosmiconfig');
 const debug = require('debug')('webpack-serve');
 const meow = require('meow');
 const merge = require('lodash/merge');
+const resolveModule = require('resolve').sync;
 const importLocal = require('import-local'); // eslint-disable-line import/order
 
 // Prefer the local installation of webpack-serve
@@ -50,15 +51,37 @@ const cli = meow(chalk`
                       containing the app name and arguments for the app
   --open-path         The path with the app a browser should open to
   --port              The port the app should listen on
+  --require, -r       Preload one or more modules before loading the webpack configuration
   --version           Display the webpack-serve version
 
 {underline Examples}
   $ webpack-serve ./webpack.config.js --no-reload
   $ webpack-serve --config ./webpack.config.js --port 1337
   $ webpack-serve # config can be omitted for webpack v4+ only
-`);
+`, {
+  flags: {
+    require: {
+      alias: 'r',
+      type: 'string'
+    }
+  }
+});
 
 const flags = Object.assign({}, cli.flags);
+
+if (flags.require) {
+  if (typeof flags.require === 'string') {
+    flags.require = [flags.require];
+  }
+  const cwd = process.cwd();
+  for (const module of flags.require) {
+    if (module) {
+      // eslint-disable-next-line global-require, import/no-dynamic-require
+      require(resolveModule(module, { basedir: cwd }));
+    }
+  }
+}
+
 const cosmicOptions = {
   rcExtensions: true,
   sync: true

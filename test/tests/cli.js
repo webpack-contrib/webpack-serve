@@ -193,4 +193,18 @@ describe('webpack-serve CLI', () => {
       });
     }, cliPath, ['--config', configPath, '--no-hot-client']);
   });
+
+  t('should use the --require flag', (done) => {
+    const confPath = path.resolve(__dirname, '../fixtures/basic/webpack.env.config.js');
+    const requireCwd = path.dirname(confPath);
+    const requirePath = './preload-env.js';
+    x((proc) => {
+      fetch('http://localhost:8080')
+        .then((res) => {
+          assert(res.ok);
+          proc.kill('SIGINT');
+          done();
+        });
+    }, cliPath, ['--config', configPath, '--require', requirePath], { cwd: requireCwd });
+  });
 });
