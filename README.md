@@ -62,6 +62,7 @@ $ webpack-serve --help
                         containing the app name and arguments for the app
     --open-path         The path with the app a browser should open to
     --port              The port the app should listen on
+    --require, -r       Preload one or more modules before loading the webpack configuration
     --version           Display the webpack-serve version
 
   Examples
