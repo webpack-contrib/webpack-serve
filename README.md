@@ -146,7 +146,7 @@ serve({ config });
 
 ### serve([options])
 
-Returns an `Object` containing:
+Returns [a `Promise` which resolves] an `Object` containing:
 
 - `close()` *(Function)* - Closes the server and its dependencies.
 - `on(eventName, fn)` *(Function)* - Binds a serve event to a function. See
