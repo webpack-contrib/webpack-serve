@@ -43,9 +43,10 @@ $ webpack-serve --help
   Options
     --config            The webpack config to serve. Alias for <config>.
     --content           The path from which content will be served
-    --dev               An object containing options for webpack-dev-middleware
+    --dev               A JSON object containing options for webpack-dev-middleware
     --help              Show usage information and the options listed here.
     --host              The host the app should bind to
+    --hot               A JSON object containing options for webpack-hot-client
     --http2             Instruct the server to use HTTP2
     --https-cert        Specify a cert to enable https. Must be paired with a key
     --https-key         Specify a key to enable https. Must be paired with a cert
@@ -54,7 +55,7 @@ $ webpack-serve --help
     --log-level         Limit all process console messages to a specific level and above
                         {dim Levels: trace, debug, info, warn, error, silent}
     --log-time          Instruct the logger for webpack-serve and dependencies to display a timestamp
-    --no-clipboard      Instructs the serve not to copy the server URI to the clipboard when starting
+    --no-clipboard      Instructs the server not to copy the server URI to the clipboard when starting
     --no-hot            Instruct the client not to apply Hot Module Replacement patches
     --no-reload         Instruct middleware {italic not} to reload the page for build errors
     --open              Instruct the app to open in the default browser

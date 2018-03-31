@@ -113,6 +113,20 @@ describe('webpack-serve Options', () => {
     });
   });
 
+  t('should accept a dev flag', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    const flags = {
+      dev: '{"publicPath":"/"}'
+    };
+
+    serve({ config, flags }).then(({ close, on, options }) => {
+      on('listening', () => {
+        assert.deepEqual(options.dev, { publicPath: '/' });
+        close(done);
+      });
+    });
+  });
+
   t('should accept a host option', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');
     config.serve.host = '0.0.0.0';
@@ -124,6 +138,20 @@ describe('webpack-serve Options', () => {
             assert(res.ok);
             server.close(done);
           });
+      });
+    });
+  });
+
+  t('should accept a hot flag', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    const flags = {
+      hot: '{"hot":false}'
+    };
+
+    serve({ config, flags }).then(({ close, on, options }) => {
+      on('listening', () => {
+        assert.deepEqual(options.hot.hot, false);
+        close(done);
       });
     });
   });
