@@ -207,12 +207,15 @@ An object containing options for [webpack-dev-middleware][dev-ware].
 
 ##### host
 
-Type: `Object`  
+Type: `String`  
 Default: `'localhost'`
 
-Sets the host that the `WebSocket` server will listen on. If this doesn't match
-the host of the server the module is used with, the module will not function
-properly.
+Sets the host that the server will listen on. eg. `'10.10.10.1'`
+
+_Note: This value must match any value specified for `hot.host` or
+`hot.host.server`, otherwise `webpack-serve` will throw an error. This
+requirement ensures that the `koa` server and `WebSocket` server play nice
+together._
 
 ##### hot
 

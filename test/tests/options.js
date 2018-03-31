@@ -128,6 +128,70 @@ describe('webpack-serve Options', () => {
     });
   });
 
+  t('should not accept a mismatched hot.host option', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.host = '0.0.0.0';
+    config.serve.hot = { host: 'localhost' };
+
+    serve({ config }).catch((err) => {
+      assert(err);
+      done();
+    });
+  });
+
+  t('should not accept a mismatched hot.host.server option', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.host = '0.0.0.0';
+    config.serve.hot = {
+      host: {
+        server: '10.1.1.1',
+        client: 'localhost'
+      }
+    };
+
+    serve({ config }).catch((err) => {
+      assert(err);
+      done();
+    });
+  });
+
+  t('should accept a matching hot.host option', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.host = '0.0.0.0';
+    config.serve.hot = { host: '0.0.0.0' };
+
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
+        fetch('http://0.0.0.0:8080')
+          .then((res) => {
+            assert(res.ok);
+            server.close(done);
+          });
+      });
+    });
+  });
+
+  t('should accept a matching hot.host.server option', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.host = '0.0.0.0';
+    config.serve.hot = {
+      host: {
+        server: '0.0.0.0',
+        client: 'localhost'
+      }
+    };
+
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
+        fetch('http://0.0.0.0:8080')
+          .then((res) => {
+            assert(res.ok);
+            server.close(done);
+          });
+      });
+    });
+  });
+
   if (nodeVersion < 9) {
     t('should reject the http2 for Node < 9', (done) => {
       const config = load('./fixtures/basic/webpack.config.js');
@@ -207,17 +271,6 @@ describe('webpack-serve Options', () => {
             server.close(done);
           });
       });
-    });
-  });
-
-  t('should not accept a mismatched hot.host option', (done) => {
-    const config = load('./fixtures/basic/webpack.config.js');
-    config.serve.host = '0.0.0.0';
-    config.serve.hot = { host: 'localhost' };
-
-    serve({ config }).catch((err) => {
-      assert(err);
-      done();
     });
   });
 
