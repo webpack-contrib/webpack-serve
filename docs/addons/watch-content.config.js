@@ -23,7 +23,7 @@ module.exports.serve = {
     port: 8090
   },
   on: {
-    listen(server) {
+    listening(server) {
       const socket = new WebSocket('ws://localhost:8090');
       const watchPath = __dirname;
       const options = {};
