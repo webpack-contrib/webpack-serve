@@ -220,7 +220,7 @@ together._
 
 ##### hot
 
-Type: `Object|Booelean`  
+Type: `Object|Boolean`  
 Default: `{}`
 
 An object containing options for [webpack-hot-client][hot-client].  
