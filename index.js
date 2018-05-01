@@ -64,15 +64,23 @@ module.exports = (opts) => {
 
       start(options);
 
-      for (const sig of ['SIGINT', 'SIGTERM']) {
-        process.on(sig, () => { // eslint-disable-line no-loop-func
+      let closing = false;
+      const exit = (signal) => {
+        if (!closing) {
+          closing = true;
           close(() => {
-            log.info(`Process Ended via ${sig}`);
+            log.info(`Process Ended via ${signal}`);
             server.kill();
             process.exit(0);
           });
-        });
+        }
+      };
+
+      for (const signal of ['SIGINT', 'SIGTERM']) {
+        process.on(signal, () => exit(signal));
       }
+
+      process.on('exit', exit);
 
       return Object.freeze({
         close,
