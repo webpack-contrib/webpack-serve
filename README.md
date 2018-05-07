@@ -397,6 +397,15 @@ Listed below are some of the add-on patterns and recipes that can be found in
 - [useLocalIp](docs/addons/local-ip.config.js)
 - [watch content](docs/addons/watch-content.config.js)
 
+### Community Add-ons
+
+_Note: The list below contains `webpack-serve` add-ons created by the community.
+Inclusion in the list does not imply a module is preferred or recommended
+over others._
+
+- [webpack-serve-waitpage](https://github.com/elisherer/webpack-serve-waitpage):
+Displays build progress in the client during complilation.
+
 ## Contributing
 
 We welcome your contributions! Please have a read of
