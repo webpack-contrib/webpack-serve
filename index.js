@@ -52,13 +52,18 @@ module.exports = (opts) => {
         if (stats.hasWarnings()) {
           bus.emit('compiler-warning', json);
         }
+
+        bus.emit('build-finished', stats);
       };
 
-      if (options.compiler.hooks) {
-        options.compiler.hooks.done.tap('WebpackServe', done);
-      } else {
-        options.compiler.plugin('done', done);
+      const compilers = options.compiler.compilers || [options.compiler];
+      for (const comp of compilers) {
+        comp.hooks.compile.tap('WebpackServe', () => {
+          bus.emit('build-started', comp);
+        });
       }
+
+      options.compiler.hooks.done.tap('WebpackServe', done);
 
       const { close, server, start } = getServer(options);
 

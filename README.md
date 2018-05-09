@@ -338,9 +338,23 @@ serve({ config }).then((server) => {
 });
 ```
 
+#### build-started
+
+Arguments: [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
+
+Emitted when a compiler has started a build.
+
+#### build-finished
+
+Arguments: [`Stats`](https://webpack.js.org/api/node/#stats-object) _stats_
+
+Emitted when a compiler has finished a build.
+
 #### listening
 
 Arguments: _None_
+
+Emitted when the server begins listening for connections.
 
 ## Add-on Features
 

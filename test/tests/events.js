@@ -41,4 +41,24 @@ describe('webpack-serve Events', () => {
       });
     });
   }).timeout(5e3);
+
+  it('should emit the build-started event', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    serve({ config }).then((server) => {
+      server.on('build-started', () => {
+        assert(true);
+        setTimeout(() => { server.close(done); }, timeout);
+      });
+    });
+  }).timeout(5e3);
+
+  it('should emit the build-finished event', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    serve({ config }).then((server) => {
+      server.on('build-finished', () => {
+        assert(true);
+        setTimeout(() => { server.close(done); }, timeout);
+      });
+    });
+  }).timeout(5e3);
 });
