@@ -1,11 +1,12 @@
-'use strict';
+const { resolve } = require('path');
 
-const execSync = require('child_process').execSync;
+const { execSync } = require('child_process');
+
 const port = 8080;
 
 module.exports = {
   entry: {
-    index: [path.resolve(__dirname, 'app.js')],
+    index: [resolve(__dirname, 'app.js')],
   },
   mode: 'development',
   output: {
@@ -19,7 +20,7 @@ module.exports.serve = {
     listening: () => {
       execSync('ps cax | grep "Google Chrome"');
       execSync(
-        `osascript openChrome.applescript "${encodeURI(
+        `osascript chrome.applescript "${encodeURI(
           `http://localhost:${port}`
         )}"`,
         {

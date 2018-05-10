@@ -407,6 +407,7 @@ Listed below are some of the add-on patterns and recipes that can be found in
 - [historyApiFallback](docs/addons/history-fallback.config.js)
 - [proxy + history fallback](docs/addons/proxy-history-fallback.config.js)
 - [proxy + router](docs/addons/proxy-router.config.js)
+- [reuse Chrome tab](docs/addons/reuse-chrome-tab)
 - [staticOptions](docs/addons/static-content-options.config.js)
 - [useLocalIp](docs/addons/local-ip.config.js)
 - [watch content](docs/addons/watch-content.config.js)
