@@ -1,9 +1,12 @@
-'use strict';
-
 const path = require('path');
+
 const assert = require('power-assert');
 const clip = require('clipboardy');
+
+const WebpackServeError = require('../../lib/WebpackServeError');
 const { load, serve, t } = require('../util');
+
+const logLevel = 'info';
 
 describe('webpack-serve API', () => {
   it('should exist', () => assert(serve));
@@ -20,6 +23,14 @@ describe('webpack-serve API', () => {
       assert(typeof server.on === 'function');
 
       setTimeout(() => server.close(done), 1000);
+    });
+  });
+
+  t('should throw', (done) => {
+    const config = { bad: 'batman' };
+    serve({ config }).catch((error) => {
+      assert(error instanceof WebpackServeError);
+      done();
     });
   });
 
@@ -52,8 +63,13 @@ describe('webpack-serve API', () => {
   });
 
   t('should serve with <Function> config', (done) => {
-    const config = load('./fixtures/basic/webpack.function.config.js');
-    serve({ config }).then((server) => {
+    const config = './test/fixtures/basic/webpack.function.config.js';
+    serve({
+      config,
+      logLevel,
+      dev: { logLevel },
+      hot: { logLevel },
+    }).then((server) => {
       assert(server);
 
       setTimeout(() => server.close(done), 1000);
@@ -65,9 +81,9 @@ describe('webpack-serve API', () => {
 
     serve({
       content,
-      dev: { logLevel: 'silent', publicPath: '/' },
-      hot: { logLevel: 'silent' },
-      logLevel: 'silent'
+      logLevel,
+      dev: { logLevel, publicPath: '/' },
+      hot: { logLevel },
     }).then((server) => {
       assert(server);
 
@@ -76,7 +92,9 @@ describe('webpack-serve API', () => {
   });
 
   t('should serve with partial webpack 4 defaults', (done) => {
-    const config = load('./fixtures/webpack-4-defaults/webpack.no-entry.config.js');
+    const config = load(
+      './fixtures/webpack-4-defaults/webpack.no-entry.config.js'
+    );
     serve({ config }).then((server) => {
       assert(server);
 

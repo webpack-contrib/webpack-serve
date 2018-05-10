@@ -1,10 +1,8 @@
-'use strict';
-
 const updateNotifier = require('update-notifier');
 const webpack = require('webpack');
 const weblog = require('webpack-log');
+
 const eventbus = require('./lib/bus');
-const { timeFix, toArray } = require('./lib/config');
 const getOptions = require('./lib/options');
 const getServer = require('./lib/server');
 const WebpackServeError = require('./lib/WebpackServeError');
@@ -24,23 +22,13 @@ module.exports = (opts) => {
       const { bus } = options;
 
       if (!options.compiler) {
-        for (const config of configs) {
-          toArray(config);
-          timeFix(config);
-        }
-
         try {
           options.compiler = webpack(configs.length > 1 ? configs : configs[0]);
         } catch (e) {
-          throw new WebpackServeError(`An error was thrown while initializing Webpack\n  ${e.toString()}`);
+          throw new WebpackServeError(
+            `An error was thrown while initializing Webpack\n  ${e.toString()}`
+          );
         }
-      }
-
-      // if no context was specified in a config, and no --content options was
-      // used, then we need to derive the context, and content location, from
-      // the compiler.
-      if (!options.content || !options.content.length) {
-        options.content = [].concat(options.compiler.options.context || process.cwd());
       }
 
       const done = (stats) => {
@@ -93,7 +81,7 @@ module.exports = (opts) => {
         on(...args) {
           options.bus.on(...args);
         },
-        options
+        options,
       });
     })
     .catch((err) => {

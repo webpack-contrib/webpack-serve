@@ -1,18 +1,17 @@
-'use strict';
-
 const path = require('path');
+
 const convert = require('koa-connect');
 const history = require('connect-history-api-fallback');
 const proxy = require('http-proxy-middleware');
 
 module.exports = {
   entry: {
-    index: [path.resolve(__dirname, 'app.js')]
+    index: [path.resolve(__dirname, 'app.js')],
   },
   mode: 'development',
   output: {
-    filename: 'output.js'
-  }
+    filename: 'output.js',
+  },
 };
 
 module.exports.serve = {
@@ -20,7 +19,7 @@ module.exports.serve = {
   add: (app, middleware, options) => {
     app.use(convert(proxy('/api', { target: 'http://localhost:8081' })));
     app.use(convert(history()));
-  }
+  },
 };
 
 // This add-on will route all incoming requests for

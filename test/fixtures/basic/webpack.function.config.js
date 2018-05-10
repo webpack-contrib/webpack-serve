@@ -1,6 +1,5 @@
-'use strict';
-
 const path = require('path');
+
 const webpack = require('webpack');
 
 // eslint-disable-next-line no-unused-vars
@@ -12,11 +11,9 @@ module.exports = function config(env, argv) {
     entry: ['./app.js'],
     output: {
       filename: './output.js',
-      path: path.resolve(__dirname)
+      path: path.resolve(__dirname),
     },
-    plugins: [
-      new webpack.NamedModulesPlugin()
-    ],
-    serve: {}
+    plugins: [new webpack.NamedModulesPlugin()],
+    serve: {},
   };
 };

@@ -1,5 +1,3 @@
-'use strict';
-
 process.setMaxListeners(20);
 
 const { register } = require('../lib/global');

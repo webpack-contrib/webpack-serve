@@ -1,6 +1,5 @@
-'use strict';
-
 const assert = require('power-assert');
+
 const eventbus = require('../../lib/bus');
 
 describe('webpack-serve Event Bus', () => {
@@ -10,8 +9,8 @@ describe('webpack-serve Event Bus', () => {
         foo: () => {
           assert(true);
           done();
-        }
-      }
+        },
+      },
     });
 
     bus.emit('foo');
@@ -28,8 +27,8 @@ describe('webpack-serve Event Bus', () => {
     const init = () => {
       eventbus({
         on: {
-          foo: 'bar'
-        }
+          foo: 'bar',
+        },
       });
     };
     assert.throws(init);

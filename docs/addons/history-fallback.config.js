@@ -1,17 +1,16 @@
-'use strict';
-
 const path = require('path');
+
 const history = require('connect-history-api-fallback');
 const convert = require('koa-connect');
 
 module.exports = {
   entry: {
-    index: [path.resolve(__dirname, 'app.js')]
+    index: [path.resolve(__dirname, 'app.js')],
   },
   mode: 'development',
   output: {
-    filename: 'output.js'
-  }
+    filename: 'output.js',
+  },
 };
 
 module.exports.serve = {
@@ -22,5 +21,5 @@ module.exports.serve = {
     };
 
     app.use(convert(history(historyOptions)));
-  }
+  },
 };

@@ -1,14 +1,12 @@
-'use strict';
-
 const path = require('path');
 
 function broadcast(port) {
   const bonjour = require('bonjour')(); // eslint-disable-line
   bonjour.publish({
-    name: 'Some Bitchin\' App',
+    name: `Some Bitchin' App`,
     port,
     type: 'http',
-    subtypes: ['webpack']
+    subtypes: ['webpack'],
   });
   process.on('exit', () => {
     bonjour.unpublishAll(() => {
@@ -19,12 +17,12 @@ function broadcast(port) {
 
 module.exports = {
   entry: {
-    index: [path.resolve(__dirname, 'app.js')]
+    index: [path.resolve(__dirname, 'app.js')],
   },
   mode: 'development',
   output: {
-    filename: 'output.js'
-  }
+    filename: 'output.js',
+  },
 };
 
 module.exports.serve = {
@@ -32,6 +30,6 @@ module.exports.serve = {
   on: {
     listen(server) {
       broadcast(server.address().port);
-    }
-  }
+    },
+  },
 };

@@ -1,12 +1,13 @@
-'use strict';
-
 const path = require('path');
+
 const assert = require('power-assert');
 const clip = require('clipboardy');
 const fetch = require('node-fetch');
 const mock = require('mock-require');
 const webpack = require('webpack'); // eslint-disable-line import/order
 const WebSocket = require('ws');
+
+const { parse } = require('../../lib/options');
 const util = require('../util');
 
 const nodeVersion = parseInt(process.version.substring(1), 10);
@@ -21,7 +22,18 @@ mock('opn', (...args) => {
 describe('webpack-serve Options', () => {
   before(pause);
   beforeEach(pause);
-  afterEach(() => { hook = null; });
+  afterEach(() => {
+    hook = null;
+  });
+
+  t('should parse json', () => {
+    assert(parse('{}'));
+  });
+
+  t('should handle failed parse', () => {
+    assert(parse('asd') === 'asd');
+    assert(parse([]) == null);
+  });
 
   t('should accept an add option', (done) => {
     const config = load('./fixtures/htm/webpack.config.js');
@@ -29,17 +41,16 @@ describe('webpack-serve Options', () => {
       middleware.webpack();
 
       middleware.content({
-        index: 'index.htm'
+        index: 'index.htm',
       });
     };
 
     serve({ config }).then((server) => {
       server.on('listening', () => {
-        fetch('http://localhost:8080')
-          .then((res) => {
-            assert(res.ok);
-            server.close(done);
-          });
+        fetch('http://localhost:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
       });
     });
   });
@@ -54,11 +65,10 @@ describe('webpack-serve Options', () => {
 
     serve(options).then((server) => {
       server.on('listening', () => {
-        fetch('http://localhost:8080')
-          .then((res) => {
-            assert(res.ok);
-            server.close(done);
-          });
+        fetch('http://localhost:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
       });
     });
   });
@@ -69,11 +79,10 @@ describe('webpack-serve Options', () => {
 
     serve({ config }).then((server) => {
       server.on('listening', () => {
-        fetch('http://localhost:8080')
-          .then((res) => {
-            assert(res.ok);
-            server.close(done);
-          });
+        fetch('http://localhost:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
       });
     });
   });
@@ -97,18 +106,17 @@ describe('webpack-serve Options', () => {
       dev: {
         headers: { 'X-Foo': 'Kachow' },
         logLevel: 'silent',
-        publicPath: '/'
-      }
+        publicPath: '/',
+      },
     };
 
     serve({ config }).then((server) => {
       server.on('listening', () => {
-        fetch('http://localhost:8080/output.js')
-          .then((res) => {
-            assert(res.ok);
-            assert.equal(res.headers.get('x-foo'), 'Kachow');
-            server.close(done);
-          });
+        fetch('http://localhost:8080/output.js').then((res) => {
+          assert(res.ok);
+          assert.equal(res.headers.get('x-foo'), 'Kachow');
+          server.close(done);
+        });
       });
     });
   });
@@ -116,7 +124,7 @@ describe('webpack-serve Options', () => {
   t('should accept a dev flag', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');
     const flags = {
-      dev: '{"publicPath":"/"}'
+      dev: '{"publicPath":"/"}',
     };
 
     serve({ config, flags }).then(({ close, on, options }) => {
@@ -127,17 +135,28 @@ describe('webpack-serve Options', () => {
     });
   });
 
+  t('should reject non-object dev', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    const flags = {
+      dev: 'true',
+    };
+
+    serve({ config, flags }).catch((err) => {
+      assert(err);
+      done();
+    });
+  });
+
   t('should accept a host option', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');
     config.serve.host = '0.0.0.0';
 
     serve({ config }).then((server) => {
       server.on('listening', () => {
-        fetch('http://0.0.0.0:8080')
-          .then((res) => {
-            assert(res.ok);
-            server.close(done);
-          });
+        fetch('http://0.0.0.0:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
       });
     });
   });
@@ -145,7 +164,7 @@ describe('webpack-serve Options', () => {
   t('should accept a hot flag', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');
     const flags = {
-      hot: '{"hot":false}'
+      hot: '{"hot":false}',
     };
 
     serve({ config, flags }).then(({ close, on, options }) => {
@@ -153,6 +172,18 @@ describe('webpack-serve Options', () => {
         assert.deepEqual(options.hot.hot, false);
         close(done);
       });
+    });
+  });
+
+  t('should reject non-object hot', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    const flags = {
+      hot: 'true',
+    };
+
+    serve({ config, flags }).catch((err) => {
+      assert(err);
+      done();
     });
   });
 
@@ -173,8 +204,8 @@ describe('webpack-serve Options', () => {
     config.serve.hot = {
       host: {
         server: '10.1.1.1',
-        client: 'localhost'
-      }
+        client: 'localhost',
+      },
     };
 
     serve({ config }).catch((err) => {
@@ -190,11 +221,10 @@ describe('webpack-serve Options', () => {
 
     serve({ config }).then((server) => {
       server.on('listening', () => {
-        fetch('http://0.0.0.0:8080')
-          .then((res) => {
-            assert(res.ok);
-            server.close(done);
-          });
+        fetch('http://0.0.0.0:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
       });
     });
   });
@@ -205,17 +235,16 @@ describe('webpack-serve Options', () => {
     config.serve.hot = {
       host: {
         server: '0.0.0.0',
-        client: 'localhost'
-      }
+        client: 'localhost',
+      },
     };
 
     serve({ config }).then((server) => {
       server.on('listening', () => {
-        fetch('http://0.0.0.0:8080')
-          .then((res) => {
-            assert(res.ok);
-            server.close(done);
-          });
+        fetch('http://0.0.0.0:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
       });
     });
   });
@@ -230,11 +259,22 @@ describe('webpack-serve Options', () => {
         done();
       });
     });
+  } else {
+    // https://nodejs.org/api/http2.html#http2_client_side_example
+    t('should accept a http2 option', (done) => {
+      const config = load('./fixtures/basic/webpack.config.js');
+      config.serve.http2 = true;
+
+      serve({ config }).then((server) => {
+        server.on('listening', () => {
+          // options.hot should be mutated from the default setting as an object
+          assert(server.options.http2);
+          setTimeout(() => server.close(done), 1000);
+        });
+      });
+    });
   }
 
-  // need to get devcert documentation going and then write tests
-  // for the http2 test: https://nodejs.org/api/http2.html#http2_client_side_example
-  t('should accept a http2 option');
   t('should accept a https option');
 
   // logLevel and logTime option tests can be found in ./log.js
@@ -275,7 +315,7 @@ describe('webpack-serve Options', () => {
     const config = load('./fixtures/basic/webpack.config.js');
     const flags = {
       openApp: '["Firefox","--some-arg"]',
-      openPath: '/some-path'
+      openPath: '/some-path',
     };
 
     serve({ config, flags }).then(({ close }) => {
@@ -293,11 +333,10 @@ describe('webpack-serve Options', () => {
 
     serve({ config }).then((server) => {
       server.on('listening', () => {
-        fetch('http://localhost:1337')
-          .then((res) => {
-            assert(res.ok);
-            server.close(done);
-          });
+        fetch('http://localhost:1337').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
       });
     });
   });
@@ -308,11 +347,10 @@ describe('webpack-serve Options', () => {
 
     serve({ config }).then((server) => {
       server.on('listening', () => {
-        fetch('http://localhost:8080')
-          .then((res) => {
-            assert(res.ok);
-            server.close(done);
-          });
+        fetch('http://localhost:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
       });
     });
   });
@@ -330,24 +368,30 @@ describe('webpack-serve Options', () => {
     });
   });
 
-  t('should accept a hot option of `false` and disable webpack-hot-client', (done) => {
-    const config = load('./fixtures/basic/webpack.config.js');
-    config.serve.hot = false;
+  t(
+    'should accept a hot option of `false` and disable webpack-hot-client',
+    (done) => {
+      const config = load('./fixtures/basic/webpack.config.js');
+      config.serve.hot = false;
 
-    serve({ config }).then((server) => {
-      const socket = new WebSocket('ws://localhost:8081');
+      serve({ config }).then((server) => {
+        const socket = new WebSocket('ws://localhost:8081');
 
-      socket.on('error', (error) => {
-        // this asserts that the WebSocketServer is not running, a sure sign
-        // that webpack-hot-client has been disabled.
-        assert(/ECONNREFUSED/.test(error.message));
-        setTimeout(() => server.close(done), 1000);
+        socket.on('error', (error) => {
+          // this asserts that the WebSocketServer is not running, a sure sign
+          // that webpack-hot-client has been disabled.
+          assert(/ECONNREFUSED/.test(error.message));
+          setTimeout(() => server.close(done), 1000);
+        });
       });
-    });
-  });
+    }
+  );
 
   t('should merge child options', (done) => {
-    const config = load('./fixtures/basic/webpack.options-merge.config.js', false);
+    const config = load(
+      './fixtures/basic/webpack.options-merge.config.js',
+      false
+    );
     serve({ config }).then((server) => {
       assert(server.options);
       assert(server.options.dev.logLevel === 'error');

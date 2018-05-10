@@ -1,6 +1,5 @@
-'use strict';
-
 const path = require('path');
+
 const webpack = require('webpack');
 
 module.exports = {
@@ -9,10 +8,8 @@ module.exports = {
   entry: ['./app.js'],
   output: {
     filename: './output.js',
-    path: path.resolve(__dirname)
+    path: path.resolve(__dirname),
   },
-  plugins: [
-    new webpack.NamedModulesPlugin()
-  ],
-  serve: {}
+  plugins: [new webpack.NamedModulesPlugin()],
+  serve: {},
 };

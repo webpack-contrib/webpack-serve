@@ -1,26 +1,24 @@
-'use strict';
-
 const path = require('path');
+
 const chokidar = require('chokidar');
 const stringify = require('json-stringify-safe');
 const { WebSocket } = require('ws');
 
-
 module.exports = {
   entry: {
-    index: [path.resolve(__dirname, 'app.js')]
+    index: [path.resolve(__dirname, 'app.js')],
   },
   mode: 'development',
   output: {
-    filename: 'output.js'
-  }
+    filename: 'output.js',
+  },
 };
 
 module.exports.serve = {
   content: [__dirname],
   hot: {
     host: 'localhost',
-    port: 8090
+    port: 8090,
   },
   on: {
     listening(server) {
@@ -34,8 +32,8 @@ module.exports.serve = {
           type: 'broadcast',
           data: {
             type: 'window-reload',
-            data: {}
-          }
+            data: {},
+          },
         };
 
         socket.send(stringify(data));
@@ -44,6 +42,6 @@ module.exports.serve = {
       server.on('close', () => {
         watcher.close();
       });
-    }
-  }
+    },
+  },
 };

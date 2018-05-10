@@ -1,20 +1,25 @@
-'use strict';
-
 const path = require('path');
+
 const assert = require('power-assert');
 const execa = require('execa');
 const fetch = require('node-fetch');
 const strip = require('strip-ansi');
 const WebSocket = require('ws');
+
 const { pause, t, timeout } = require('../util');
 
 const cliPath = path.resolve(__dirname, '../../cli.js');
-const configPath = path.resolve(__dirname, '../fixtures/basic/webpack.config.js');
+const configPath = path.resolve(
+  __dirname,
+  '../fixtures/basic/webpack.config.js'
+);
 
-function pipe(proc) { // eslint-disable-line no-unused-vars
-  const stream = proc.stdout;
-  stream.pipe(process.stdout);
-}
+// NOTE: keep this around in case we need to examine the output from a command
+// function pipe(proc) {
+//   // eslint-disable-line no-unused-vars
+//   const stream = proc.stdout;
+//   stream.pipe(process.stdout);
+// }
 
 function x(fn, ...args) {
   const proc = execa(...args);
@@ -26,6 +31,8 @@ function x(fn, ...args) {
       fn(proc);
     }
   });
+
+  // pipe(proc);
 
   return proc;
 }
@@ -44,72 +51,93 @@ describe('webpack-serve CLI', () => {
   });
 
   t('should run webpack-serve [config]', (done) => {
-    x((proc) => {
-      fetch('http://localhost:8080')
-        .then((res) => {
+    x(
+      (proc) => {
+        fetch('http://localhost:8080').then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, cliPath, [configPath]);
+      },
+      cliPath,
+      [configPath]
+    );
   });
 
   t('should run webpack-serve --config', (done) => {
-    x((proc) => {
-      fetch('http://localhost:8080')
-        .then((res) => {
+    x(
+      (proc) => {
+        fetch('http://localhost:8080').then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, cliPath, ['--config', configPath]);
+      },
+      cliPath,
+      ['--config', configPath]
+    );
   });
 
   t('should run webpack-serve and find the config', (done) => {
-    x((proc) => {
-      fetch('http://localhost:8080')
-        .then((res) => {
+    x(
+      (proc) => {
+        fetch('http://localhost:8080').then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, cliPath, { cwd: path.resolve(__dirname, '../fixtures/basic') });
+      },
+      cliPath,
+      { cwd: path.resolve(__dirname, '../fixtures/basic') }
+    );
   });
 
   t('should run webpack-serve with webpack v4 defaults', (done) => {
-    x((proc) => {
-      fetch('http://localhost:8080')
-        .then((res) => {
+    x(
+      (proc) => {
+        fetch('http://localhost:8080').then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, cliPath, { cwd: path.resolve(__dirname, '../fixtures/webpack-4-defaults') });
+      },
+      cliPath,
+      { cwd: path.resolve(__dirname, '../fixtures/webpack-4-defaults') }
+    );
   });
 
   t('should use the --content flag', (done) => {
-    const confPath = path.resolve(__dirname, '../fixtures/content/webpack.config.js');
+    const confPath = path.resolve(
+      __dirname,
+      '../fixtures/content/webpack.config.js'
+    );
     const contentPath = path.join(__dirname, '../fixtures/content');
 
-    x((proc) => {
-      fetch('http://localhost:8080')
-        .then((res) => {
+    x(
+      (proc) => {
+        fetch('http://localhost:8080').then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, cliPath, ['--config', confPath, '--content', contentPath]);
+      },
+      cliPath,
+      ['--config', confPath, '--content', contentPath]
+    );
   });
 
   t('should use the --host flag', (done) => {
-    x((proc) => {
-      fetch('http://0.0.0.0:8080')
-        .then((res) => {
+    x(
+      (proc) => {
+        fetch('http://0.0.0.0:8080').then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, cliPath, ['--config', configPath, '--host', '0.0.0.0']);
+      },
+      cliPath,
+      ['--config', configPath, '--host', '0.0.0.0']
+    );
   });
 
   // need to get devcert documentation going and then write tests
@@ -121,7 +149,12 @@ describe('webpack-serve CLI', () => {
   t('should use the --https-pfx flag');
 
   t('should use the --log-level flag', (done) => {
-    const proc = execa(cliPath, ['--config', configPath, '--log-level', 'silent']);
+    const proc = execa(cliPath, [
+      '--config',
+      configPath,
+      '--log-level',
+      'silent',
+    ]);
 
     proc.then((result) => {
       assert.equal(result.stdout, '');
@@ -138,9 +171,10 @@ describe('webpack-serve CLI', () => {
     const proc = execa(cliPath, ['--config', configPath, '--log-time']);
 
     proc.then((result) => {
-      const lines = result.stdout.split('\n')
-        .map(l => strip(l))
-        .filter(l => l.indexOf('ℹ ｢') > 0);
+      const lines = result.stdout
+        .split('\n')
+        .map((l) => strip(l))
+        .filter((l) => l.indexOf('ℹ ｢') > 0);
 
       assert(lines.length > 0);
 
@@ -160,18 +194,24 @@ describe('webpack-serve CLI', () => {
   });
 
   t('should use the --port flag', (done) => {
-    x((proc) => {
-      fetch('http://localhost:1337')
-        .then((res) => {
+    x(
+      (proc) => {
+        fetch('http://localhost:1337').then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, cliPath, ['--config', configPath, '--port', 1337]);
+      },
+      cliPath,
+      ['--config', configPath, '--port', 1337]
+    );
   });
 
   t('should exit on thrown Error', (done) => {
-    const confPath = path.resolve(__dirname, '../fixtures/basic/webpack.config-error.config.js');
+    const confPath = path.resolve(
+      __dirname,
+      '../fixtures/basic/webpack.config-error.config.js'
+    );
     const proc = x(() => {}, cliPath, ['--config', confPath]);
 
     proc.catch(() => {
@@ -181,30 +221,41 @@ describe('webpack-serve CLI', () => {
   });
 
   t('should use the --no-hot-client flag', (done) => {
-    x((proc) => {
-      const socket = new WebSocket('ws://localhost:8081');
+    x(
+      (proc) => {
+        const socket = new WebSocket('ws://localhost:8081');
 
-      socket.on('error', (error) => {
-        // this asserts that the WebSocketServer is not running, a sure sign
-        // that webpack-hot-client has been disabled.
-        assert(/ECONNREFUSED/.test(error.message));
-        proc.kill('SIGINT');
-        done();
-      });
-    }, cliPath, ['--config', configPath, '--no-hot-client']);
+        socket.on('error', (error) => {
+          // this asserts that the WebSocketServer is not running, a sure sign
+          // that webpack-hot-client has been disabled.
+          assert(/ECONNREFUSED/.test(error.message));
+          proc.kill('SIGINT');
+          done();
+        });
+      },
+      cliPath,
+      ['--config', configPath, '--no-hot-client']
+    );
   });
 
   t('should use the --require flag', (done) => {
-    const confPath = path.resolve(__dirname, '../fixtures/basic/webpack.env.config.js');
+    const confPath = path.resolve(
+      __dirname,
+      '../fixtures/basic/webpack.env.config.js'
+    );
     const requireCwd = path.dirname(confPath);
     const requirePath = './preload-env.js';
-    x((proc) => {
-      fetch('http://localhost:8080')
-        .then((res) => {
+    x(
+      (proc) => {
+        fetch('http://localhost:8080').then((res) => {
           assert(res.ok);
           proc.kill('SIGINT');
           done();
         });
-    }, cliPath, ['--config', configPath, '--require', requirePath], { cwd: requireCwd });
+      },
+      cliPath,
+      ['--config', configPath, '--require', requirePath],
+      { cwd: requireCwd }
+    );
   });
 });

@@ -1,16 +1,15 @@
-'use strict';
-
 const assert = require('power-assert');
 const sinon = require('sinon');
 const strip = require('strip-ansi');
 const weblog = require('webpack-log');
+
 const { load, pause, serve, t, timeout } = require('../util');
 
 const log = console;
 const og = {
   info: log.info,
   warn: log.warn,
-  error: log.error
+  error: log.error,
 };
 
 function spy() {
@@ -37,7 +36,8 @@ function restore(sandbox) {
 
 describe('webpack-serve Logging', () => {
   before(pause);
-  beforeEach(function be(done) { // eslint-disable-line prefer-arrow-callback
+  beforeEach(function be(done) {
+    // eslint-disable-line prefer-arrow-callback
     weblog.delLogger('webpack-serve');
     pause.call(this, done);
   });
@@ -49,7 +49,8 @@ describe('webpack-serve Logging', () => {
     const config = load('./fixtures/basic/webpack.config.js', false);
 
     serve({ config }).then((server) => {
-      server.compiler.plugin('done', () => {
+      server.compiler.hooks.done.tap('WebpackServeTest', () => {
+        // server.compiler.plugin('done', () => {
         assert(log.info.callCount > 0);
         restore(sandbox);
         server.close(done);

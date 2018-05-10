@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-'use strict';
-
 if (!module.parent) {
   // eslint-disable-next-line global-require
   const { register } = require('./lib/global');
@@ -14,7 +12,6 @@ const cosmiconfig = require('cosmiconfig');
 const debug = require('debug')('webpack-serve');
 const meow = require('meow');
 const merge = require('lodash/merge');
-const resolveModule = require('resolve').sync;
 const importLocal = require('import-local'); // eslint-disable-line import/order
 
 // Prefer the local installation of webpack-serve
@@ -25,7 +22,8 @@ if (importLocal(__filename)) {
 
 const serve = require('./');
 
-const cli = meow(chalk`
+const cli = meow(
+  chalk`
 {underline Usage}
   $ webpack-serve <config> [...options]
 
@@ -59,61 +57,28 @@ const cli = meow(chalk`
   $ webpack-serve ./webpack.config.js --no-reload
   $ webpack-serve --config ./webpack.config.js --port 1337
   $ webpack-serve # config can be omitted for webpack v4+ only
-`, {
-  flags: {
-    require: {
-      alias: 'r',
-      type: 'string'
-    }
+`,
+  {
+    flags: {
+      require: {
+        alias: 'r',
+        type: 'string',
+      },
+    },
   }
-});
+);
 
 const flags = Object.assign({}, cli.flags);
-
-if (flags.require) {
-  if (typeof flags.require === 'string') {
-    flags.require = [flags.require];
-  }
-  const cwd = process.cwd();
-  for (const module of flags.require) {
-    if (module) {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      require(resolveModule(module, { basedir: cwd }));
-    }
-  }
-}
-
-const cosmicOptions = {
-  rcExtensions: true,
-  sync: true
-};
-const explorer = cosmiconfig('serve', cosmicOptions);
-const { config } = explorer.load() || {};
+const explorer = cosmiconfig('serve', {});
+const { config } = explorer.searchSync() || {};
 const options = merge({ flags }, config);
 
 if (cli.input.length) {
-  [flags.config] = cli.input;
-} else if (!flags.config) {
-  const webpackExplorer = cosmiconfig('webpack', cosmicOptions);
-  const webpackConfig = webpackExplorer.load();
-
-  if (webpackConfig) {
-    options.config = webpackConfig.config;
-    flags.config = webpackConfig.filepath;
-  }
+  [options.config] = cli.input;
+} else if (flags.config) {
+  options.config = flags.config;
 }
 
-if (flags.help) {
-  cli.showHelp(0);
-}
-
-if (!flags.config) {
-  // webpack v4 defaults an empty config to { entry: './src' }. but since we
-  // need an array, we'll mimic that default config.
-  options.config = { entry: ['./src'] };
-}
-
-serve(options)
-  .catch(() => {
-    process.exit(1);
-  });
+serve(options).catch(() => {
+  process.exit(1);
+});

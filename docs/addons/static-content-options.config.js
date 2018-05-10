@@ -1,15 +1,13 @@
-'use strict';
-
 const path = require('path');
 
 module.exports = {
   entry: {
-    index: [path.resolve(__dirname, 'app.js')]
+    index: [path.resolve(__dirname, 'app.js')],
   },
   mode: 'development',
   output: {
-    filename: 'output.js'
-  }
+    filename: 'output.js',
+  },
 };
 
 module.exports.serve = {
@@ -22,8 +20,8 @@ module.exports.serve = {
 
     // pass desired options here. eg.
     middleware.content({
-      index: 'index.aspx'
+      index: 'index.aspx',
       // see: https://github.com/koajs/static#options
     });
-  }
+  },
 };

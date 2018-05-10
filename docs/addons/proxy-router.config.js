@@ -1,6 +1,5 @@
-'use strict';
-
 const path = require('path');
+
 const proxy = require('http-proxy-middleware');
 const convert = require('koa-connect');
 const Router = require('koa-router');
@@ -9,7 +8,7 @@ const router = new Router();
 
 const proxyOptions = {
   target: 'http://api.github.com',
-  changeOrigin: true
+  changeOrigin: true,
   // ... see: https://github.com/chimurai/http-proxy-middleware#options
 };
 
@@ -17,12 +16,12 @@ router.get('*', convert(proxy(proxyOptions)));
 
 module.exports = {
   entry: {
-    index: [path.resolve(__dirname, 'app.js')]
+    index: [path.resolve(__dirname, 'app.js')],
   },
   mode: 'development',
   output: {
-    filename: 'output.js'
-  }
+    filename: 'output.js',
+  },
 };
 
 module.exports.serve = {
@@ -35,5 +34,5 @@ module.exports.serve = {
 
     // router *must* be the last middleware added
     app.use(router.routes());
-  }
+  },
 };
