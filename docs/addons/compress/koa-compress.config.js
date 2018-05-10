@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const compress = require('koa-compressor');
+const compress = require('koa-compress');
 
 module.exports = {
   entry: {
