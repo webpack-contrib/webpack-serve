@@ -2,7 +2,7 @@ const path = require('path');
 
 const chokidar = require('chokidar');
 const stringify = require('json-stringify-safe');
-const { WebSocket } = require('ws');
+const WebSocket = require('ws');
 
 module.exports = {
   entry: {
