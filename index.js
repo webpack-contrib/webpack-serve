@@ -31,27 +31,25 @@ module.exports = (opts) => {
         }
       }
 
-      const done = (stats) => {
-        const json = stats.toJson();
-        if (stats.hasErrors()) {
-          bus.emit('compiler-error', json);
-        }
-
-        if (stats.hasWarnings()) {
-          bus.emit('compiler-warning', json);
-        }
-
-        bus.emit('build-finished', stats);
-      };
-
       const compilers = options.compiler.compilers || [options.compiler];
       for (const comp of compilers) {
         comp.hooks.compile.tap('WebpackServe', () => {
-          bus.emit('build-started', comp);
+          bus.emit('build-started', { compiler: comp });
+        });
+
+        comp.hooks.done.tap('WebpackServe', (stats) => {
+          const json = stats.toJson();
+          if (stats.hasErrors()) {
+            bus.emit('compiler-error', { json, compiler: comp });
+          }
+
+          if (stats.hasWarnings()) {
+            bus.emit('compiler-warning', { json, compiler: comp });
+          }
+
+          bus.emit('build-finished', { stats, compiler: comp });
         });
       }
-
-      options.compiler.hooks.done.tap('WebpackServe', done);
 
       const { close, server, start } = getServer(options);
 

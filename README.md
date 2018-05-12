@@ -340,19 +340,40 @@ serve({ config }).then((server) => {
 
 #### build-started
 
-Arguments: [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
+Arguments:  
+  [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
 
 Emitted when a compiler has started a build.
 
 #### build-finished
 
-Arguments: [`Stats`](https://webpack.js.org/api/node/#stats-object) _stats_
+Arguments:  
+  [`Stats`](https://webpack.js.org/api/node/#stats-object) _stats_  
+  [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
 
 Emitted when a compiler has finished a build.
 
+#### compile-error
+
+Arguments:  
+  [`Stats`](https://webpack.js.org/api/node/#stats-tojson-options-) _json_
+  [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
+
+Emitted when a compiler has encountered and error, or a build has errors.
+
+#### compile-warning
+
+Arguments:  
+  [`Stats`](https://webpack.js.org/api/node/#stats-tojson-options-) _json_
+  [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
+
+Emitted when a compiler has encountered a warning, or a build has warnings.
+
 #### listening
 
-Arguments: _None_
+Arguments:  
+  `Koa` _server_  
+  `Object` _options_
 
 Emitted when the server begins listening for connections.
 
