@@ -1,6 +1,6 @@
 {
   "name": "webpack-serve",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "A lean, modern, and flexible webpack development server",
   "license": "MIT",
   "repository": "webpack-contrib/webpack-serve",
