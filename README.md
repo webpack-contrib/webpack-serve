@@ -33,8 +33,6 @@ To begin, you'll need to install `webpack-serve`:
 $ npm install webpack-serve --save-dev
 ```
 
-_Note: This module is still green and should be considered unstable._
-
 ## CLI
 
 ```console
@@ -325,14 +323,18 @@ The port the server should listen on.
 
 ## Events
 
-The server created by `webpack-serve` emits select events which can be subscribed to. For example;
+The server created by `webpack-serve` emits select events which can be
+subscribed to. All events are emitted with a single `Object` parameter,
+containing named properties for relevant data.
+
+For example:
 
 ```js
 const serve = require('webpack-serve');
 const config = require('./webpack.config.js');
 
 serve({ config }).then((server) => {
-  server.on('listening', () => {
+  server.on('listening', ({ server, options }) => {
     console.log('happy fun time');
   });
 });
