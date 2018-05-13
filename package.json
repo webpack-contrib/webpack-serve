@@ -43,7 +43,7 @@
     "koa-webpack": "^3.0.1",
     "lodash": "^4.17.5",
     "loud-rejection": "^1.6.0",
-    "meow": "^4.0.0",
+    "meow": "^5.0.0",
     "nanobus": "^4.3.1",
     "opn": "^5.1.0",
     "resolve": "^1.6.0",
@@ -51,7 +51,7 @@
     "update-notifier": "^2.3.0",
     "url-join": "3.0.0",
     "v8-compile-cache": "^2.0.0",
-    "webpack-hot-client": "^2.2.0",
+    "webpack-hot-client": "^3.0.0",
     "webpack-log": "^1.1.2"
   },
   "devDependencies": {
