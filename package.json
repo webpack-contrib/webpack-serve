@@ -40,7 +40,7 @@
     "import-local": "^1.0.0",
     "killable": "^1.0.0",
     "koa": "^2.4.1",
-    "koa-webpack": "^3.0.1",
+    "koa-webpack": "^4.0.0",
     "lodash": "^4.17.5",
     "loud-rejection": "^1.6.0",
     "meow": "^5.0.0",
