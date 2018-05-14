@@ -122,14 +122,14 @@ can be useful for setups with multiple configs that share common options for
 `webpack-serve` supports the `serve` property in your webpack config file, which
 may contain any of the supported [options](#options).
 
-## Webpack `function()` Configs
+### Setting the Config `mode`
 
-Due to some special preprocessing that is part of `webpack-cli`, and not `webpack`
-proper, `webpack-serve` cannot fully support configs that export a function without
-creating a bit of a mess. We're working on a solution for this, but for the
-moment we don't recommend using `webpack-serve` with configs that export a
-`function()`. If you must use this type of config, we recommend stubbing the
-values you'll need for a development environment.
+Should you find that the `mode` property of your webpack config file needs to be
+set dynamically the following pattern can be used:
+
+```json
+  mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
+```
 
 ## API
 
