@@ -14,6 +14,8 @@ const configPath = path.resolve(
   '../fixtures/basic/webpack.config.js'
 );
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 // NOTE: keep this around in case we need to examine the output from a command
 // function pipe(proc) {
 //   // eslint-disable-line no-unused-vars
@@ -142,11 +144,45 @@ describe('webpack-serve CLI', () => {
 
   // need to get devcert documentation going and then write tests
   // for the http2 test: https://nodejs.org/api/http2.html#http2_client_side_example
-  t('should use the --http2 flag');
-  t('should use the --https-cert flag');
-  t('should use the --https-key flag');
-  t('should use the --https-pass flag');
-  t('should use the --https-pfx flag');
+  // t('should use the --http2 flag');
+
+  t('should use the --https-cert / --https-key flag', (done) => {
+    const certPath = './test/fixtures/test_cert.pem';
+    const keyPath = './test/fixtures/test_key.pem';
+    x(
+      (proc) => {
+        fetch('https://localhost:8080').then((res) => {
+          assert(res.ok);
+          proc.kill('SIGINT');
+          done();
+        });
+      },
+      cliPath,
+      ['--config', configPath, '--https-cert', certPath, '--https-key', keyPath]
+    );
+  });
+
+  t('should use the --https-pfx / --https-pass flag', (done) => {
+    const certPath = './test/fixtures/test_cert.pfx';
+    x(
+      (proc) => {
+        fetch('https://localhost:8080').then((res) => {
+          assert(res.ok);
+          proc.kill('SIGINT');
+          done();
+        });
+      },
+      cliPath,
+      [
+        '--config',
+        configPath,
+        '--https-pfx',
+        certPath,
+        '--https-pass',
+        'sample',
+      ]
+    );
+  });
 
   t('should use the --log-level flag', (done) => {
     const proc = execa(cliPath, [

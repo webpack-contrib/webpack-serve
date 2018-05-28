@@ -275,7 +275,39 @@ describe('webpack-serve Options', () => {
     });
   }
 
-  t('should accept a https option');
+  t('should accept an https cert/key', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.https = {
+      cert: path.join(__dirname, '../fixtures/test_cert.pem'),
+      key: path.join(__dirname, '../fixtures/test_key.pem'),
+    };
+
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
+        fetch('https://localhost:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
+      });
+    });
+  });
+
+  t('should accept an https pfx/passphrase', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.https = {
+      passphrase: 'sample',
+      pfx: path.join(__dirname, '../fixtures/test_cert.pfx'),
+    };
+
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
+        fetch('https://localhost:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
+      });
+    });
+  });
 
   // logLevel and logTime option tests can be found in ./log.js
 
