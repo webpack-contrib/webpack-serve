@@ -253,7 +253,9 @@ contain properties matching:
 }
 ```
 
-See the [Node documentation][https-opts] for more information.
+See the [Node documentation][https-opts] for more information. For SSL
+Certificate generation, please read the
+[SSL Certificates for HTTPS](#ssl-certificates-for-https) section.
 
 ##### logLevel
 
@@ -378,6 +380,19 @@ Arguments:
   `Object` _options_
 
 Emitted when the server begins listening for connections.
+
+## SSL Certificates for HTTPS
+
+Unlike webpack-dev-server, `webpack-serve` does not ship with SSL Certificate
+generation, nor does it ship with a built-in certificate for use with HTTPS
+configurations. This is due largely in part to past security concerns and the
+complexity of use-cases in the webpack ecosystem.
+
+We do however, recommend a path for users to generate their own SSL Certificates
+safely and efficiently. That path resides in
+[`devcert-cli`](https://github.com/davewasmer/devcert-cli); an excellent project
+that automates the creation of trusted SSL certificates that will work
+wonderfully with `webpack-serve`.
 
 ## Add-on Features
 
