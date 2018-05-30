@@ -41,6 +41,7 @@ $ webpack-serve --help
   Options
     --config            The webpack config to serve. Alias for <config>.
     --content           The path from which content will be served
+                        Default: process.cwd()
     --dev               A JSON object containing options for webpack-dev-middleware
     --help              Show usage information and the options listed here.
     --host              The host the app should bind to
@@ -51,7 +52,7 @@ $ webpack-serve --help
     --https-pass        Specify a passphrase to enable https. Must be paired with a pfx file
     --https-pfx         Specify a pfx file to enable https. Must be paired with a passphrase
     --log-level         Limit all process console messages to a specific level and above
-                        {dim Levels: trace, debug, info, warn, error, silent}
+                        Levels: trace, debug, info, warn, error, silent
     --log-time          Instruct the logger for webpack-serve and dependencies to display a timestamp
     --no-clipboard      Instructs the server not to copy the server URI to the clipboard when starting
     --no-hot            Instruct the client not to apply Hot Module Replacement patches
@@ -184,7 +185,7 @@ instance.
 ##### content
 
 Type: `String|[String]`  
-Default: `[]`
+Default: `process.cwd()`
 
 The path, or array of paths, from which content will be served.
 
