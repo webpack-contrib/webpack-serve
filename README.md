@@ -358,7 +358,7 @@ Arguments:
 
 Emitted when a compiler has finished a build.
 
-#### compile-error
+#### compiler-error
 
 Arguments:  
   [`Stats`](https://webpack.js.org/api/node/#stats-tojson-options-) _json_
@@ -366,7 +366,7 @@ Arguments:
 
 Emitted when a compiler has encountered and error, or a build has errors.
 
-#### compile-warning
+#### compiler-warning
 
 Arguments:  
   [`Stats`](https://webpack.js.org/api/node/#stats-tojson-options-) _json_
