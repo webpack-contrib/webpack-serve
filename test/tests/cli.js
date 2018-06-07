@@ -14,8 +14,6 @@ const configPath = path.resolve(
   '../fixtures/basic/webpack.config.js'
 );
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 // NOTE: keep this around in case we need to examine the output from a command
 // function pipe(proc) {
 //   // eslint-disable-line no-unused-vars

@@ -1,3 +1,4 @@
+const { readFileSync: read } = require('fs');
 const path = require('path');
 
 const assert = require('power-assert');
@@ -292,11 +293,45 @@ describe('webpack-serve Options', () => {
     });
   });
 
+  t('should accept an https cert/key Buffer', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.https = {
+      cert: read(path.join(__dirname, '../fixtures/test_cert.pem')),
+      key: read(path.join(__dirname, '../fixtures/test_key.pem')),
+    };
+
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
+        fetch('https://localhost:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
+      });
+    });
+  });
+
   t('should accept an https pfx/passphrase', (done) => {
     const config = load('./fixtures/basic/webpack.config.js');
     config.serve.https = {
       passphrase: 'sample',
       pfx: path.join(__dirname, '../fixtures/test_cert.pfx'),
+    };
+
+    serve({ config }).then((server) => {
+      server.on('listening', () => {
+        fetch('https://localhost:8080').then((res) => {
+          assert(res.ok);
+          server.close(done);
+        });
+      });
+    });
+  });
+
+  t('should accept an https pfx/passphrase Buffer', (done) => {
+    const config = load('./fixtures/basic/webpack.config.js');
+    config.serve.https = {
+      passphrase: 'sample',
+      pfx: read(path.join(__dirname, '../fixtures/test_cert.pfx')),
     };
 
     serve({ config }).then((server) => {
