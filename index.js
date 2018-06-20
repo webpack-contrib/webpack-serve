@@ -38,13 +38,23 @@ module.exports = (opts) => {
         });
 
         comp.hooks.done.tap('WebpackServe', (stats) => {
-          const json = stats.toJson();
-          if (stats.hasErrors()) {
-            bus.emit('compiler-error', { json, compiler: comp });
-          }
+          const hasErrors = stats.hasErrors();
+          const hasWarnings = stats.hasWarnings();
+          // stats.toJson() has a high time-cost for large projects
+          // only run that if there are listeners AND there are
+          // problems with the build (#181)
+          if (
+            (bus.listeners('compiler-error').length && hasErrors) ||
+            (bus.listeners('compiler-warning').length && hasWarnings)
+          ) {
+            const json = stats.toJson();
+            if (hasErrors) {
+              bus.emit('compiler-error', { json, compiler: comp });
+            }
 
-          if (stats.hasWarnings()) {
-            bus.emit('compiler-warning', { json, compiler: comp });
+            if (hasWarnings) {
+              bus.emit('compiler-warning', { json, compiler: comp });
+            }
           }
 
           bus.emit('build-finished', { stats, compiler: comp });
