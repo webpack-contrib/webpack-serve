@@ -1,60 +1,16 @@
 <!--
-  Issues are so 🔥
-
-  If you remove or skip this template, you'll make the 🐼 sad and @ken_wheeler
-  will appear and pile-drive the close button from a great height while making
-  animal noises.
-
-  👉🏽 Need support, advice, or help? Don't open an issue.
+  👉🏽 Need support, advice, or help? Don't open an issue!
   Head to StackOverflow or https://gitter.im/webpack/webpack.
+
+  Hey there!
+
+  You arrived at this template because you felt none of the other options
+  matched the kind of issue you'd like to report. Please use this opportunity to
+  tell us about your particular type of issue so we can try to accomodate
+  similar issues in the future.
+
+  PLEASE do note, if you're using this to report an issue already covered by the
+  existing template types, your issue may be closed as invalid. Our issue
+  templates contain fields that help us help you, and without that important
+  info, we might as well be ice-skating uphill, carrying a wooly mammoth.
 -->
-
-* Operating System:
-* Node Version:
-* NPM Version:
-* webpack Version:
-* webpack-serve Version:
-
-<!-- Please place an x (no spaces!) in all [ ] that apply -->
-
-This issue is for a:
-
-- [ ] **bug**
-- [ ] **feature** request
-- [ ] **modification** request
-
-### Code
-
-##### CLI Command
-
-```console
-  $ webpack-serve ... # remove this block if using the API
-```
-
-##### webpack.config.js
-
-```js
-  // If your bitchin' code blocks are over 20 lines, please paste a link to a gist
-  // (https://gist.github.com).
-```
-
-```js
-  // additional code, HEY YO remove this block if you don't need it
-```
-
-### Expected Behavior
-
-### Actual Behavior
-
-### How Do We Reproduce?
-
-<!--
-  Remove this section if not reporting a bug.
-
-  If your webpack config is over 50 lines long, please provide a URL to a repo
-  for your beefy 🍖 app that we can use to reproduce.
--->
-
-### New Feature Use Case
-
-<!-- Remove this section if not requesting a feature -->
