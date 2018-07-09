@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const { join, resolve } = require('path');
 
 const execa = require('execa');
 const request = require('supertest');
@@ -11,8 +11,8 @@ const pipe = (proc) => {
   proc.stdout.pipe(process.stdout);
 };
 
-const run = (flags) => {
-  const args = [cliPath, flags];
+const run = (flags, execaOptions = {}) => {
+  const args = [cliPath, flags, execaOptions];
   const reReady = /(Compiled successfully)|(Compiled with warnings)/i;
   const proc = execa(...args);
 
@@ -97,5 +97,18 @@ describe('cli', () => {
       expect(message[0]).toMatchSnapshot();
       expect(proc.exitCode).toBe(1);
     });
+  });
+
+  test('serve.config.js', () => {
+    const config = './basic/webpack.config.js';
+    const cwd = join(__dirname, 'fixtures');
+    const proc = run([config], { cwd });
+
+    return proc.ready.then(() =>
+      request('http://0.0.0.0:8080')
+        .get('/output.js')
+        .expect(200)
+        .then(() => proc.kill('SIGINT'))
+    );
   });
 });
