@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@shellscape/koa-static": "^4.0.4",
-    "@webpack-contrib/cli-utils": "^1.0.1",
+    "@webpack-contrib/cli-utils": "^1.0.2",
     "@webpack-contrib/config-loader": "^1.1.1",
     "@webpack-contrib/schema-utils": "^1.0.0-beta.0",
     "chalk": "^2.3.0",
