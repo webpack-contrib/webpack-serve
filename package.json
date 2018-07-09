@@ -1,9 +1,6 @@
 {
   "name": "webpack-serve",
-  "version": "2.0.0-beta.6",
-  "publishConfig": {
-    "tag": "beta"
-  },
+  "version": "2.0.0",
   "description": "A lean, modern, and flexible webpack development server",
   "license": "MIT",
   "repository": "webpack-contrib/webpack-serve",
