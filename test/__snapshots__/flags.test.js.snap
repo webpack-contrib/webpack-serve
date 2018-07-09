@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`flags apply defaults 1`] = `Object {}`;
+
+exports[`flags apply devWare 1`] = `
+Object {
+  "devMiddleware": Object {
+    "publicPath": "/static",
+  },
+}
+`;
+
+exports[`flags apply hmr false 1`] = `
+Object {
+  "hotClient": Object {
+    "hmr": false,
+  },
+}
+`;
+
+exports[`flags apply hotClient 1`] = `
+Object {
+  "hotClient": Object {
+    "hmr": false,
+    "reload": false,
+  },
+}
+`;
+
+exports[`flags apply hotClient false 1`] = `
+Object {
+  "hotClient": Object {
+    "hmr": false,
+  },
+}
+`;
+
+exports[`flags apply https cert/key 1`] = `
+Object {
+  "https": Object {
+    "cert": "<PROJECT_ROOT>/test/fixtures/test-cert.pem",
+    "key": "<PROJECT_ROOT>/test/fixtures/test-key.pem",
+  },
+}
+`;
+
+exports[`flags apply https pass/pfx 1`] = `
+Object {
+  "https": Object {
+    "passphrase": "sample",
+    "pfx": "<PROJECT_ROOT>/test/fixtures/test-cert.pfx",
+  },
+}
+`;
+
+exports[`flags apply logLevel 1`] = `
+Object {
+  "devMiddleware": Object {
+    "logLevel": "silent",
+  },
+  "hotClient": Object {
+    "logLevel": "silent",
+  },
+  "logLevel": "silent",
+}
+`;
+
+exports[`flags apply logTime 1`] = `
+Object {
+  "devMiddleware": Object {
+    "logTime": true,
+  },
+  "hotClient": Object {
+    "logTime": true,
+  },
+  "logTime": true,
+}
+`;
+
+exports[`flags apply open 1`] = `
+Object {
+  "open": Object {
+    "app": "app",
+    "path": "path",
+  },
+}
+`;
+
+exports[`flags apply open boolean 1`] = `
+Object {
+  "open": Object {
+    "": true,
+    "path": "/",
+  },
+}
+`;
+
+exports[`flags apply port number 1`] = `
+Object {
+  "port": 8888,
+}
+`;
+
+exports[`flags apply port string 1`] = `
+Object {
+  "port": "8888",
+}
+`;
+
+exports[`flags apply reload false 1`] = `
+Object {
+  "hotClient": Object {
+    "reload": false,
+  },
+}
+`;
+
+exports[`flags compound devMiddleware value 1`] = `
+Object {
+  "devMiddleware": Object {
+    "batman": "robin",
+    "logTime": true,
+  },
+  "hotClient": Object {
+    "logTime": true,
+  },
+  "logTime": true,
+}
+`;
+
+exports[`flags compound hotClient value 1`] = `
+Object {
+  "devMiddleware": Object {
+    "logTime": true,
+  },
+  "hotClient": Object {
+    "hmr": false,
+    "logTime": true,
+  },
+  "logTime": true,
+}
+`;
+
+exports[`flags compound hotClient: false value 1`] = `
+Object {
+  "devMiddleware": Object {
+    "logTime": true,
+  },
+  "hotClient": Object {
+    "hmr": false,
+    "logTime": true,
+  },
+  "logTime": true,
+}
+`;
+
+exports[`flags compound logTime/logLevel 1`] = `
+Object {
+  "devMiddleware": Object {
+    "logLevel": "warn",
+    "logTime": true,
+  },
+  "hotClient": Object {
+    "logLevel": "warn",
+    "logTime": true,
+  },
+  "logLevel": "warn",
+  "logTime": true,
+}
+`;

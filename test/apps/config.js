@@ -4,7 +4,8 @@ const { register } = require('../../lib/global');
 
 register();
 
+const argv = {};
 const serve = require('../../');
 const config = require('../fixtures/basic/webpack.config.js');
 
-serve({ config }).catch(() => {});
+serve(argv, { config }).catch(() => {});

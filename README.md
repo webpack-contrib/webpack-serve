@@ -10,10 +10,15 @@
 [![tests][tests]][tests-url]
 [![coverage][cover]][cover-url]
 [![chat][chat]][chat-url]
+[![size][size]][size-url]
 
 # webpack-serve
 
 A lean, modern, and flexible webpack development server
+
+## Requirements
+
+This module requires a minimum of Node.js v6.9.0 and Webpack v4.0.0.
 
 ## Browser Support
 
@@ -38,37 +43,45 @@ $ npm install webpack-serve --save-dev
 ```console
 $ webpack-serve --help
 
-  Options
-    --config            The webpack config to serve. Alias for <config>.
-    --content           The path from which content will be served
-                        Default: process.cwd()
-    --dev               A JSON object containing options for webpack-dev-middleware
-    --help              Show usage information and the options listed here.
-    --host              The host the app should bind to
-    --hot               A JSON object containing options for webpack-hot-client
-    --http2             Instruct the server to use HTTP2
-    --https-cert        Specify a cert to enable https. Must be paired with a key
-    --https-key         Specify a key to enable https. Must be paired with a cert
-    --https-pass        Specify a passphrase to enable https. Must be paired with a pfx file
-    --https-pfx         Specify a pfx file to enable https. Must be paired with a passphrase
-    --log-level         Limit all process console messages to a specific level and above
-                        Levels: trace, debug, info, warn, error, silent
-    --log-time          Instruct the logger for webpack-serve and dependencies to display a timestamp
-    --no-clipboard      Instructs the server not to copy the server URI to the clipboard when starting
-    --no-hot            Instruct the client not to apply Hot Module Replacement patches
-    --no-reload         Instruct middleware {italic not} to reload the page for build errors
-    --open              Instruct the app to open in the default browser
-    --open-app          The name of the app to open the app within, or an array
-                        containing the app name and arguments for the app
-    --open-path         The path with the app a browser should open to
-    --port              The port the app should listen on
-    --require, -r       Preload one or more modules before loading the webpack configuration
-    --version           Display the webpack-serve version
+A lean, modern, and flexible webpack development server
 
-  Examples
-    $ webpack-serve ./webpack.config.js --no-reload
-    $ webpack-serve --config ./webpack.config.js --port 1337
-    $ webpack-serve --port 1337  # config can be omitted for webpack v4+ only
+Usage
+  $ webpack-serve <config> [...options]
+
+Options
+  --clipboard      Specify whether or not the server should copy the server URI to the clipboard (default: true)
+  --config         The webpack config to serve. Alias for <config>
+  --content        The path from which static content will be served (default: process.cwd)
+  --dev-ware       Set options for webpack-dev-middleware. e.g. --dev.publicPath /
+  --help           Show usage information and the options listed here.
+  --host           The host the app should bind to
+  --hot-client     Set options for webpack-hot-client. e.g. --hot-client.host localhost
+                   Use --no-hot-client to disable webpack-hot-client
+  --http2          Instruct the server to use HTTP2
+  --https-cert     Specify a filesystem path of an SSL certificate. Must be paired with a key
+  --https-key      Specify a filesystem path of an SSL key. Must be paired with a cert
+  --https-pass     Specify a passphrase to enable https. Must be paired with a pfx file
+  --https-pfx      Specify a filesystem path of an SSL pfx file. Must be paired with a passphrase
+  --log-level      Limit all process console messages to a specific level and above
+                   Levels: trace, debug, info, warn, error, silent
+  --log-time       Instruct the logger for webpack-serve and dependencies to display a timestamp
+  --hmr            Specify whether or not the client should apply Hot Module Replacement patches (default: true)
+  --reload         Specify whether or not the middleware should reload the page for build errors (default: true)
+  --open           Instruct the app to open in the default browser
+  --open-app       The name of the app to open the app within, or an array
+                   containing the app name and arguments for the app
+  --open-path      The path with the app a browser should open to
+  --port           The port the app should listen on. Default: 8080
+  --require, -r    Preload one or more modules before loading the webpack configuration
+  --version        Display the webpack-command version
+
+Note: Any boolean flag can be prefixed with 'no-' instead of specifying a value.
+e.g. --no-reload rather than --reload=false
+
+Examples
+  $ webpack-serve ./webpack.config.js --no-reload
+  $ webpack-serve --config ./webpack.config.js --port 1337
+  $ webpack-serve # config can be omitted for webpack v4+ only
 ```
 
 _Note: The CLI will use your local install of webpack-serve when available,
@@ -92,21 +105,16 @@ like to be verbose, so why not.
   $ webpack-serve
 ```
 
-And for the folks using webpack v4 or higher, you can instruct `webpack-serve` to
-kick off a webpack build without specifying a config. Keep in mind that this will
-apply the default config within webpack, and your project must conform to that
-for a successful build to happen.
-
-When running `$ webpack-serve` without arguments in webpack v3 and lower, the CLI
-will display help and usage information. In order to accommodate the zero-config
-changes in webpack v4, users of webpack v4 will need to use the `--help` flag to
-display the same information.
+You may also instruct `webpack-serve` to kick off a webpack build without
+specifying a config. This will apply the zero-config defaults within webpack,
+and your project must conform to that for a successful build to happen.
 
 ## `webpack-serve` Config
 
 You can store and define configuration / options for `webpack-serve` in a number
-of different ways. This module leverages [cosmiconfig](https://github.com/davidtheclark/cosmiconfig),
-which allows you to define `webpack-serve` options in the following ways:
+of different ways. This module leverages
+[cosmiconfig](https://github.com/davidtheclark/cosmiconfig), which allows you to
+define `webpack-serve` options in the following ways:
 
 - in your package.json file in a `serve` property
 - in a `.serverc` or `.serverc.json` file, in either JSON or YML.
@@ -139,30 +147,59 @@ is the default export of the module.
 
 ```js
 const serve = require('webpack-serve');
+const argv = {};
 const config = require('./webpack.config.js');
 
-serve({ config });
+serve(argv, { config }).then((result) => {
+  // ...
+});
 ```
 
-### serve([options])
+## `serve(argv, options)`
 
-Returns [a `Promise` which resolves] an `Object` containing:
+Returns: `Promise`  
+Resolves: `<Object> result`
 
-- `close()` *(Function)* - Closes the server and its dependencies.
-- `on(eventName, fn)` *(Function)* - Binds a serve event to a function. See
-[Events](#events).
+### `result.app`
 
-#### options
+Type: `Koa`
+
+An instance of a `Koa` application, extended with a `server` property, and
+`stop` method, which is used to programatically stop the server.
+
+### `result.on`
+
+Type: `Function`
+
+A function which binds a serve event-name to a function. See [Events](#events).
+
+### `result.options`
 
 Type: `Object`
 
-Options for initializing and controlling the server provided.
+Access to a frozen copy of the internal `options` object used by the module.
 
-##### add
+### `argv`
+
+Type: `Object`  
+_Required_
+
+An object containing the parsed result from either
+[`minimist`](https://github.com/substack/minimist) or
+[`yargs-parser`](https://github.com/yargs/yargs-parser).
+
+### `options`
+
+Type: `Object`  
+_Required_
+
+An object specifying options used to configure the server.
+
+### `options.add`
 
 Please see [Add-On Features](#add-on-features).
 
-##### compiler
+### `options.compiler`
 
 Type: `webpack`  
 Default: `null`
@@ -174,7 +211,7 @@ _Note: Any `serve` configuration must be removed from the webpack config used
 to create the compiler instance, before you attempt to create it, as it's not
 a valid webpack config property._
 
-##### config
+### `options.config`
 
 Type: `Object`  
 Default: `{}`
@@ -182,30 +219,31 @@ Default: `{}`
 An object containing the configuration for creating a new `webpack` compiler
 instance.
 
-##### content
+### `options.content`
 
 Type: `String|[String]`  
 Default: `process.cwd()`
 
-The path, or array of paths, from which static content will be served.
+The path, or array of paths, from which content will be served. Paths specified
+here should be absolute, or fully-qualified and resolvable by the filesystem.
 
-_Note: By default the files served from `content` paths take precedence
-over files generated by webpack._
-
-To instruct the server to give webpack files precedence, use the `add`
-option, and call `middleware.webpack()` before `middleware.content()`:
+_Note: By default the files generated by webpack take precedence
+over static files served from `content` paths._
+ 
+To instruct the server to give static files precedence, use the `add`
+option, and call `middleware.content()` before `middleware.webpack()`:
 
 ```js
 add: (app, middleware, options) => {
-  middleware.webpack();
   middleware.content();
+  middleware.webpack();
 };
 ```
-
-Read more about the add option in [Add-On Features](#add-on-features).
+ 
+ Read more about the add option in [Add-On Features](#add-on-features).
 
 <!-- intentionally out of alphabetic order -->
-##### clipboard
+### `options.clipboard`
 
 Type: `Boolean`  
 Default: `true`
@@ -213,14 +251,14 @@ Default: `true`
 If true, the server will copy the server URI to the clipboard when the server is
 started.
 
-##### dev
+### `options.devMiddleware`
 
 Type: `Object`  
 Default: `{ publicPath: '/' }`
 
 An object containing options for [webpack-dev-middleware][dev-ware].
 
-##### host
+### `options.host`
 
 Type: `String`  
 Default: `'localhost'`
@@ -232,18 +270,16 @@ _Note: This value must match any value specified for `hot.host` or
 requirement ensures that the `koa` server and `WebSocket` server play nice
 together._
 
-##### hot
+### `options.hotClient`
 
 Type: `Object|Boolean`  
 Default: `{}`
 
-An object containing options for [webpack-hot-client][hot-client].  
+An object containing options for [webpack-hot-client][webpack-hot-client].
+Setting this to `false` will completely disable `webpack-hot-client`
+and all automatic Hot Module Replacement functionality.
 
-As of `v0.2.1` setting this to `false` will completely disable `webpack-hot-client`
-and all automatic Hot Module Replacement functionality. This is akin to the
-`--no-hot-client` CLI flag.
-
-##### http2
+### `options.http2`
 
 Type: `Boolean`  
 Default: `false`
@@ -251,7 +287,7 @@ Default: `false`
 If using Node v9 or greater, setting this option to `true` will enable HTTP2
 support.
 
-##### https
+### `options.https`
 
 Type: `Object`  
 Default: `null`
@@ -273,7 +309,7 @@ See the [Node documentation][https-opts] for more information. For SSL
 Certificate generation, please read the
 [SSL Certificates for HTTPS](#ssl-certificates-for-https) section.
 
-##### logLevel
+### `options.logLevel`
 
 Type: `String`  
 Default: `info`
@@ -291,7 +327,7 @@ higher than the specified level. Valid levels:
 ]
 ```
 
-##### logTime
+### `options.logTime`
 
 Type: `Boolean`  
 Default: `false`
@@ -299,7 +335,7 @@ Default: `false`
 Instruct `webpack-serve` to prepend each line of log output with a `[HH:mm:ss]`
 timestamp.
 
-##### on
+### `options.on`
 
 Type: `Object`  
 Default: `null`
@@ -311,11 +347,11 @@ matching a `key:handler`, `String: Function` pattern. eg:
 
 ```js
 on: {
-  'listening': () => { console.log('listening'); }
+  'build-started': () => { console.log('build started!'); }
 }
 ```
 
-##### open
+### `open`
 
 Type: `Boolean|Object`  
 Default: `false`
@@ -332,7 +368,7 @@ that matches:
 
 _Note: Using the `open` option will disable the `clipboard` option._
 
-##### port
+### `port`
 
 Type: `Number`  
 Default: `8080`
@@ -360,40 +396,42 @@ serve({ config }).then((server) => {
 
 #### build-started
 
+<!-- spaces before Arguments are a unicode em-space " " -->
+
 Arguments:  
-  [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
+ [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
 
 Emitted when a compiler has started a build.
 
 #### build-finished
 
 Arguments:  
-  [`Stats`](https://webpack.js.org/api/node/#stats-object) _stats_  
-  [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
+ [`Stats`](https://webpack.js.org/api/node/#stats-object) _stats_  
+ [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
 
 Emitted when a compiler has finished a build.
 
 #### compiler-error
 
 Arguments:  
-  [`Stats`](https://webpack.js.org/api/node/#stats-tojson-options-) _json_
-  [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
+ [`Stats`](https://webpack.js.org/api/node/#stats-tojson-options-) _json_  
+ [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
 
 Emitted when a compiler has encountered and error, or a build has errors.
 
 #### compiler-warning
 
 Arguments:  
-  [`Stats`](https://webpack.js.org/api/node/#stats-tojson-options-) _json_
-  [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
+ [`Stats`](https://webpack.js.org/api/node/#stats-tojson-options-) _json_  
+ [`Compiler`](https://webpack.js.org/api/node/#compiler-instance) _compiler_
 
 Emitted when a compiler has encountered a warning, or a build has warnings.
 
 #### listening
 
 Arguments:  
-  `Koa` _server_  
-  `Object` _options_
+ [`net.Server`](https://nodejs.org/api/net.html#net_class_net_server)  
+ `Object` options
 
 Emitted when the server begins listening for connections.
 
@@ -412,7 +450,7 @@ wonderfully with `webpack-serve`.
 
 ## Add-on Features
 
-A core tenant of `webpack-serve` is to stay lean in terms of feature set, and to
+A core tenet of `webpack-serve` is to stay lean in terms of feature set, and to
 empower users with familiar and easily portable patterns to implement the same
 features that those familiar with `webpack-dev-server` have come to rely on. This
 makes the module far easier to maintain, which ultimately benefits the user.
@@ -473,12 +511,16 @@ Inclusion in the list does not imply a module is preferred or recommended
 over others._
 
 - [webpack-serve-waitpage](https://github.com/elisherer/webpack-serve-waitpage):
-Displays build progress in the client during compilation.
+Provides build progress in the client during complilation.
+- [webpack-serve-overlay](https://github.com/G-Rath/webpack-serve-overlay):
+Provides an error and warning information overlay in the client.
 
 ## Contributing
 
-We welcome your contributions! Please have a read of
-[CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to get involved.
+We welcome your contributions! Please take a moment to read our contributing
+guidelines if you haven't yet done so.
+
+#### [CONTRIBUTING](./.github/CONTRIBUTING.MD)
 
 ## License
 
@@ -494,14 +536,13 @@ We welcome your contributions! Please have a read of
 [deps-url]: https://david-dm.org/webpack-contrib/webpack-serve
 
 [tests]: 	https://img.shields.io/circleci/project/github/webpack-contrib/webpack-serve.svg
-[tests-url]: https://circleci.com/gh/webpack-contrib/webpack-serve/tree/master
+[tests-url]: https://circleci.com/gh/webpack-contrib/webpack-serve
 
 [cover]: https://codecov.io/gh/webpack-contrib/webpack-serve/branch/master/graph/badge.svg
 [cover-url]: https://codecov.io/gh/webpack-contrib/webpack-serve
 
-[chat]: https://badges.gitter.im/webpack/webpack.svg
+[chat]: https://img.shields.io/badge/gitter-webpack%2Fwebpack-brightgreen.svg
 [chat-url]: https://gitter.im/webpack/webpack
 
-[dev-ware]: https://github.com/webpack/webpack-dev-middleware#options
-[hot-client]: https://github.com/webpack-contrib/webpack-hot-client#options
-[https-opts]: https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options
+[size]: https://packagephobia.now.sh/badge?p=webpack-serve
+[size-url]: https://packagephobia.now.sh/result?p=webpack-serve

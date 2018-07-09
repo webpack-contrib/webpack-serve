@@ -1,0 +1,611 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`config load: Array 1`] = `
+Array [
+  Object {
+    "entry": Array [
+      "file-a",
+    ],
+    "plugins": Array [
+      TimeFixPlugin {
+        "watchOffset": 11000,
+      },
+    ],
+  },
+  Object {
+    "entry": Array [
+      "file-b",
+    ],
+    "plugins": Array [
+      TimeFixPlugin {
+        "watchOffset": 11000,
+      },
+    ],
+  },
+]
+`;
+
+exports[`config load: Compiler 1`] = `
+Array [
+  Object {
+    "cache": false,
+    "context": "<PROJECT_ROOT>",
+    "devtool": false,
+    "entry": "./src",
+    "module": Object {
+      "defaultRules": Array [
+        Object {
+          "resolve": Object {},
+          "type": "javascript/auto",
+        },
+        Object {
+          "resolve": Object {
+            "mainFields": Array [
+              "browser",
+              "main",
+            ],
+          },
+          "test": /\\\\\\.mjs\\$/i,
+          "type": "javascript/esm",
+        },
+        Object {
+          "test": /\\\\\\.json\\$/i,
+          "type": "json",
+        },
+        Object {
+          "test": /\\\\\\.wasm\\$/i,
+          "type": "webassembly/experimental",
+        },
+      ],
+      "exprContextCritical": true,
+      "exprContextRecursive": true,
+      "exprContextRegExp": false,
+      "exprContextRequest": ".",
+      "rules": Array [],
+      "strictExportPresence": false,
+      "strictThisContextOnImports": false,
+      "unknownContextCritical": true,
+      "unknownContextRecursive": true,
+      "unknownContextRegExp": false,
+      "unknownContextRequest": ".",
+      "unsafeCache": false,
+      "wrappedContextCritical": false,
+      "wrappedContextRecursive": true,
+      "wrappedContextRegExp": /\\.\\*/,
+    },
+    "node": Object {
+      "Buffer": true,
+      "__dirname": "mock",
+      "__filename": "mock",
+      "console": false,
+      "global": true,
+      "process": true,
+      "setImmediate": true,
+    },
+    "output": Object {
+      "chunkCallbackName": "webpackChunk",
+      "chunkFilename": "[name].js",
+      "chunkLoadTimeout": 120000,
+      "crossOriginLoading": false,
+      "devtoolLineToLine": false,
+      "devtoolNamespace": "",
+      "filename": "[name].js",
+      "globalObject": "window",
+      "hashDigest": "hex",
+      "hashDigestLength": 20,
+      "hashFunction": "md4",
+      "hotUpdateChunkFilename": "[id].[hash].hot-update.js",
+      "hotUpdateFunction": "webpackHotUpdate",
+      "hotUpdateMainFilename": "[hash].hot-update.json",
+      "jsonpFunction": "webpackJsonp",
+      "jsonpScriptType": false,
+      "library": "",
+      "libraryTarget": "var",
+      "path": "<PROJECT_ROOT>/dist",
+      "pathinfo": false,
+      "sourceMapFilename": "[file].map[query]",
+      "strictModuleExceptionHandling": false,
+      "webassemblyModuleFilename": "[modulehash].module.wasm",
+    },
+    "performance": Object {
+      "hints": "warning",
+      "maxAssetSize": 250000,
+      "maxEntrypointSize": 250000,
+    },
+    "resolve": Object {
+      "aliasFields": Array [
+        "browser",
+      ],
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".wasm",
+        ".mjs",
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "browser",
+        "module",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "modules": Array [
+        "node_modules",
+      ],
+      "unsafeCache": true,
+    },
+    "resolveLoader": Object {
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "loader",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "unsafeCache": true,
+    },
+    "target": "web",
+  },
+]
+`;
+
+exports[`config load: MultiCompiler 1`] = `
+Array [
+  Object {
+    "cache": false,
+    "context": "<PROJECT_ROOT>",
+    "devtool": false,
+    "entry": "file-a",
+    "module": Object {
+      "defaultRules": Array [
+        Object {
+          "resolve": Object {},
+          "type": "javascript/auto",
+        },
+        Object {
+          "resolve": Object {
+            "mainFields": Array [
+              "browser",
+              "main",
+            ],
+          },
+          "test": /\\\\\\.mjs\\$/i,
+          "type": "javascript/esm",
+        },
+        Object {
+          "test": /\\\\\\.json\\$/i,
+          "type": "json",
+        },
+        Object {
+          "test": /\\\\\\.wasm\\$/i,
+          "type": "webassembly/experimental",
+        },
+      ],
+      "exprContextCritical": true,
+      "exprContextRecursive": true,
+      "exprContextRegExp": false,
+      "exprContextRequest": ".",
+      "rules": Array [],
+      "strictExportPresence": false,
+      "strictThisContextOnImports": false,
+      "unknownContextCritical": true,
+      "unknownContextRecursive": true,
+      "unknownContextRegExp": false,
+      "unknownContextRequest": ".",
+      "unsafeCache": false,
+      "wrappedContextCritical": false,
+      "wrappedContextRecursive": true,
+      "wrappedContextRegExp": /\\.\\*/,
+    },
+    "node": Object {
+      "Buffer": true,
+      "__dirname": "mock",
+      "__filename": "mock",
+      "console": false,
+      "global": true,
+      "process": true,
+      "setImmediate": true,
+    },
+    "output": Object {
+      "chunkCallbackName": "webpackChunk",
+      "chunkFilename": "[name].js",
+      "chunkLoadTimeout": 120000,
+      "crossOriginLoading": false,
+      "devtoolLineToLine": false,
+      "devtoolNamespace": "",
+      "filename": "[name].js",
+      "globalObject": "window",
+      "hashDigest": "hex",
+      "hashDigestLength": 20,
+      "hashFunction": "md4",
+      "hotUpdateChunkFilename": "[id].[hash].hot-update.js",
+      "hotUpdateFunction": "webpackHotUpdate",
+      "hotUpdateMainFilename": "[hash].hot-update.json",
+      "jsonpFunction": "webpackJsonp",
+      "jsonpScriptType": false,
+      "library": "",
+      "libraryTarget": "var",
+      "path": "<PROJECT_ROOT>/dist",
+      "pathinfo": false,
+      "sourceMapFilename": "[file].map[query]",
+      "strictModuleExceptionHandling": false,
+      "webassemblyModuleFilename": "[modulehash].module.wasm",
+    },
+    "performance": Object {
+      "hints": "warning",
+      "maxAssetSize": 250000,
+      "maxEntrypointSize": 250000,
+    },
+    "resolve": Object {
+      "aliasFields": Array [
+        "browser",
+      ],
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".wasm",
+        ".mjs",
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "browser",
+        "module",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "modules": Array [
+        "node_modules",
+      ],
+      "unsafeCache": true,
+    },
+    "resolveLoader": Object {
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "loader",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "unsafeCache": true,
+    },
+    "target": "web",
+  },
+  Object {
+    "cache": false,
+    "context": "<PROJECT_ROOT>",
+    "devtool": false,
+    "entry": "file-b",
+    "module": Object {
+      "defaultRules": Array [
+        Object {
+          "resolve": Object {},
+          "type": "javascript/auto",
+        },
+        Object {
+          "resolve": Object {
+            "mainFields": Array [
+              "browser",
+              "main",
+            ],
+          },
+          "test": /\\\\\\.mjs\\$/i,
+          "type": "javascript/esm",
+        },
+        Object {
+          "test": /\\\\\\.json\\$/i,
+          "type": "json",
+        },
+        Object {
+          "test": /\\\\\\.wasm\\$/i,
+          "type": "webassembly/experimental",
+        },
+      ],
+      "exprContextCritical": true,
+      "exprContextRecursive": true,
+      "exprContextRegExp": false,
+      "exprContextRequest": ".",
+      "rules": Array [],
+      "strictExportPresence": false,
+      "strictThisContextOnImports": false,
+      "unknownContextCritical": true,
+      "unknownContextRecursive": true,
+      "unknownContextRegExp": false,
+      "unknownContextRequest": ".",
+      "unsafeCache": false,
+      "wrappedContextCritical": false,
+      "wrappedContextRecursive": true,
+      "wrappedContextRegExp": /\\.\\*/,
+    },
+    "node": Object {
+      "Buffer": true,
+      "__dirname": "mock",
+      "__filename": "mock",
+      "console": false,
+      "global": true,
+      "process": true,
+      "setImmediate": true,
+    },
+    "output": Object {
+      "chunkCallbackName": "webpackChunk",
+      "chunkFilename": "[name].js",
+      "chunkLoadTimeout": 120000,
+      "crossOriginLoading": false,
+      "devtoolLineToLine": false,
+      "devtoolNamespace": "",
+      "filename": "[name].js",
+      "globalObject": "window",
+      "hashDigest": "hex",
+      "hashDigestLength": 20,
+      "hashFunction": "md4",
+      "hotUpdateChunkFilename": "[id].[hash].hot-update.js",
+      "hotUpdateFunction": "webpackHotUpdate",
+      "hotUpdateMainFilename": "[hash].hot-update.json",
+      "jsonpFunction": "webpackJsonp",
+      "jsonpScriptType": false,
+      "library": "",
+      "libraryTarget": "var",
+      "path": "<PROJECT_ROOT>/dist",
+      "pathinfo": false,
+      "sourceMapFilename": "[file].map[query]",
+      "strictModuleExceptionHandling": false,
+      "webassemblyModuleFilename": "[modulehash].module.wasm",
+    },
+    "performance": Object {
+      "hints": "warning",
+      "maxAssetSize": 250000,
+      "maxEntrypointSize": 250000,
+    },
+    "resolve": Object {
+      "aliasFields": Array [
+        "browser",
+      ],
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".wasm",
+        ".mjs",
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "browser",
+        "module",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "modules": Array [
+        "node_modules",
+      ],
+      "unsafeCache": true,
+    },
+    "resolveLoader": Object {
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "loader",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "unsafeCache": true,
+    },
+    "target": "web",
+  },
+]
+`;
+
+exports[`config load: Object 1`] = `
+Array [
+  Object {
+    "entry": Array [
+      "file",
+    ],
+    "plugins": Array [
+      TimeFixPlugin {
+        "watchOffset": 11000,
+      },
+    ],
+  },
+]
+`;
+
+exports[`config load: absolute path 1`] = `
+Array [
+  Object {
+    "context": "<PROJECT_ROOT>/test/fixtures/basic",
+    "devtool": "source-map",
+    "entry": Array [
+      "./app.js",
+    ],
+    "output": Object {
+      "filename": "./output.js",
+      "path": "<PROJECT_ROOT>/test/fixtures/basic",
+    },
+    "plugins": Array [
+      TimeFixPlugin {
+        "watchOffset": 11000,
+      },
+      NamedModulesPlugin {
+        "options": Object {},
+      },
+    ],
+    "serve": Object {},
+  },
+]
+`;
+
+exports[`config load: bad argv 1`] = `
+Array [
+  Object {
+    "entry": Array [
+      "file",
+    ],
+    "plugins": Array [
+      TimeFixPlugin {
+        "watchOffset": 11000,
+      },
+    ],
+  },
+]
+`;
+
+exports[`config load: not found 1`] = `
+Array [
+  Object {
+    "entry": Array [
+      "./src",
+    ],
+    "plugins": Array [
+      TimeFixPlugin {
+        "watchOffset": 11000,
+      },
+    ],
+  },
+]
+`;
+
+exports[`config load: relative path 1`] = `
+Array [
+  Object {
+    "context": "<PROJECT_ROOT>/test/fixtures/basic",
+    "devtool": "source-map",
+    "entry": Array [
+      "./app.js",
+    ],
+    "output": Object {
+      "filename": "./output.js",
+      "path": "<PROJECT_ROOT>/test/fixtures/basic",
+    },
+    "plugins": Array [
+      TimeFixPlugin {
+        "watchOffset": 11000,
+      },
+      NamedModulesPlugin {
+        "options": Object {},
+      },
+    ],
+    "serve": Object {},
+  },
+]
+`;
+
+exports[`config prepare 1`] = `
+Object {
+  "entry": Array [
+    "./src",
+  ],
+  "plugins": Array [
+    TimeFixPlugin {
+      "watchOffset": 11000,
+    },
+  ],
+}
+`;
+
+exports[`config prepare 2`] = `
+Object {
+  "entry": Array [
+    "file",
+  ],
+  "plugins": Array [
+    TimeFixPlugin {
+      "watchOffset": 11000,
+    },
+  ],
+}
+`;
+
+exports[`config prepare 3`] = `
+Object {
+  "entry": Array [
+    "file",
+  ],
+  "plugins": Array [
+    TimeFixPlugin {
+      "watchOffset": 11000,
+    },
+    HotModuleReplacementPlugin {
+      "fullBuildTimeout": 200,
+      "multiStep": undefined,
+      "options": Object {},
+      "requestTimeout": 10000,
+    },
+  ],
+}
+`;
+
+exports[`config timeFix 1`] = `
+Object {
+  "plugins": Array [
+    TimeFixPlugin {
+      "watchOffset": 11000,
+    },
+  ],
+}
+`;
+
+exports[`config toArray: Array 1`] = `
+Object {
+  "entry": Array [
+    "file",
+  ],
+}
+`;
+
+exports[`config toArray: Object > Array 1`] = `
+Object {
+  "entry": Object {
+    "a": Array [
+      "file",
+    ],
+  },
+}
+`;
+
+exports[`config toArray: Object > String 1`] = `
+Object {
+  "entry": Object {
+    "a": Array [
+      "file-a",
+    ],
+    "b": Array [
+      "file-b",
+    ],
+  },
+}
+`;
+
+exports[`config toArray: String 1`] = `
+Object {
+  "entry": Array [
+    "file",
+  ],
+}
+`;
+
+exports[`config toArray: undefined 1`] = `
+Object {
+  "entry": Array [
+    "./src",
+  ],
+}
+`;

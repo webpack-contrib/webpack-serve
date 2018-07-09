@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cli --help 1`] = `
+"
+  A lean, modern, and flexible webpack development server
+
+  Usage
+    $ webpack-serve <config> [...options]
+
+  Options
+    --clipboard      Specify whether or not the server should copy the server URI to the clipboard (default: true)
+    --config         The webpack config to serve. Alias for <config>
+    --content        The path from which static content will be served (default: process.cwd)
+    --dev-ware       Set options for webpack-dev-middleware. e.g. --dev.publicPath /
+    --help           Show usage information and the options listed here.
+    --host           The host the app should bind to
+    --hot-client     Set options for webpack-hot-client. e.g. --hot-client.host localhost
+                     Use --no-hot-client to disable webpack-hot-client
+    --http2          Instruct the server to use HTTP2
+    --https-cert     Specify a filesystem path of an SSL certificate. Must be paired with a key
+    --https-key      Specify a filesystem path of an SSL key. Must be paired with a cert
+    --https-pass     Specify a passphrase to enable https. Must be paired with a pfx file
+    --https-pfx      Specify a filesystem path of an SSL pfx file. Must be paired with a passphrase
+    --log-level      Limit all process console messages to a specific level and above
+                     Levels: trace, debug, info, warn, error, silent
+    --log-time       Instruct the logger for webpack-serve and dependencies to display a timestamp
+    --hmr            Specify whether or not the client should apply Hot Module Replacement patches (default: true)
+    --reload         Specify whether or not the middleware should reload the page for build errors (default: true)
+    --open           Instruct the app to open in the default browser
+    --open-app       The name of the app to open the app within, or an array
+                     containing the app name and arguments for the app
+    --open-path      The path with the app a browser should open to
+    --port           The port the app should listen on. Default: 8080
+    --require, -r    Preload one or more modules before loading the webpack configuration
+    --version        Display the webpack-command version
+
+  Note: Any boolean flag can be prefixed with 'no-' instead of specifying a value.
+  e.g. --no-reload rather than --reload=false
+
+  Examples
+    $ webpack-serve ./webpack.config.js --no-reload
+    $ webpack-serve --config ./webpack.config.js --port 1337
+    $ webpack-serve # config can be omitted for webpack v4+ only
+"
+`;
+
+exports[`cli bad config 1`] = `
+"Command failed: <PROJECT_ROOT>/lib/cli.js ./test/fixtures/invalid.config.js
+
+ValidationError: config-loader
+
+  Options Validation Error
+
+  options['foo']  is an invalid additional property"
+`;
+
+exports[`cli config throwing error 1`] = `
+"Command failed: <PROJECT_ROOT>/lib/cli.js ./test/fixtures/error.config.js
+<PROJECT_ROOT>/test/fixtures/error.config.js:3
+  throw new Error('batman');
+  ^
+
+Error: batman"
+`;

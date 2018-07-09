@@ -27,12 +27,17 @@ module.exports = {
 module.exports.serve = {
   content: [__dirname],
   add: (app, middleware, options) => {
-    // since we're manipulating the order of middleware added, we need to handle
-    // adding these two internal middleware functions.
-    middleware.webpack();
-    middleware.content();
+    // this example shows how to properly add middleware _after_ the built-in
+    // webpack and content middleware. since middleware must be added at the
+    // end of the middleware stack, we have to call the default middlewares
+    // ourselves
+    middleware.webpack().then(() => {
+      middleware.content({
+        index: 'index.htm',
+      });
 
-    // router *must* be the last middleware added
-    app.use(router.routes());
+      // this example assumes router must be added last
+      app.use(router.routes());
+    });
   },
 };

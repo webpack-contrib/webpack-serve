@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`server bind clipboard error 1`] = `
+Array [
+  Array [
+    [Error: mock clipboard error],
+  ],
+]
+`;
+
+exports[`server bind clipboard error 2`] = `
+Array [
+  Array [
+    "[90mFailed to copy server URI to clipboard. Use logLevel: 'debug' for more information.[39m",
+  ],
+]
+`;
+
+exports[`server getServer 1`] = `"Server"`;
+
+exports[`server getServer http2 1`] = `"Http2Server"`;
+
+exports[`server getServer http2+https: cert/key 1`] = `"Http2SecureServer"`;
+
+exports[`server getServer https: cert/key 1`] = `"Server"`;
+
+exports[`server getServer https: pass/pfx 1`] = `"Server"`;

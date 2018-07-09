@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bus should not allow a non-function handler 1`] = `"The value for an \`on\` event handler must be a Function. event: foo"`;
+
+exports[`bus should not allow non-object options 1`] = `"The value for the \`on\` option must be an Object. Please see the README."`;

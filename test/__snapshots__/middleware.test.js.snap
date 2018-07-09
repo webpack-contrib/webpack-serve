@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`middleware ContentMiddleware 1`] = `
+Array [
+  "[Function: serve]",
+  "[Function: serve]",
+]
+`;
+
+exports[`middleware WebpackMiddleware 1`] = `
+Array [
+  "hotClient",
+  "devMiddleware",
+  "close",
+]
+`;
+
+exports[`middleware WebpackMiddleware Error 1`] = `
+"webpack-hot-client
+
+  Options Validation Error
+
+  options.port  should match some schema in anyOf
+  options.port  should be object
+  options.port  should be integer
+"
+`;
+
+exports[`middleware WebpackMiddleware Error 2`] = `
+"An error was thrown while initializing koa-webpack
+ webpack-hot-client
+
+  Options Validation Error
+
+  options.port  should match some schema in anyOf
+  options.port  should be object
+  options.port  should be integer
+
+
+  options.port  should match some schema in anyOf
+  options.port  should be object
+  options.port  should be integer
+    "
+`;

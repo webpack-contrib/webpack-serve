@@ -1,9 +1,9 @@
 <!--
-  ZOMG a Pull Request. We ❤️ those!
+  HOLY CRAP a Pull Request. We ❤️ those!
 
-  If you remove or skip this template, you'll make the 🐼 sad and @ken_wheeler
-  will appear and pile-drive the close button from a great height while making
-  animal noises.
+  If you remove or skip this template, you'll make the 🐼 sad and the mighty god
+  of Github will appear and pile-drive the close button from a great height
+  while making animal noises.
 
   Please place an x (no spaces!) in all [ ] that apply
 -->

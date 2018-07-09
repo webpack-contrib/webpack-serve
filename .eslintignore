@@ -1,0 +1,4 @@
+/node_modules
+/dist
+test/*/*.snap
+test/fixtures/*/output.js*

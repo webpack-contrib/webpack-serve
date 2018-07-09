@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`serve bad argv 1`] = `"webpack-serve: The \`argv\` parameter must be an object"`;
+
+exports[`serve basic config 1`] = `
+Object {
+  "env": "test",
+  "proxy": false,
+  "subdomainOffset": 2,
+}
+`;
+
+exports[`serve basic config 2`] = `
+Object {
+  "bus": Nanobus {
+    "_listeners": Object {},
+    "_name": "nanobus",
+    "_starListeners": Array [],
+  },
+  "clipboard": true,
+  "compiler": Any<Object>,
+  "content": Array [
+    "<PROJECT_ROOT>/test/fixtures/basic",
+  ],
+  "devMiddleware": Object {
+    "logLevel": "silent",
+    "publicPath": "/",
+  },
+  "host": "localhost",
+  "hotClient": Object {
+    "host": "localhost",
+    "logLevel": "silent",
+  },
+  "http2": false,
+  "https": null,
+  "logLevel": "silent",
+  "logTime": false,
+  "open": false,
+  "port": 8080,
+  "protocol": "http",
+}
+`;
+
+exports[`serve serve 1`] = `
+Object {
+  "env": "test",
+  "proxy": false,
+  "subdomainOffset": 2,
+}
+`;
+
+exports[`serve serve 2`] = `
+Object {
+  "bus": Nanobus {
+    "_listeners": Object {},
+    "_name": "nanobus",
+    "_starListeners": Array [],
+  },
+  "clipboard": true,
+  "compiler": Any<Object>,
+  "content": Array [
+    "<PROJECT_ROOT>",
+  ],
+  "devMiddleware": Object {
+    "logLevel": "silent",
+    "publicPath": "/",
+  },
+  "host": "localhost",
+  "hotClient": Object {
+    "host": "localhost",
+    "logLevel": "silent",
+  },
+  "http2": false,
+  "https": null,
+  "logLevel": "silent",
+  "logTime": false,
+  "open": false,
+  "port": 8080,
+  "protocol": "http",
+}
+`;

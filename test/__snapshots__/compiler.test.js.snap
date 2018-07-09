@@ -1,0 +1,676 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compiler errors 1`] = `
+Object {
+  "context": "<PROJECT_ROOT>/test/fixtures/error",
+  "name": undefined,
+  "options": Object {
+    "cache": false,
+    "context": "<PROJECT_ROOT>/test/fixtures/error",
+    "devtool": "source-map",
+    "entry": Array [
+      "./app.js",
+    ],
+    "module": Object {
+      "defaultRules": Array [
+        Object {
+          "resolve": Object {},
+          "type": "javascript/auto",
+        },
+        Object {
+          "resolve": Object {
+            "mainFields": Array [
+              "browser",
+              "main",
+            ],
+          },
+          "test": /\\\\\\.mjs\\$/i,
+          "type": "javascript/esm",
+        },
+        Object {
+          "test": /\\\\\\.json\\$/i,
+          "type": "json",
+        },
+        Object {
+          "test": /\\\\\\.wasm\\$/i,
+          "type": "webassembly/experimental",
+        },
+      ],
+      "exprContextCritical": true,
+      "exprContextRecursive": true,
+      "exprContextRegExp": false,
+      "exprContextRequest": ".",
+      "rules": Array [],
+      "strictExportPresence": false,
+      "strictThisContextOnImports": false,
+      "unknownContextCritical": true,
+      "unknownContextRecursive": true,
+      "unknownContextRegExp": false,
+      "unknownContextRequest": ".",
+      "unsafeCache": false,
+      "wrappedContextCritical": false,
+      "wrappedContextRecursive": true,
+      "wrappedContextRegExp": /\\.\\*/,
+    },
+    "node": Object {
+      "Buffer": true,
+      "__dirname": "mock",
+      "__filename": "mock",
+      "console": false,
+      "global": true,
+      "process": true,
+      "setImmediate": true,
+    },
+    "output": Object {
+      "chunkCallbackName": "webpackChunk",
+      "chunkFilename": "./[id].output.js",
+      "chunkLoadTimeout": 120000,
+      "crossOriginLoading": false,
+      "devtoolLineToLine": false,
+      "devtoolNamespace": "",
+      "filename": "./output.js",
+      "globalObject": "window",
+      "hashDigest": "hex",
+      "hashDigestLength": 20,
+      "hashFunction": "md4",
+      "hotUpdateChunkFilename": "[id].[hash].hot-update.js",
+      "hotUpdateFunction": "webpackHotUpdate",
+      "hotUpdateMainFilename": "[hash].hot-update.json",
+      "jsonpFunction": "webpackJsonp",
+      "jsonpScriptType": false,
+      "library": "",
+      "libraryTarget": "var",
+      "path": "<PROJECT_ROOT>/test/fixtures/error",
+      "pathinfo": false,
+      "sourceMapFilename": "[file].map[query]",
+      "strictModuleExceptionHandling": false,
+      "webassemblyModuleFilename": "[modulehash].module.wasm",
+    },
+    "performance": Object {
+      "hints": "warning",
+      "maxAssetSize": 250000,
+      "maxEntrypointSize": 250000,
+    },
+    "plugins": Array [
+      NamedModulesPlugin {
+        "options": Object {},
+      },
+    ],
+    "resolve": Object {
+      "aliasFields": Array [
+        "browser",
+      ],
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".wasm",
+        ".mjs",
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "browser",
+        "module",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "modules": Array [
+        "node_modules",
+      ],
+      "unsafeCache": true,
+    },
+    "resolveLoader": Object {
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "loader",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "unsafeCache": true,
+    },
+    "serve": Object {},
+    "target": "web",
+  },
+}
+`;
+
+exports[`compiler getCompiler 1`] = `
+Object {
+  "context": "<PROJECT_ROOT>/test/fixtures/basic",
+  "name": undefined,
+  "options": Object {
+    "cache": false,
+    "context": "<PROJECT_ROOT>/test/fixtures/basic",
+    "devtool": "source-map",
+    "entry": Array [
+      "./app.js",
+    ],
+    "module": Object {
+      "defaultRules": Array [
+        Object {
+          "resolve": Object {},
+          "type": "javascript/auto",
+        },
+        Object {
+          "resolve": Object {
+            "mainFields": Array [
+              "browser",
+              "main",
+            ],
+          },
+          "test": /\\\\\\.mjs\\$/i,
+          "type": "javascript/esm",
+        },
+        Object {
+          "test": /\\\\\\.json\\$/i,
+          "type": "json",
+        },
+        Object {
+          "test": /\\\\\\.wasm\\$/i,
+          "type": "webassembly/experimental",
+        },
+      ],
+      "exprContextCritical": true,
+      "exprContextRecursive": true,
+      "exprContextRegExp": false,
+      "exprContextRequest": ".",
+      "rules": Array [],
+      "strictExportPresence": false,
+      "strictThisContextOnImports": false,
+      "unknownContextCritical": true,
+      "unknownContextRecursive": true,
+      "unknownContextRegExp": false,
+      "unknownContextRequest": ".",
+      "unsafeCache": false,
+      "wrappedContextCritical": false,
+      "wrappedContextRecursive": true,
+      "wrappedContextRegExp": /\\.\\*/,
+    },
+    "node": Object {
+      "Buffer": true,
+      "__dirname": "mock",
+      "__filename": "mock",
+      "console": false,
+      "global": true,
+      "process": true,
+      "setImmediate": true,
+    },
+    "output": Object {
+      "chunkCallbackName": "webpackChunk",
+      "chunkFilename": "./[id].output.js",
+      "chunkLoadTimeout": 120000,
+      "crossOriginLoading": false,
+      "devtoolLineToLine": false,
+      "devtoolNamespace": "",
+      "filename": "./output.js",
+      "globalObject": "window",
+      "hashDigest": "hex",
+      "hashDigestLength": 20,
+      "hashFunction": "md4",
+      "hotUpdateChunkFilename": "[id].[hash].hot-update.js",
+      "hotUpdateFunction": "webpackHotUpdate",
+      "hotUpdateMainFilename": "[hash].hot-update.json",
+      "jsonpFunction": "webpackJsonp",
+      "jsonpScriptType": false,
+      "library": "",
+      "libraryTarget": "var",
+      "path": "<PROJECT_ROOT>/test/fixtures/basic",
+      "pathinfo": false,
+      "sourceMapFilename": "[file].map[query]",
+      "strictModuleExceptionHandling": false,
+      "webassemblyModuleFilename": "[modulehash].module.wasm",
+    },
+    "performance": Object {
+      "hints": "warning",
+      "maxAssetSize": 250000,
+      "maxEntrypointSize": 250000,
+    },
+    "plugins": Array [
+      NamedModulesPlugin {
+        "options": Object {},
+      },
+    ],
+    "resolve": Object {
+      "aliasFields": Array [
+        "browser",
+      ],
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".wasm",
+        ".mjs",
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "browser",
+        "module",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "modules": Array [
+        "node_modules",
+      ],
+      "unsafeCache": true,
+    },
+    "resolveLoader": Object {
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "loader",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "unsafeCache": true,
+    },
+    "serve": Object {},
+    "target": "web",
+  },
+}
+`;
+
+exports[`compiler getCompiler 2`] = `
+Array [
+  "compiler",
+]
+`;
+
+exports[`compiler getCompiler 3`] = `"Compiler"`;
+
+exports[`compiler getCompiler 4`] = `
+Object {
+  "assets": Array [
+    Object {
+      "chunkNames": Array [
+        "main",
+      ],
+      "chunks": Array [
+        0,
+      ],
+      "emitted": true,
+      "isOverSizeLimit": undefined,
+      "name": "./output.js",
+      "size": 1652,
+    },
+    Object {
+      "chunkNames": Array [
+        "main",
+      ],
+      "chunks": Array [
+        0,
+      ],
+      "emitted": true,
+      "isOverSizeLimit": undefined,
+      "name": "./output.js.map",
+      "size": 6012,
+    },
+  ],
+  "errors": 0,
+  "warnings": 1,
+}
+`;
+
+exports[`compiler getCompiler with existing compiler 1`] = `
+Object {
+  "context": "<PROJECT_ROOT>/test/fixtures/basic",
+  "name": undefined,
+  "options": Object {
+    "cache": false,
+    "context": "<PROJECT_ROOT>/test/fixtures/basic",
+    "devtool": "source-map",
+    "entry": Array [
+      "./app.js",
+    ],
+    "module": Object {
+      "defaultRules": Array [
+        Object {
+          "resolve": Object {},
+          "type": "javascript/auto",
+        },
+        Object {
+          "resolve": Object {
+            "mainFields": Array [
+              "browser",
+              "main",
+            ],
+          },
+          "test": /\\\\\\.mjs\\$/i,
+          "type": "javascript/esm",
+        },
+        Object {
+          "test": /\\\\\\.json\\$/i,
+          "type": "json",
+        },
+        Object {
+          "test": /\\\\\\.wasm\\$/i,
+          "type": "webassembly/experimental",
+        },
+      ],
+      "exprContextCritical": true,
+      "exprContextRecursive": true,
+      "exprContextRegExp": false,
+      "exprContextRequest": ".",
+      "rules": Array [],
+      "strictExportPresence": false,
+      "strictThisContextOnImports": false,
+      "unknownContextCritical": true,
+      "unknownContextRecursive": true,
+      "unknownContextRegExp": false,
+      "unknownContextRequest": ".",
+      "unsafeCache": false,
+      "wrappedContextCritical": false,
+      "wrappedContextRecursive": true,
+      "wrappedContextRegExp": /\\.\\*/,
+    },
+    "node": Object {
+      "Buffer": true,
+      "__dirname": "mock",
+      "__filename": "mock",
+      "console": false,
+      "global": true,
+      "process": true,
+      "setImmediate": true,
+    },
+    "output": Object {
+      "chunkCallbackName": "webpackChunk",
+      "chunkFilename": "./[id].output.js",
+      "chunkLoadTimeout": 120000,
+      "crossOriginLoading": false,
+      "devtoolLineToLine": false,
+      "devtoolNamespace": "",
+      "filename": "./output.js",
+      "globalObject": "window",
+      "hashDigest": "hex",
+      "hashDigestLength": 20,
+      "hashFunction": "md4",
+      "hotUpdateChunkFilename": "[id].[hash].hot-update.js",
+      "hotUpdateFunction": "webpackHotUpdate",
+      "hotUpdateMainFilename": "[hash].hot-update.json",
+      "jsonpFunction": "webpackJsonp",
+      "jsonpScriptType": false,
+      "library": "",
+      "libraryTarget": "var",
+      "path": "<PROJECT_ROOT>/test/fixtures/basic",
+      "pathinfo": false,
+      "sourceMapFilename": "[file].map[query]",
+      "strictModuleExceptionHandling": false,
+      "webassemblyModuleFilename": "[modulehash].module.wasm",
+    },
+    "performance": Object {
+      "hints": "warning",
+      "maxAssetSize": 250000,
+      "maxEntrypointSize": 250000,
+    },
+    "plugins": Array [
+      NamedModulesPlugin {
+        "options": Object {},
+      },
+    ],
+    "resolve": Object {
+      "aliasFields": Array [
+        "browser",
+      ],
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".wasm",
+        ".mjs",
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "browser",
+        "module",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "modules": Array [
+        "node_modules",
+      ],
+      "unsafeCache": true,
+    },
+    "resolveLoader": Object {
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "loader",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "unsafeCache": true,
+    },
+    "serve": Object {},
+    "target": "web",
+  },
+}
+`;
+
+exports[`compiler getCompiler with existing compiler 2`] = `
+Array [
+  "compiler",
+]
+`;
+
+exports[`compiler getCompiler with existing compiler 3`] = `"Compiler"`;
+
+exports[`compiler getCompiler with existing compiler 4`] = `
+Object {
+  "assets": Array [
+    Object {
+      "chunkNames": Array [
+        "main",
+      ],
+      "chunks": Array [
+        0,
+      ],
+      "emitted": true,
+      "isOverSizeLimit": undefined,
+      "name": "./output.js",
+      "size": 1652,
+    },
+    Object {
+      "chunkNames": Array [
+        "main",
+      ],
+      "chunks": Array [
+        0,
+      ],
+      "emitted": true,
+      "isOverSizeLimit": undefined,
+      "name": "./output.js.map",
+      "size": 6012,
+    },
+  ],
+  "errors": 0,
+  "warnings": 1,
+}
+`;
+
+exports[`compiler invalid config error 1`] = `
+"An error was thrown while initializing Webpack
+  WebpackOptionsValidationError: Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+ - configuration has an unknown property 'foo'. These properties are valid:
+   object { mode?, amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, externals?, loader?, module?, name?, node?, output?, optimization?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, serve?, stats?, target?, watch?, watchOptions? }
+   For typos: please correct them.
+   For loader options: webpack >= v2.0.0 no longer allows custom properties in configuration.
+     Loaders should be updated to allow passing options via loader options in module.rules.
+     Until loaders are updated one can use the LoaderOptionsPlugin to pass these options to the loader:
+     plugins: [
+       new webpack.LoaderOptionsPlugin({
+         // test: /\\\\.xxx$/, // may apply this only for some modules
+         options: {
+           foo: …
+         }
+       })
+     ]"
+`;
+
+exports[`compiler warnings 1`] = `
+Object {
+  "context": "<PROJECT_ROOT>/test/fixtures/warning",
+  "name": undefined,
+  "options": Object {
+    "cache": false,
+    "context": "<PROJECT_ROOT>/test/fixtures/warning",
+    "devtool": "source-map",
+    "entry": Array [
+      "./app.js",
+    ],
+    "module": Object {
+      "defaultRules": Array [
+        Object {
+          "resolve": Object {},
+          "type": "javascript/auto",
+        },
+        Object {
+          "resolve": Object {
+            "mainFields": Array [
+              "browser",
+              "main",
+            ],
+          },
+          "test": /\\\\\\.mjs\\$/i,
+          "type": "javascript/esm",
+        },
+        Object {
+          "test": /\\\\\\.json\\$/i,
+          "type": "json",
+        },
+        Object {
+          "test": /\\\\\\.wasm\\$/i,
+          "type": "webassembly/experimental",
+        },
+      ],
+      "exprContextCritical": true,
+      "exprContextRecursive": true,
+      "exprContextRegExp": false,
+      "exprContextRequest": ".",
+      "rules": Array [],
+      "strictExportPresence": false,
+      "strictThisContextOnImports": false,
+      "unknownContextCritical": true,
+      "unknownContextRecursive": true,
+      "unknownContextRegExp": false,
+      "unknownContextRequest": ".",
+      "unsafeCache": false,
+      "wrappedContextCritical": false,
+      "wrappedContextRecursive": true,
+      "wrappedContextRegExp": /\\.\\*/,
+    },
+    "node": Object {
+      "Buffer": true,
+      "__dirname": "mock",
+      "__filename": "mock",
+      "console": false,
+      "global": true,
+      "process": true,
+      "setImmediate": true,
+    },
+    "output": Object {
+      "chunkCallbackName": "webpackChunk",
+      "chunkFilename": "./[id].output.js",
+      "chunkLoadTimeout": 120000,
+      "crossOriginLoading": false,
+      "devtoolLineToLine": false,
+      "devtoolNamespace": "",
+      "filename": "./output.js",
+      "globalObject": "window",
+      "hashDigest": "hex",
+      "hashDigestLength": 20,
+      "hashFunction": "md4",
+      "hotUpdateChunkFilename": "[id].[hash].hot-update.js",
+      "hotUpdateFunction": "webpackHotUpdate",
+      "hotUpdateMainFilename": "[hash].hot-update.json",
+      "jsonpFunction": "webpackJsonp",
+      "jsonpScriptType": false,
+      "library": "",
+      "libraryTarget": "var",
+      "path": "<PROJECT_ROOT>/test/fixtures/warning",
+      "pathinfo": false,
+      "sourceMapFilename": "[file].map[query]",
+      "strictModuleExceptionHandling": false,
+      "webassemblyModuleFilename": "[modulehash].module.wasm",
+    },
+    "performance": Object {
+      "hints": "warning",
+      "maxAssetSize": 250000,
+      "maxEntrypointSize": 250000,
+    },
+    "plugins": Array [
+      NamedModulesPlugin {
+        "options": Object {},
+      },
+    ],
+    "resolve": Object {
+      "aliasFields": Array [
+        "browser",
+      ],
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".wasm",
+        ".mjs",
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "browser",
+        "module",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "modules": Array [
+        "node_modules",
+      ],
+      "unsafeCache": true,
+    },
+    "resolveLoader": Object {
+      "cacheWithContext": false,
+      "extensions": Array [
+        ".js",
+        ".json",
+      ],
+      "mainFields": Array [
+        "loader",
+        "main",
+      ],
+      "mainFiles": Array [
+        "index",
+      ],
+      "unsafeCache": true,
+    },
+    "serve": Object {},
+    "target": "web",
+  },
+}
+`;
+
+exports[`compiler warnings 2`] = `
+Array [
+  "./app.js 3:12-19
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted @ multi ./app.js",
+  "configuration
+The 'mode' option has not been set, webpack will fallback to 'production' for this value. Set 'mode' option to 'development' or 'production' to enable defaults for each environment.
+You can also set it to 'none' to disable any default behavior. Learn more: https://webpack.js.org/concepts/mode/",
+]
+`;
