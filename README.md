@@ -275,7 +275,7 @@ together._
 Type: `Object|Boolean`  
 Default: `{}`
 
-An object containing options for [webpack-hot-client][webpack-hot-client].
+An object containing options for [webpack-hot-client][hot-client].
 Setting this to `false` will completely disable `webpack-hot-client`
 and all automatic Hot Module Replacement functionality.
 
@@ -546,3 +546,7 @@ guidelines if you haven't yet done so.
 
 [size]: https://packagephobia.now.sh/badge?p=webpack-serve
 [size-url]: https://packagephobia.now.sh/result?p=webpack-serve
+
+[dev-ware]: https://github.com/webpack/webpack-dev-middleware#options
+[hot-client]: https://github.com/webpack-contrib/webpack-hot-client#options
+[https-opts]: https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options
