@@ -52,7 +52,7 @@ Options
   --clipboard      Specify whether or not the server should copy the server URI to the clipboard (default: true)
   --config         The webpack config to serve. Alias for <config>
   --content        The path from which static content will be served (default: process.cwd)
-  --dev-ware       Set options for webpack-dev-middleware. e.g. --dev.publicPath /
+  --dev-ware       Set options for webpack-dev-middleware. e.g. --dev-ware.publicPath /
   --help           Show usage information and the options listed here.
   --host           The host the app should bind to
   --hot-client     Set options for webpack-hot-client. e.g. --hot-client.host localhost
