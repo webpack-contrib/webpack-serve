@@ -385,9 +385,10 @@ For example:
 
 ```js
 const serve = require('webpack-serve');
+const argv = {};
 const config = require('./webpack.config.js');
 
-serve({ config }).then((server) => {
+serve(argv, { config }).then((server) => {
   server.on('listening', ({ server, options }) => {
     console.log('happy fun time');
   });
