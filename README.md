@@ -52,7 +52,7 @@ Options
   --clipboard      Specify whether or not the server should copy the server URI to the clipboard (default: true)
   --config         The webpack config to serve. Alias for <config>
   --content        The path from which static content will be served (default: process.cwd)
-  --dev-ware       Set options for webpack-dev-middleware. e.g. --dev.publicPath /
+  --dev-ware       Set options for webpack-dev-middleware. e.g. --dev-ware.publicPath /
   --help           Show usage information and the options listed here.
   --host           The host the app should bind to
   --hot-client     Set options for webpack-hot-client. e.g. --hot-client.host localhost
@@ -275,7 +275,7 @@ together._
 Type: `Object|Boolean`  
 Default: `{}`
 
-An object containing options for [webpack-hot-client][webpack-hot-client].
+An object containing options for [webpack-hot-client][hot-client].
 Setting this to `false` will completely disable `webpack-hot-client`
 and all automatic Hot Module Replacement functionality.
 
@@ -323,7 +323,8 @@ higher than the specified level. Valid levels:
   'debug',
   'info',
   'warn',
-  'error'
+  'error',
+  'silent'
 ]
 ```
 
@@ -385,9 +386,10 @@ For example:
 
 ```js
 const serve = require('webpack-serve');
+const argv = {};
 const config = require('./webpack.config.js');
 
-serve({ config }).then((server) => {
+serve(argv, { config }).then((server) => {
   server.on('listening', ({ server, options }) => {
     console.log('happy fun time');
   });
@@ -546,3 +548,7 @@ guidelines if you haven't yet done so.
 
 [size]: https://packagephobia.now.sh/badge?p=webpack-serve
 [size-url]: https://packagephobia.now.sh/result?p=webpack-serve
+
+[dev-ware]: https://github.com/webpack/webpack-dev-middleware#options
+[hot-client]: https://github.com/webpack-contrib/webpack-hot-client#options
+[https-opts]: https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options

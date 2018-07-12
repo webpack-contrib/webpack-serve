@@ -14,7 +14,7 @@ module.exports = {
     type: 'string',
   },
   'dev-ware': {
-    desc: 'Set options for webpack-dev-middleware. e.g. --dev.publicPath /',
+    desc: 'Set options for webpack-dev-middleware. e.g. --dev-ware.publicPath /',
     type: 'object',
   },
   help: {
