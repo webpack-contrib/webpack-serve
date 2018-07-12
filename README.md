@@ -323,7 +323,8 @@ higher than the specified level. Valid levels:
   'debug',
   'info',
   'warn',
-  'error'
+  'error',
+  'silent'
 ]
 ```
 
