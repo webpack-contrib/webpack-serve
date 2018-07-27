@@ -1,3 +1,3 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+The changelog is managed on [the GitHub releases page](https://github.com/webpack-contrib/webpack-serve/releases)
