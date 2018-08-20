@@ -539,7 +539,7 @@ Provides an error and warning information overlay in the client.
 We welcome your contributions! Please take a moment to read our contributing
 guidelines if you haven't yet done so.
 
-#### [CONTRIBUTING](./.github/CONTRIBUTING.MD)
+#### [CONTRIBUTING](./.github/CONTRIBUTING.md)
 
 ## License
 
