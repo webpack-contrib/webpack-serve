@@ -93,8 +93,8 @@ There are a few variations for using the base CLI command, and starting
 `webpack-serve`:
 
 ```console
-  $ webpack-serve ./webpack.config.js
-  $ webpack-serve --config ./webpack.config.js
+$ webpack-serve ./webpack.config.js
+$ webpack-serve --config ./webpack.config.js
 ```
 
 Those two commands are synonymous. Both instruct `webpack-serve` to load the
@@ -102,7 +102,7 @@ config from the specified path. We left the flag in there because some folks
 like to be verbose, so why not.
 
 ```console
-  $ webpack-serve
+$ webpack-serve
 ```
 
 You may also instruct `webpack-serve` to kick off a webpack build without
@@ -126,6 +126,23 @@ however, you can utilize any of the options above _in tandem_ with
 can be useful for setups with multiple configs that share common options for
 `webpack-serve`, but require subtle differences.
 
+### `webpack.config.js` Example
+
+```js
+const path = require('path');
+
+module.exports = {
+  context: __dirname,
+  devtool: 'source-map',
+  entry: ['./app.js'],
+  output: {
+    filename: './output.js',
+    path: path.resolve(__dirname),
+  },
+  serve: {},
+};
+```
+
 ### Webpack Config `serve` Property
 
 `webpack-serve` supports the `serve` property in your webpack config file, which
@@ -137,7 +154,7 @@ Should you find that the `mode` property of your webpack config file needs to be
 set dynamically the following pattern can be used:
 
 ```json
-  mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
+mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
 ```
 
 ## API
