@@ -73,7 +73,7 @@ Options
   --open-path      The path with the app a browser should open to
   --port           The port the app should listen on. Default: 8080
   --require, -r    Preload one or more modules before loading the webpack configuration
-  --version        Display the webpack-command version
+  --version        Display the webpack-serve version
 
 Note: Any boolean flag can be prefixed with 'no-' instead of specifying a value.
 e.g. --no-reload rather than --reload=false
