@@ -31,14 +31,14 @@
     "release:ci": "conventional-github-releaser -p angular",
     "release:validate": "commitlint --from=$(git describe --tags --abbrev=0) --to=$(git rev-parse HEAD)",
     "security": "nsp check",
-    "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest",
+    "test": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 jest",
     "test:watch": "jest --watch",
     "test:coverage": "npm run test:cover && npm run test:cover:report",
     "test:cover": "nyc jest --collectCoverageFrom='lib/**/*.js' --coverageReporters=none --coverage",
     "test:cover:report": "nyc report --reporter=html",
     "ci:lint": "npm run lint && npm run security",
-    "ci:test": "NODE_TLS_REJECT_UNAUTHORIZED=0 npm run test -- --runInBand",
-    "ci:coverage": "NODE_TLS_REJECT_UNAUTHORIZED=0 npm run test -- --runInBand",
+    "ci:test": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 npm run test -- --runInBand",
+    "ci:coverage": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 npm run test -- --runInBand",
     "defaults": "webpack-defaults"
   },
   "files": [
