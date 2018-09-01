@@ -105,7 +105,7 @@ describe('cli', () => {
     const proc = run([config], { cwd });
 
     return proc.ready.then(() =>
-      request('http://0.0.0.0:8080')
+      request('http://127.0.0.1:8080')
         .get('/output.js')
         .expect(200)
         .then(() => proc.kill('SIGINT'))
