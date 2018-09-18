@@ -14,6 +14,21 @@
 
 # webpack-serve
 
+DEPRECATED. Please use `webpack-dev-server` (he is in support and update mode again). Feel free to create a issue if some features are not implemented in `webpack-dev-server`. 
+
+Why deprecated `webpack-serve` ?
+- The author stopped developing the package.
+- Two development servers are misleading for developers.
+- Hard to maintain two packages with same purpose.
+- Some `dependencies` are not available to fixes/implement new features/etc (https://www.npmjs.com/package/webpack-hot-client and https://github.com/shellscape/koa-static) and there's nothing we can do here.
+- `webpack-dev-server` is stable.
+
+Thanks for using `webpack`! We apologize for the inconvenience. In the future, we will avoid such situations.
+
+Use `gitter` and/or `slack` if you have questions.
+
+-----
+
 A lean, modern, and flexible webpack development server
 
 ## Requirements
